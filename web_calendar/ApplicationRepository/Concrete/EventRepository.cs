@@ -10,15 +10,10 @@ namespace ApplicationRepository.Concrete
 {
     public sealed class EventRepository: GenericRepository<web_calendarEntities, Event>, IEventRepository
     {
-        public Event FindById(int id)
-        {
-            return FindFirst(x => x.id == id);
-        }
-
         public Notification FindFirstNotification(int id, Func<Notification, bool> filter)
         {
             Event myEvent = FindFirst(x => x.id == id);
-            if (myEvent!=null && myEvent.id!=null)
+            if (myEvent!=null && myEvent.notifications != null)
             {
                 return myEvent.notifications.FirstOrDefault(filter);
             }

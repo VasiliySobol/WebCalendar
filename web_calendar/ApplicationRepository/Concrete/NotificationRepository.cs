@@ -10,11 +10,6 @@ namespace ApplicationRepository.Concrete
 {
     public sealed class NotificationRepository: GenericRepository<web_calendarEntities, Notification>, INotificationRepository
     {
-        public Notification FindById(int id)
-        {
-            return FindFirst(x => x.id == id);
-        }
-
         public NotificationType GetNotificationType(int id)
         {
             Notification n = FindFirst(x => x.id == id);
