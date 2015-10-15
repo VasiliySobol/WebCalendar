@@ -68,6 +68,7 @@
     <Compile Include="Concrete\CalendarRepository.cs" />
     <Compile Include="Concrete\EventRepository.cs" />
     <Compile Include="Concrete\GenericRepository.cs" />
+    <Compile Include="Concrete\NotificationRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Interface\INotificationRepository.cs" />
     <Compile Include="Interface\ICalendarRepository.cs" />
