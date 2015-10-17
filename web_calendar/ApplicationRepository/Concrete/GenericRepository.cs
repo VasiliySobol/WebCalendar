@@ -21,6 +21,11 @@ namespace ApplicationRepository.Concrete
             set { _entities = value; }
         }
 
+        public T FindById(int id)
+        {
+            return _entities.Set<T>().Find(id);
+        }
+
         public virtual IEnumerable<T> GetAll()
         {
             return _entities.Set<T>().ToList();

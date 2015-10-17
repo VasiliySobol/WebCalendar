@@ -10,10 +10,6 @@ namespace ApplicationRepository.Concrete
 {
     public sealed class CalendarRepository : GenericRepository<web_calendarEntities, Calendar>, ICalendarRepository
     {
-        public Calendar GetById(int Id)
-        {
-            return FindFirst(x => x.id == Id);
-        }
         public User GetUser(int Id)
         {
             Calendar calendar = FindFirst(x => x.id == Id);

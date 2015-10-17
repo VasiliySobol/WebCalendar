@@ -8,6 +8,8 @@ namespace ApplicationRepository.Interface
 {
     public interface IGenericRepository<T> where T : class
     {
+        T FindById(int id);
+
         IEnumerable<T> GetAll();
 
         void Add(T instance);

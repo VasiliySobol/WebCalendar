@@ -9,7 +9,6 @@ namespace ApplicationRepository.Interface
 {
     interface INotificationRepository: IGenericRepository<Notification>
     {
-        Notification FindById(int id);
         NotificationType GetNotificationType(int id);
     }
 }
