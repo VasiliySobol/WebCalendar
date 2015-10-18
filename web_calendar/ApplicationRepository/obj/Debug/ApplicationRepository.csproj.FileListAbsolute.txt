@@ -22,3 +22,15 @@ E:\Work\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\Entity
 E:\Work\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.SqlServer.dll
 E:\Work\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.xml
 E:\Work\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.SqlServer.xml
+M:\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\web_calendar.mdf
+M:\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\web_calendar_log.ldf
+M:\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\ApplicationRepository.dll.config
+M:\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\ApplicationRepository.dll
+M:\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\ApplicationRepository.pdb
+M:\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.dll
+M:\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.SqlServer.dll
+M:\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.xml
+M:\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.SqlServer.xml
+M:\WebCalendar\web_calendar\ApplicationRepository\obj\Debug\ApplicationRepository.csprojResolveAssemblyReference.cache
+M:\WebCalendar\web_calendar\ApplicationRepository\obj\Debug\ApplicationRepository.dll
+M:\WebCalendar\web_calendar\ApplicationRepository\obj\Debug\ApplicationRepository.pdb

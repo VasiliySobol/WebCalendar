@@ -22,3 +22,68 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/*-------------------------------------------------------------------*/
+/*------------------------------custom css---------------------------*/
+/*-------------------------------------------------------------------*/
+
+.navigationCalendarContainer
+{
+    margin: 10px 10px 10px 0px;
+}
+
+.leftNav 
+{
+    width:90%; 
+    float: left;
+    padding-bottom: 10px;
+}
+
+.rightNav 
+{
+    width:10%; 
+    float: right;
+    padding-bottom: 10px;
+}
+
+.miniCalendarContainer
+{
+    width:20%; 
+    float: left;
+}
+
+.calendarContainer
+{
+    width:80%; 
+    float: right;
+}
+
+.calendarTable
+{  
+    background-color:aliceblue;
+    width:100%; 
+    height: 100%;
+}
+
+.calendarTable thead tr
+{
+    height: 30px;
+    background-color:cadetblue;
+}
+
+.calendarTable tbody tr
+{
+    height: 90px;
+}
+
+.calendarTable th,
+.calendarTable td
+{
+    border: 2px solid white;
+    width: 100px;
+}
+
+.calendarTable th
+{
+    height: 20px;
+}

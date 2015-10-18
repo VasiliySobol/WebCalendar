@@ -2,69 +2,65 @@
     ViewBag.Title = "Calendar";
 }
 
-<div class="container" style="margin: 10px 10px 0px 0px">
-    <button type="button" class="btn btn-default btn-xs"> < </button>
-    <button type="button" class="btn btn-default btn-xs"> > </button>
-    <p> Month </p>
+<div class="navigationCalendarContainer">
+    <div class="leftNav">
+        <button type="button" class="btn btn-default btn-xs"> < </button>
+        <button type="button" class="btn btn-default btn-xs"> > </button>
+        Day/Week/Month
+    </div>
+
+    <div class="rightNav">
+        <ul class="dropdown">
+            <li class="dropdown">
+                <a style="align-self:flex-end;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Show<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Day", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Week", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Month", "Index", "Home")</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
 
-<table class=" table table-bordered">
-    <thead>
-        <tr style="height:75px">
-            <th>Sunday</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr style="height:75px">
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td>7</td>
-        </tr>
-        <tr style="height:75px">
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-            <td>13</td>
-            <td>14</td>
-        </tr>
-        <tr style="height:75px">
-            <td>15</td>
-            <td>16</td>
-            <td>17</td>
-            <td>18</td>
-            <td>19</td>
-            <td>20</td>
-            <td>21</td>
-        </tr>
-        <tr style="height:75px">
-            <td>22</td>
-            <td>23</td>
-            <td>24</td>
-            <td>25</td>
-            <td>26</td>
-            <td>27</td>
-            <td>28</td>
-        </tr>
-        <tr style="height:75px">
-            <td>29</td>
-            <td>30</td>
-            <td>31</td>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-        </tr>
-    </tbody>
-</table>
+
+<div class="miniCalendarContainer">
+    <div id="datetimepicker"></div>
+</div>
+
+<div class="calendarContainer">
+    <table class="calendarTable">
+        <thead>
+            <tr>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 1; i <= 5; i++)
+            {
+                <tr>
+                    @for (int j = 1; j <= 7; j++)
+                    {
+                        <td>@(i * j)</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#datetimepicker').datepicker(
+            {
+                inline: true
+            }
+        );
+    </script>
+}
