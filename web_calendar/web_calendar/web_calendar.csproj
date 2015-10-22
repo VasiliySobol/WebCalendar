@@ -305,6 +305,10 @@
       <Project>{fcbd6eca-b3ee-45ed-ae3f-3ab63ab9bd52}</Project>
       <Name>ApplicationRepository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{3cdb7bc8-d9e7-4abb-b084-3a988bfccdbc}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
