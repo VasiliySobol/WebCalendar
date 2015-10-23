@@ -175,3 +175,5 @@ M:\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Owin.Security.MicrosoftAc
 M:\WebCalendar\web_calendar\web_calendar\obj\Debug\web_calendar.csprojResolveAssemblyReference.cache
 M:\WebCalendar\web_calendar\web_calendar\obj\Debug\web_calendar.dll
 M:\WebCalendar\web_calendar\web_calendar\obj\Debug\web_calendar.pdb
+M:\WebCalendar\web_calendar\web_calendar\bin\Infrastructure.dll
+M:\WebCalendar\web_calendar\web_calendar\bin\Infrastructure.pdb
