@@ -238,11 +238,11 @@ E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Owi
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\obj\Debug\web_calendar.csprojResolveAssemblyReference.cache
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\obj\Debug\web_calendar.dll
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\obj\Debug\web_calendar.pdb
-E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.Unity.Configuration.dll
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.Unity.dll
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Unity.Mvc5.dll
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.Unity.xml
-E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.Unity.Configuration.xml
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.ServiceLocation.dll
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.ServiceLocation.pdb
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.ServiceLocation.xml
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.Unity.Mvc.dll
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.Unity.Mvc.xml
