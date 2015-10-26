@@ -71,4 +71,3 @@ E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debu
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\System.Web.WebPages.xml
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\System.Web.WebPages.Deployment.xml
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\System.Web.WebPages.Razor.xml
-E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\Unity.Mvc5.dll

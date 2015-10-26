@@ -239,7 +239,6 @@ E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\obj\Debug\web_cal
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\obj\Debug\web_calendar.dll
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\obj\Debug\web_calendar.pdb
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.Unity.dll
-E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Unity.Mvc5.dll
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.Unity.xml
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.ServiceLocation.dll
 E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\web_calendar\bin\Microsoft.Practices.ServiceLocation.pdb
