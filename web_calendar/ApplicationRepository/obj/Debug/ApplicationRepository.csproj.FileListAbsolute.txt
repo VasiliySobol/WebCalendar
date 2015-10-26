@@ -34,3 +34,15 @@ M:\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.SqlS
 M:\WebCalendar\web_calendar\ApplicationRepository\obj\Debug\ApplicationRepository.csprojResolveAssemblyReference.cache
 M:\WebCalendar\web_calendar\ApplicationRepository\obj\Debug\ApplicationRepository.dll
 M:\WebCalendar\web_calendar\ApplicationRepository\obj\Debug\ApplicationRepository.pdb
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\web_calendar.mdf
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\web_calendar_log.ldf
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\ApplicationRepository.dll.config
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\ApplicationRepository.dll
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\ApplicationRepository.pdb
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.dll
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.SqlServer.dll
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.xml
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\bin\Debug\EntityFramework.SqlServer.xml
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\obj\Debug\ApplicationRepository.csprojResolveAssemblyReference.cache
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\obj\Debug\ApplicationRepository.dll
+E:\Work\Courses\ApriorIT\WebCalendar\web_calendar\ApplicationRepository\obj\Debug\ApplicationRepository.pdb

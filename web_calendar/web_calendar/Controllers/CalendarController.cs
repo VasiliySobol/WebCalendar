@@ -6,9 +6,14 @@ using System.Web.Mvc;
 
 namespace web_calendar.Controllers
 {
-    public class HomeController : Controller
+    public class CalendarController : Controller
     {
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Create()
         {
             return View();
         }
