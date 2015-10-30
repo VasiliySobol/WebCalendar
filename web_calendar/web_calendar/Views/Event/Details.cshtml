@@ -1,0 +1,154 @@
+﻿@model ApplicationRepository.Models.Event
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EventViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Place)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Place)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeBegin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeBegin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeEnd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeEnd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Visibility)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Visibility)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AllDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RepetitionCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RepetitionCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Interval)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Interval)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeBefore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeBefore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KindOfNotification)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KindOfNotification)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IfRepeatable)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IfRepeatable)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Period)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Period)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RepeatCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RepeatCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CalendarId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CalendarId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CalendarName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CalendarName)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
