@@ -19,7 +19,7 @@ namespace web_calendar.Controllers
         // GET: Event
         public ActionResult Index()
         {             
-            return View(db.events.ToList());
+            return View(db.CalendarEvents.ToList());
         }
 
         // GET: Event/Details/5
@@ -29,8 +29,8 @@ namespace web_calendar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Event _event = db.events.Find(id);
-            if (_event == null)
+            CalendarEvent calendarEvent = db.CalendarEvents.Find(id);
+            if (calendarEvent == null)
             {
                 return HttpNotFound();
             }
@@ -38,7 +38,7 @@ namespace web_calendar.Controllers
             //ICollection<NotificationType> notificationTypes;
             //ICollection<Repeatable> repeatables;
             //return View(Mapper.Map(_event, notificationTypes, repeatables));
-            return View(_event);
+            return View(calendarEvent);
         }
 
         // GET: Event/Create
@@ -56,9 +56,9 @@ namespace web_calendar.Controllers
         {
             if (ModelState.IsValid)
             {
-                Event _event = Mapper.MapToEvent(eventViewModel);
+                CalendarEvent calendarEvent = Mapper.MapToEvent(eventViewModel);
                 //TODO add logic
-                db.events.Add(_event);
+                db.CalendarEvents.Add(calendarEvent);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -73,8 +73,8 @@ namespace web_calendar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Event _event = db.events.Find(id);
-            if (_event == null)
+            CalendarEvent calendarEvent = db.CalendarEvents.Find(id);
+            if (calendarEvent == null)
             {
                 return HttpNotFound();
             }
@@ -106,8 +106,8 @@ namespace web_calendar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Event _event = db.events.Find(id);
-            if (_event == null)
+            CalendarEvent calendarEvent = db.CalendarEvents.Find(id);
+            if (calendarEvent == null)
             {
                 return HttpNotFound();
             }
@@ -121,8 +121,8 @@ namespace web_calendar.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Event _event = db.events.Find(id);
-            db.events.Remove(_event);
+            CalendarEvent calendarEvent = db.CalendarEvents.Find(id);
+            db.CalendarEvents.Remove(calendarEvent);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
