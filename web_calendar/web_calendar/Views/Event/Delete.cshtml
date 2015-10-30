@@ -8,7 +8,8 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>EventViewModel</h4>
+    <h4>@Html.DisplayFor(model => model.CalendarName)</h4>
+    <h4>Event</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -67,7 +68,7 @@
             @Html.DisplayFor(model => model.AllDay)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.RepetitionCount)
         </dt>
 
@@ -129,23 +130,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CalendarId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CalendarId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CalendarName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CalendarName)
-        </dd>
+        </dd>*@        
 
     </dl>
 
