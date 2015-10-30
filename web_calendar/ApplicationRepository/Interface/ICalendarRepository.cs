@@ -11,7 +11,7 @@ namespace ApplicationRepository.Interface
     {
         User GetUser(int Id);
         NotificationType GetStandartNotificationType(int Id);
-        Event FindFirstEvent(int Id, Func<Event, bool> filter);
-        IEnumerable<Event> FindAllEvents(int Id, Func<Event, bool> filter);
+        CalendarEvent FindFirstEvent(int Id, Func<CalendarEvent, bool> filter);
+        IEnumerable<CalendarEvent> FindAllEvents(int Id, Func<CalendarEvent, bool> filter);
     }
 }
