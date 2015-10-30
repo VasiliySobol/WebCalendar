@@ -15,6 +15,7 @@ namespace web_calendar.Mappers
         {
             EventViewModel eventVM = new EventViewModel();
 
+            //TODO logic
             throw new NotImplementedException();
 
             return eventVM;
