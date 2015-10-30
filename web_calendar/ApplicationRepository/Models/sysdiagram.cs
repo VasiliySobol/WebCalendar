@@ -12,18 +12,12 @@ namespace ApplicationRepository.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Settings
+    public partial class sysdiagram
     {
-        public Settings()
-        {
-            this.users = new HashSet<User>();
-        }
-    
-        public int id { get; set; }
-        public Nullable<byte> timezone { get; set; }
-        public string weekstart { get; set; }
-        public string default_view { get; set; }
-    
-        public virtual ICollection<User> users { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

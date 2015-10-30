@@ -14,10 +14,10 @@ namespace ApplicationRepository.Models
     
     public partial class Guest
     {
-        public int id { get; set; }
-        public string email { get; set; }
-        public Nullable<int> event_id { get; set; }
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public Nullable<int> EventId { get; set; }
     
-        public virtual Event @event { get; set; }
+        public virtual CalendarEvent CalendarEvent { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'E:\Documents\work\web_calendar\web_calendar\branches\developer\web_calendar\ApplicationRepository\Models\web_calendar.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Amira\programming\WebCalendar\web_calendar\ApplicationRepository\Models\web_calendar.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

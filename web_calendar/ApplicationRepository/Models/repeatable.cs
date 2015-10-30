@@ -14,11 +14,11 @@ namespace ApplicationRepository.Models
     
     public partial class Repeatable
     {
-        public int id { get; set; }
-        public string period { get; set; }
-        public Nullable<int> repeat_count { get; set; }
-        public Nullable<int> event_id { get; set; }
+        public int Id { get; set; }
+        public string Period { get; set; }
+        public Nullable<int> RepeatCount { get; set; }
+        public Nullable<int> EventId { get; set; }
     
-        public virtual Event @event { get; set; }
+        public virtual CalendarEvent CalendarEvent { get; set; }
     }
 }

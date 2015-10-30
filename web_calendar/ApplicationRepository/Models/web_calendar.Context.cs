@@ -25,13 +25,14 @@ namespace ApplicationRepository.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Calendar> calendars { get; set; }
-        public virtual DbSet<Event> events { get; set; }
-        public virtual DbSet<Guest> guests { get; set; }
-        public virtual DbSet<Notification> notifications { get; set; }
-        public virtual DbSet<NotificationType> notification_type { get; set; }
-        public virtual DbSet<Repeatable> repeatables { get; set; }
-        public virtual DbSet<Settings> settings { get; set; }
-        public virtual DbSet<User> users { get; set; }  
+        public virtual DbSet<Calendar> Calendars { get; set; }
+        public virtual DbSet<CalendarEvent> CalendarEvents { get; set; }
+        public virtual DbSet<Guest> Guests { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<NotificationType> NotificationTypes { get; set; }
+        public virtual DbSet<Repeatable> Repeatables { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserSetting> UserSettings { get; set; }
     }
 }

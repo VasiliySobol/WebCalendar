@@ -16,21 +16,21 @@ namespace ApplicationRepository.Models
     {
         public Calendar()
         {
-            this.events_collection = new HashSet<Event>();
+            this.CalendarEventsCollection = new HashSet<CalendarEvent>();
         }
     
-        public int id { get; set; }
-        public string name { get; set; }
-        public string text { get; set; }
-        public Nullable<int> color { get; set; }
-        public Nullable<int> events { get; set; }
-        public string visibility { get; set; }
-        public Nullable<byte> timezone { get; set; }
-        public Nullable<int> user_id { get; set; }
-        public Nullable<int> notification_type_id { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Text { get; set; }
+        public Nullable<int> CalendarColor { get; set; }
+        public Nullable<int> CalendarEvents { get; set; }
+        public string Visibility { get; set; }
+        public Nullable<byte> TimeZone { get; set; }
+        public Nullable<int> UserId { get; set; }
+        public Nullable<int> NotificationTypeId { get; set; }
     
-        public virtual User user { get; set; }
-        public virtual NotificationType notificationType { get; set; }
-        public virtual ICollection<Event> events_collection { get; set; }
+        public virtual NotificationType NotificationType { get; set; }
+        public virtual User User { get; set; }
+        public virtual ICollection<CalendarEvent> CalendarEventsCollection { get; set; }
     }
 }

@@ -12,19 +12,18 @@ namespace ApplicationRepository.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class NotificationType
+    public partial class UserSetting
     {
-        public NotificationType()
+        public UserSetting()
         {
-            this.notifications = new HashSet<Notification>();
+            this.Users = new HashSet<User>();
         }
     
-        public int id { get; set; }
-        public Nullable<int> repetition_count { get; set; }
-        public Nullable<int> interval { get; set; }
-        public Nullable<int> time_before { get; set; }
-        public string kind_of_notification { get; set; }
+        public int Id { get; set; }
+        public Nullable<byte> TimeZone { get; set; }
+        public string WeekStart { get; set; }
+        public string DefaultView { get; set; }
     
-        public virtual ICollection<Notification> notifications { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }
