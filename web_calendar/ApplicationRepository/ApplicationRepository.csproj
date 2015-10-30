@@ -118,7 +118,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Concrete\CalendarRepository.cs" />
     <Compile Include="Concrete\EventRepository.cs" />
     <Compile Include="Concrete\GenericRepository.cs" />
@@ -129,28 +128,31 @@
     <Compile Include="Interface\IEventRepository.cs" />
     <Compile Include="Interface\IGenericRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
-    <Compile Include="Models\calendar.cs">
+    <Compile Include="Models\Calendar.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\event.cs">
+    <Compile Include="Models\CalendarEvent.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\guest.cs">
+    <Compile Include="Models\Guest.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\notification.cs">
+    <Compile Include="Models\Notification.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\notification_type.cs">
+    <Compile Include="Models\NotificationType.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\repeatable.cs">
+    <Compile Include="Models\Repeatable.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\setting.cs">
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\user.cs">
+    <Compile Include="Models\User.cs">
+      <DependentUpon>web_calendar.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserSetting.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\web_calendar.Context.cs">
@@ -174,13 +176,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="web_calendarDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>web_calendarDataSet.xsd</DependentUpon>
-    </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <EntityDeploy Include="Models\web_calendar.edmx">
@@ -205,17 +201,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="web_calendarDataSet.xsc">
-      <DependentUpon>web_calendarDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="web_calendarDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>web_calendarDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="web_calendarDataSet.xss">
-      <DependentUpon>web_calendarDataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -235,6 +220,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="web_calendar.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -243,9 +231,7 @@
       <DependentUpon>web_calendar.mdf</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
