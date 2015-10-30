@@ -33,5 +33,7 @@ namespace ApplicationRepository.Models
         public virtual DbSet<Repeatable> repeatables { get; set; }
         public virtual DbSet<Settings> settings { get; set; }
         public virtual DbSet<User> users { get; set; }
+
+        public System.Data.Entity.DbSet<web_calendar.Models.EventViewModel> EventViewModels { get; set; }
     }
 }
