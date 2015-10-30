@@ -12,33 +12,40 @@ namespace ApplicationRepository.Concrete
     {
         public User GetUser(int Id)
         {
-            Calendar calendar = FindFirst(x => x.id == Id);
-            if ((calendar != null) && (calendar.user_id != null))
+            Calendar calendar = FindFirst(x => x.Id == Id);
+            if ((calendar != null) && (calendar.UserId != null))
             {
-                return calendar.user;
+                return calendar.User;
             }
             return null;
         }
         public NotificationType GetStandartNotificationType(int Id)
         {
-            Calendar calendar = FindFirst(x => x.id == Id);
-            if ((calendar != null) && (calendar.notification_type_id != null))
-                return calendar.notificationType;
+            Calendar calendar = FindFirst(x => x.Id == Id);
+            if ((calendar != null) && (calendar.NotificationTypeId != null))
+                return calendar.NotificationType;
             return null;
         }
-        public Event FindFirstEvent(int Id, Func<Event, bool> filter)
+        public CalendarEvent FindFirstEvent(int Id, Func<CalendarEvent, bool> filter)
         {
-            Calendar calendar = FindFirst(x => x.id == Id);
-            if ((calendar != null) && (calendar.events != null))
-                return calendar.events_collection.FirstOrDefault(filter);
+            Calendar calendar = FindFirst(x => x.Id == Id);
+            if ((calendar != null) && (calendar.CalendarEvents != null))
+                return calendar.CalendarEventsCollection.FirstOrDefault(filter);
             return null;
         }
-        public IEnumerable<Event> FindAllEvents(int Id, Func<Event, bool> filter)
+        public IEnumerable<CalendarEvent> FindAllEvents(int Id, Func<CalendarEvent, bool> filter)
         {
-            Calendar calendar = FindFirst(x => x.id == Id);
-            if ((calendar != null) && (calendar.events != null))
-                return calendar.events_collection.Where(filter);
+            Calendar calendar = FindFirst(x => x.Id == Id);
+            if ((calendar != null) && (calendar.CalendarEvents != null))
+                return calendar.CalendarEventsCollection.Where(filter).ToList();
             return null; 
+        }
+        public IEnumerable<CalendarEvent> GetAllEvents(int Id)
+        {
+            Calendar calendar = FindFirst(x => x.Id == Id);
+            if ((calendar != null) && (calendar.CalendarEvents != null))
+                return calendar.CalendarEventsCollection.ToList();
+            return null;
         }
     }
 }
