@@ -17,7 +17,7 @@ namespace web_calendar.Models
         public string Text { get; set; }
 
         [Display(Name = "Color")]
-        public Color Color { get; set; }
+        public Color CalendarColor { get; set; }
 
         [Display(Name = "Visibility")]
         public string Visibility { get; set; }
