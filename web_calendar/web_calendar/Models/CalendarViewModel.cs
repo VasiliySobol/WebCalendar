@@ -26,17 +26,7 @@ namespace web_calendar.Models
         public string TimeZone { get; set; }
 
         // Notification Settings
-        [Display(Name = "Repetition count")]
-        public Nullable<int> RepetitionCount { get; set; }
-
-        [Display(Name = "Interval")]
-        public Nullable<int> Interval { get; set; }
-
-        [Display(Name = "Time before event")]
-        public Nullable<int> TimeBefore { get; set; }
-
-        [Display(Name = "Kind of notification")]
-        public string KindOfNotification { get; set; }
+        public NotificationSettingsViewModel notificationSettings { get; set; }        
 
         int _userId {get; set; }
     }
