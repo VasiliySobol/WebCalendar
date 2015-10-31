@@ -146,9 +146,6 @@
     <Compile Include="Models\Repeatable.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>web_calendar.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>

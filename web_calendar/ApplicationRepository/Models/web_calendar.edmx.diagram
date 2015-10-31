@@ -11,7 +11,6 @@
         <EntityTypeShape EntityType="web_calendarModel.Notification" Width="1.5" PointX="10.5" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="web_calendarModel.NotificationType" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="web_calendarModel.Repeatable" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="web_calendarModel.sysdiagram" Width="1.5" PointX="3.75" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="web_calendarModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="web_calendarModel.UserSetting" Width="1.5" PointX="1.5" PointY="9.25" IsExpanded="true" />
         <AssociationConnector Association="web_calendarModel.FK_Calendar_NotificationType" ManuallyRouted="false" />

@@ -31,8 +31,7 @@ namespace ApplicationRepository.Models
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<NotificationType> NotificationTypes { get; set; }
         public virtual DbSet<Repeatable> Repeatables { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserSetting> UserSettings { get; set; }
+        public virtual DbSet<UserSetting> UserSettings { get; set; }        
     }
 }
