@@ -6,7 +6,33 @@ using System.Web;
 
 namespace web_calendar.Models
 {
-    public class EventViewModel
+    public class DisplayEventViewModel
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Display(Name = "Text")]
+        public string Text { get; set; }
+
+        [Display(Name = "Place")]
+        public string Place { get; set; }
+
+        [Display(Name = "Begin time")]
+        public System.DateTime TimeBegin { get; set; }
+
+        [Display(Name = "Notification's")]
+        public int NotificationCount { get; set; }
+
+        // Parent Calendar
+        public int CalendarId { get; set; }
+
+        [Display(Name = "Interval")]
+        public string CalendarName { get; set; }
+    }
+
+    public class CreateEventViewModel
     {
         public int Id { get; set; }
 
@@ -49,7 +75,7 @@ namespace web_calendar.Models
         // Parent Calendar
         public int CalendarId { get; set; }
 
-        [Display(Name = "Interval")]
+        [Display(Name = "Calendar name")]
         public string CalendarName { get; set; }
     }
 
