@@ -314,9 +314,9 @@
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Calendar\ChangeCalendarNotificationSettings.cshtml" />
-    <Content Include="Views\Calendar\Schedule.cshtml" />
     <Content Include="Views\Event\EditNotificationType.cshtml" />
     <Content Include="Views\Event\ListNotificationType.cshtml" />
+    <Content Include="Views\Event\Schedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationRepository\ApplicationRepository.csproj">
