@@ -16,12 +16,17 @@ namespace web_calendar.Controllers
     {
         private web_calendarEntities db = new web_calendarEntities();
 
-        // GET: Event
-        public ActionResult Index()
-        {             
-            return View(db.CalendarEvents.ToList());
+        // GET: Event/Schedule
+        public ActionResult Schedule()
+        {
+            List<DisplayEventViewModel> list = new List<DisplayEventViewModel>();
+            foreach (CalendarEvent item in db.CalendarEvents.ToList())
+            {
+                list.Add(Mapper.MapToDisplayEventVM(item));
+            }
+            return View(list);
         }
-
+        
         // GET: Event/Details/5
         public ActionResult Details(int? id)
         {
@@ -52,7 +57,7 @@ namespace web_calendar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Text,Place,TimeBegin,TimeEnd,Visibility,AllDay,RepetitionCount,Interval,TimeBefore,KindOfNotification,IfRepeatable,Period,RepeatCount,EndDate,CalendarId,CalendarName")] EventViewModel eventViewModel)
+        public ActionResult Create([Bind(Include = "Id,Name,Text,Place,TimeBegin,TimeEnd,Visibility,AllDay,RepetitionCount,Interval,TimeBefore,KindOfNotification,IfRepeatable,Period,RepeatCount,EndDate,CalendarId,CalendarName")] CreateEventViewModel eventViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +84,7 @@ namespace web_calendar.Controllers
                 return HttpNotFound();
             }
             //TODO add logic
-            EventViewModel eventViewModel = new EventViewModel();
+            CreateEventViewModel eventViewModel = new CreateEventViewModel();
             return View(eventViewModel);
         }
 
@@ -88,7 +93,7 @@ namespace web_calendar.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Text,Place,TimeBegin,TimeEnd,Visibility,AllDay,RepetitionCount,Interval,TimeBefore,KindOfNotification,IfRepeatable,Period,RepeatCount,EndDate,CalendarId,CalendarName")] EventViewModel eventViewModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,Text,Place,TimeBegin,TimeEnd,Visibility,AllDay,RepetitionCount,Interval,TimeBefore,KindOfNotification,IfRepeatable,Period,RepeatCount,EndDate,CalendarId,CalendarName")] CreateEventViewModel eventViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -112,7 +117,7 @@ namespace web_calendar.Controllers
                 return HttpNotFound();
             }
             //TODO add logic
-            EventViewModel eventViewModel = new EventViewModel();
+            CreateEventViewModel eventViewModel = new CreateEventViewModel();
             return View(eventViewModel);
         }
 
