@@ -10,11 +10,29 @@ namespace web_calendar.Mappers
     public static class Mapper
     {
         // -------- Events --------
-        public static EventViewModel Map(CalendarEvent calendarEvent, 
+        public static DisplayEventViewModel MapToDisplayEventVM(CalendarEvent calendarEvent)
+        {
+            DisplayEventViewModel eventVM = new DisplayEventViewModel();
+
+            eventVM.Id = calendarEvent.Id;
+            eventVM.Name = calendarEvent.Name;
+            eventVM.Text = calendarEvent.Text;
+            eventVM.Place = calendarEvent.Place;
+            eventVM.TimeBegin = calendarEvent.TimeBegin;
+            eventVM.NotificationCount = calendarEvent.Notifications.Count;
+            if (calendarEvent.CalendarId != null)
+            {
+                eventVM.CalendarId = (int)calendarEvent.CalendarId;
+                eventVM.CalendarName = calendarEvent.Calendar.Name;
+            }
+            return eventVM;
+        }
+
+        public static CreateEventViewModel MapToCreateEventVM(CalendarEvent calendarEvent, 
             ICollection<NotificationType> notificationType,
             ICollection<Repeatable> repeatable, List<string> emails)
         {
-            EventViewModel eventVM = new EventViewModel();
+            CreateEventViewModel eventVM = new CreateEventViewModel();
 
             eventVM.Id = calendarEvent.Id;
             eventVM.Name = calendarEvent.Name;
@@ -66,7 +84,7 @@ namespace web_calendar.Mappers
             return repeatableSettingsVM;
         }
 
-        public static CalendarEvent MapToEvent(EventViewModel eventVM)
+        public static CalendarEvent MapToEvent(CreateEventViewModel eventVM)
         {
             CalendarEvent calendarEvent = new CalendarEvent();
 
@@ -81,7 +99,7 @@ namespace web_calendar.Mappers
             return calendarEvent;
         }
 
-        public static ICollection<NotificationType> MapToNotificationTypes(EventViewModel eventVM)
+        public static ICollection<NotificationType> MapToNotificationTypes(CreateEventViewModel eventVM)
         {
             List<NotificationType> list = new List<NotificationType>();
             foreach (NotificationSettingsViewModel item in eventVM.notificationSettings)
@@ -101,7 +119,7 @@ namespace web_calendar.Mappers
             return notificationType;
         }
 
-        public static ICollection<Repeatable> MapToRepeatables(EventViewModel eventVM)
+        public static ICollection<Repeatable> MapToRepeatables(CreateEventViewModel eventVM)
         {
             List<Repeatable> list = new List<Repeatable>();
             foreach (RepeatableSettingsViewModel item in eventVM.repeatableSettings)
