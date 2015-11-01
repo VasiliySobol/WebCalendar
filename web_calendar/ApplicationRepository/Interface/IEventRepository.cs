@@ -7,11 +7,11 @@ using ApplicationRepository.Models;
 
 namespace ApplicationRepository.Interface
 {
-    interface IEventRepository: IGenericRepository<Event>
+    interface IEventRepository: IGenericRepository<CalendarEvent>
     {
         Notification FindFirstNotification(int id, Func<Notification, bool> filter);
         IEnumerable<Notification> FindAllNotifications(int id, Func<Notification, bool> filter);
-        bool DoesRepeatable(Event _event);
+        bool IsRepeatable(CalendarEvent calendarEvent);
         Repeatable GetRepeatableSettings(int id);
         Calendar GetCalendar(int id);
         IEnumerable<Guest> FindAllGuests(int id, Func<Guest, bool> filter);

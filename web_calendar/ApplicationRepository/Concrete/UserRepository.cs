@@ -12,25 +12,26 @@ namespace ApplicationRepository.Concrete
     {
         public Calendar FindFirstCalendar(int Id, Func<Calendar, bool> filter)
         {
-            User user = FindFirst(x => x.id == Id);
-            if ((user != null) && (user.calendars != null))
-                return user.calendars_collection.First(filter);
+            User user = FindFirst(x => x.Id == Id);
+            if ((user != null) && (user.CalendarsCollection != null))
+                return user.CalendarsCollection.First(filter);
             return null;
         }
         public IEnumerable<Calendar> FindAllCalendars(int Id, Func<Calendar, bool> filter)
         {
-            if (FindFirst(x => x.id == Id) != null)
+            User user = FindFirst(x => x.Id == Id);
+            if (user != null)
             {
-                return FindFirst(x => x.id == Id).calendars_collection.Where(filter);
+                return user.CalendarsCollection.Where(filter).ToList();
             }
             return null;
         }
-        public Settings GetSettings(int Id)
+        public UserSetting GetSettings(int Id)
         {
-            User user = FindFirst(x => x.id == Id);
-            if ((user != null) && (user.settings != null))
+            User user = FindFirst(x => x.Id == Id);
+            if ((user != null) && (user.UserSettingsId != null))
             {
-                return user.settings_reference;
+                return user.UserSetting;
             }
             return null;
         }

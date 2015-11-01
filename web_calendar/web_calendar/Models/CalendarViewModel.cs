@@ -2,23 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Drawing;
 using System.ComponentModel.DataAnnotations;
 
 namespace web_calendar.Models
 {
     public class CalendarViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
-        public string Text { get; set; }
+        [Display(Name = "Description")]
+        public string Description { get; set; }
 
-        public  Color color { get; set; }
+        [Display(Name = "Color")]
+        public int? CalendarColor { get; set; }
 
-        bool _visibility { get; set; }
+        [Display(Name = "Visibility")]
+        public string Visibility { get; set; }
 
-        string _timezone {get; set; }
+        [Display(Name = "Time zone")]
+        public byte? TimeZone { get; set; }
+
+        // Notification Settings
+        public NotificationSettingsViewModel notificationSettings { get; set; }        
 
         int _userId {get; set; }
     }

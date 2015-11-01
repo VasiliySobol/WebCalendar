@@ -8,63 +8,89 @@ using ApplicationRepository.Models;
 
 namespace ApplicationRepository.Concrete
 {
-    public sealed class EventRepository: GenericRepository<web_calendarEntities, Event>, IEventRepository
+    public sealed class EventRepository: GenericRepository<web_calendarEntities, CalendarEvent>, IEventRepository
     {
         public Notification FindFirstNotification(int id, Func<Notification, bool> filter)
         {
-            Event myEvent = FindFirst(x => x.id == id);
-            if (myEvent!=null && myEvent.notifications != null)
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            if (calendarEvent != null && calendarEvent.Notifications != null)
             {
-                return myEvent.notifications.FirstOrDefault(filter);
+                return calendarEvent.Notifications.FirstOrDefault(filter);
             }
             return null;
         }
 
         public IEnumerable<Notification> FindAllNotifications(int id, Func<Notification, bool> filter)
         {
-            Event myEvent = FindFirst(x => x.id == id);
-            if (myEvent != null && myEvent.notifications != null)
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            if (calendarEvent != null && calendarEvent.Notifications != null)
             {
-                return myEvent.notifications.Where(filter);
+                return calendarEvent.Notifications.Where(filter).ToList();
             }
             return null;
         }
 
-        public bool DoesRepeatable(Event _event)
+        public IEnumerable<Notification> GetAllNotifications(int id)
         {
-            if (_event != null && _event.repeatables != null)
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            if (calendarEvent != null && calendarEvent.Notifications != null)
             {
-                return true;
+                return calendarEvent.Notifications.ToList();
             }
-            return false;
+            return null;
+        }
+
+        public bool IsRepeatable(CalendarEvent calendarEvent)
+        {
+            return ((calendarEvent != null) && (calendarEvent.Repeatables != null));
         }
 
         public Repeatable GetRepeatableSettings(int id)
         {
-            Event myEvent = FindFirst(x => x.id == id);
-            if (DoesRepeatable(myEvent))
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            if (IsRepeatable(calendarEvent))
             {
-                return myEvent.repeatables.FirstOrDefault();
+                return calendarEvent.Repeatables.FirstOrDefault();
             }
             return null;
         }
 
         public Calendar GetCalendar(int id)
         {
-            Event myEvent = FindFirst(x => x.id == id);
-            if (myEvent != null && myEvent.calendar_id != null)
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            if (calendarEvent != null && calendarEvent.CalendarId != null)
             {
-                return myEvent.calendar;
+                return calendarEvent.Calendar;
+            }
+            return null;
+        }
+
+        public Guest FindFirstGuest(int id, Func<Guest, bool> filter)
+        {
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            if (calendarEvent != null && calendarEvent.Guests != null)
+            {
+                return calendarEvent.Guests.FirstOrDefault(filter);
             }
             return null;
         }
 
         public IEnumerable<Guest> FindAllGuests(int id, Func<Guest, bool> filter)
         {
-            Event myEvent = FindFirst(x => x.id == id);
-            if (myEvent != null && myEvent.guests != null)
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            if (calendarEvent != null && calendarEvent.Guests != null)
             {
-                return myEvent.guests.Where(filter);
+                return calendarEvent.Guests.Where(filter).ToList();
+            }
+            return null;
+        }
+
+        public IEnumerable<Guest> GetAllGuests(int id)
+        {
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            if (calendarEvent != null && calendarEvent.Guests != null)
+            {
+                return calendarEvent.Guests.ToList();
             }
             return null;
         }

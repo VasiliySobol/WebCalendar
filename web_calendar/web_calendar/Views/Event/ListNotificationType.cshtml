@@ -1,0 +1,45 @@
+﻿@model IEnumerable<web_calendar.Models.NotificationSettingsViewModel>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RepetitionCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Interval)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeBefore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KindOfNotification)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RepetitionCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Interval)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeBefore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KindOfNotification)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

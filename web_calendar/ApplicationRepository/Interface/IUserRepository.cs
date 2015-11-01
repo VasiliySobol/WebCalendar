@@ -11,6 +11,6 @@ namespace ApplicationRepository.Interface
     {
         Calendar FindFirstCalendar(int Id, Func<Calendar, bool> filter);
         IEnumerable<Calendar> FindAllCalendars(int Id, Func<Calendar, bool> filter);
-        Settings GetSettings(int Id);
+        UserSetting GetSettings(int Id);
     }
 }

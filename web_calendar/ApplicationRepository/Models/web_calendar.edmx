@@ -5,224 +5,255 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="calendar">
+        <EntityType Name="Calendar">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" />
-          <Property Name="text" Type="nvarchar(max)" />
-          <Property Name="color" Type="int" />
-          <Property Name="events" Type="int" />
-          <Property Name="visibility" Type="nvarchar" MaxLength="50" />
-          <Property Name="timezone" Type="tinyint" />
-          <Property Name="user_id" Type="int" />
-          <Property Name="notification_type_id" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="CalendarColor" Type="int" />
+          <Property Name="CalendarEvents" Type="int" />
+          <Property Name="Visibility" Type="nvarchar" MaxLength="50" />
+          <Property Name="TimeZone" Type="tinyint" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="NotificationTypeId" Type="int" />
         </EntityType>
-        <EntityType Name="event">
+        <EntityType Name="CalendarEvent">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" />
-          <Property Name="text" Type="nvarchar(max)" />
-          <Property Name="place" Type="nvarchar" MaxLength="50" />
-          <Property Name="time_begin" Type="datetime" Nullable="false" />
-          <Property Name="time_end" Type="datetime" />
-          <Property Name="visibility" Type="nvarchar" MaxLength="50" />
-          <Property Name="all_day" Type="bit" />
-          <Property Name="calendar_id" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="Place" Type="nvarchar" MaxLength="50" />
+          <Property Name="TimeBegin" Type="datetime" Nullable="false" />
+          <Property Name="TimeEnd" Type="datetime" />
+          <Property Name="Visibility" Type="nvarchar" MaxLength="50" />
+          <Property Name="AllDay" Type="bit" />
+          <Property Name="CalendarId" Type="int" />
         </EntityType>
-        <EntityType Name="guest">
+        <EntityType Name="Guest">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="email" Type="nvarchar(max)" />
-          <Property Name="event_id" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="EventId" Type="int" />
         </EntityType>
-        <EntityType Name="notification">
+        <EntityType Name="Notification">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="notification_type" Type="int" />
-          <Property Name="event_id" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NotificationType" Type="int" />
+          <Property Name="EventId" Type="int" />
         </EntityType>
-        <EntityType Name="notification_type">
+        <EntityType Name="NotificationType">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="repetition_count" Type="int" />
-          <Property Name="interval" Type="int" />
-          <Property Name="time_before" Type="int" />
-          <Property Name="kind_of_notification" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RepetitionCount" Type="int" />
+          <Property Name="Interval" Type="int" />
+          <Property Name="TimeBefore" Type="int" />
+          <Property Name="KindOfNotification" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="repeatable">
+        <EntityType Name="Repeatable">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="period" Type="nvarchar" MaxLength="50" />
-          <Property Name="repeat_count" Type="int" />
-          <Property Name="event_id" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Period" Type="nvarchar" MaxLength="50" />
+          <Property Name="RepeatCount" Type="int" />
+          <Property Name="EventId" Type="int" />
         </EntityType>
-        <EntityType Name="settings">
+        <EntityType Name="sysdiagrams">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="timezone" Type="tinyint" />
-          <Property Name="weekstart" Type="nvarchar" MaxLength="2" />
-          <Property Name="default_view" Type="nvarchar" MaxLength="10" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="user">
+        <EntityType Name="User">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="username" Type="nvarchar" MaxLength="50" />
-          <Property Name="password" Type="nvarchar" MaxLength="100" />
-          <Property Name="email" Type="nvarchar" MaxLength="150" />
-          <Property Name="calendars" Type="int" />
-          <Property Name="settings" Type="int" />
-          <Property Name="role" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="Calendars" Type="int" />
+          <Property Name="UserSettingsId" Type="int" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailConfirmed" Type="bit" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" />
+          <Property Name="AccessFailedCount" Type="int" />
         </EntityType>
+        <EntityType Name="UserSettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TimeZone" Type="tinyint" />
+          <Property Name="WeekStart" Type="nvarchar" MaxLength="2" />
+          <Property Name="DefaultView" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Calendar_NotificationType">
+          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotificationType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calendar">
+              <PropertyRef Name="NotificationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_calendar_user">
-          <End Role="user" Type="Self.user" Multiplicity="0..1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="calendar" Type="Self.calendar" Multiplicity="*" />
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="user">
-              <PropertyRef Name="id" />
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="calendar">
-              <PropertyRef Name="user_id" />
+            <Dependent Role="Calendar">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_event_calendar">
-          <End Role="calendar" Type="Self.calendar" Multiplicity="0..1">
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="event" Type="Self.event" Multiplicity="*" />
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="calendar">
-              <PropertyRef Name="id" />
+            <Principal Role="Calendar">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="event">
-              <PropertyRef Name="calendar_id" />
+            <Dependent Role="CalendarEvent">
+              <PropertyRef Name="CalendarId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_guest_event">
-          <End Role="event" Type="Self.event" Multiplicity="0..1">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="guest" Type="Self.guest" Multiplicity="*" />
+          <End Role="Guest" Type="Self.Guest" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="event">
-              <PropertyRef Name="id" />
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="guest">
-              <PropertyRef Name="event_id" />
+            <Dependent Role="Guest">
+              <PropertyRef Name="EventId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_notification_event">
-          <End Role="event" Type="Self.event" Multiplicity="0..1">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="event">
-              <PropertyRef Name="id" />
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="notification">
-              <PropertyRef Name="event_id" />
+            <Dependent Role="Notification">
+              <PropertyRef Name="EventId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_notification_notification_type">
-          <End Role="notification_type" Type="Self.notification_type" Multiplicity="0..1">
+          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="notification_type">
-              <PropertyRef Name="id" />
+            <Principal Role="NotificationType">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="notification">
-              <PropertyRef Name="notification_type" />
+            <Dependent Role="Notification">
+              <PropertyRef Name="NotificationType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_repeatable_event">
-          <End Role="event" Type="Self.event" Multiplicity="0..1">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="repeatable" Type="Self.repeatable" Multiplicity="*" />
+          <End Role="Repeatable" Type="Self.Repeatable" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="event">
-              <PropertyRef Name="id" />
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="repeatable">
-              <PropertyRef Name="event_id" />
+            <Dependent Role="Repeatable">
+              <PropertyRef Name="EventId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_settings">
-          <End Role="settings" Type="Self.settings" Multiplicity="0..1">
+          <End Role="UserSettings" Type="Self.UserSettings" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="settings">
-              <PropertyRef Name="id" />
+            <Principal Role="UserSettings">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="user">
-              <PropertyRef Name="settings" />
+            <Dependent Role="User">
+              <PropertyRef Name="UserSettingsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="web_calendarModelStoreContainer">
-          <EntitySet Name="calendar" EntityType="Self.calendar" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="event" EntityType="Self.event" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="guest" EntityType="Self.guest" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="notification_type" EntityType="Self.notification_type" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="repeatable" EntityType="Self.repeatable" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="settings" EntityType="Self.settings" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CalendarEvent" EntityType="Self.CalendarEvent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Guest" EntityType="Self.Guest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Repeatable" EntityType="Self.Repeatable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSettings" EntityType="Self.UserSettings" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Calendar_NotificationType" Association="Self.FK_Calendar_NotificationType">
+            <End Role="NotificationType" EntitySet="NotificationType" />
+            <End Role="Calendar" EntitySet="Calendar" />
+          </AssociationSet>
           <AssociationSet Name="FK_calendar_user" Association="Self.FK_calendar_user">
-            <End Role="user" EntitySet="user" />
-            <End Role="calendar" EntitySet="calendar" />
+            <End Role="User" EntitySet="User" />
+            <End Role="Calendar" EntitySet="Calendar" />
           </AssociationSet>
           <AssociationSet Name="FK_event_calendar" Association="Self.FK_event_calendar">
-            <End Role="calendar" EntitySet="calendar" />
-            <End Role="event" EntitySet="event" />
+            <End Role="Calendar" EntitySet="Calendar" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
           </AssociationSet>
           <AssociationSet Name="FK_guest_event" Association="Self.FK_guest_event">
-            <End Role="event" EntitySet="event" />
-            <End Role="guest" EntitySet="guest" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+            <End Role="Guest" EntitySet="Guest" />
           </AssociationSet>
           <AssociationSet Name="FK_notification_event" Association="Self.FK_notification_event">
-            <End Role="event" EntitySet="event" />
-            <End Role="notification" EntitySet="notification" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+            <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
           <AssociationSet Name="FK_notification_notification_type" Association="Self.FK_notification_notification_type">
-            <End Role="notification_type" EntitySet="notification_type" />
-            <End Role="notification" EntitySet="notification" />
+            <End Role="NotificationType" EntitySet="NotificationType" />
+            <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
           <AssociationSet Name="FK_repeatable_event" Association="Self.FK_repeatable_event">
-            <End Role="event" EntitySet="event" />
-            <End Role="repeatable" EntitySet="repeatable" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvent" />
+            <End Role="Repeatable" EntitySet="Repeatable" />
           </AssociationSet>
           <AssociationSet Name="FK_user_settings" Association="Self.FK_user_settings">
-            <End Role="settings" EntitySet="settings" />
-            <End Role="user" EntitySet="user" />
+            <End Role="UserSettings" EntitySet="UserSettings" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -230,238 +261,271 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="web_calendarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="calendar">
+        <EntityType Name="Calendar">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="color" Type="Int32" />
-          <Property Name="events" Type="Int32" />
-          <Property Name="visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="timezone" Type="Byte" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="notification_type_id" Type="Int32" />
-          <NavigationProperty Name="user" Relationship="Self.FK_calendar_user" FromRole="calendar" ToRole="user" />
-          <NavigationProperty Name="events1" Relationship="Self.FK_event_calendar" FromRole="calendar" ToRole="event" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CalendarColor" Type="Int32" />
+          <Property Name="CalendarEvents" Type="Int32" />
+          <Property Name="Visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TimeZone" Type="Byte" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="NotificationTypeId" Type="Int32" />
+          <NavigationProperty Name="NotificationType" Relationship="Self.FK_Calendar_NotificationType" FromRole="Calendar" ToRole="NotificationType" />
+          <NavigationProperty Name="User" Relationship="Self.FK_calendar_user" FromRole="Calendar" ToRole="User" />
+          <NavigationProperty Name="CalendarEventsCollection" Relationship="Self.FK_event_calendar" FromRole="Calendar" ToRole="CalendarEvent" />
         </EntityType>
-        <EntityType Name="event">
+        <EntityType Name="CalendarEvent">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="place" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="time_begin" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="time_end" Type="DateTime" Precision="3" />
-          <Property Name="visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="all_day" Type="Boolean" />
-          <Property Name="calendar_id" Type="Int32" />
-          <NavigationProperty Name="calendar" Relationship="Self.FK_event_calendar" FromRole="event" ToRole="calendar" />
-          <NavigationProperty Name="guests" Relationship="Self.FK_guest_event" FromRole="event" ToRole="guest" />
-          <NavigationProperty Name="notifications" Relationship="Self.FK_notification_event" FromRole="event" ToRole="notification" />
-          <NavigationProperty Name="repeatables" Relationship="Self.FK_repeatable_event" FromRole="event" ToRole="repeatable" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Place" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TimeBegin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TimeEnd" Type="DateTime" Precision="3" />
+          <Property Name="Visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AllDay" Type="Boolean" />
+          <Property Name="CalendarId" Type="Int32" />
+          <NavigationProperty Name="Calendar" Relationship="Self.FK_event_calendar" FromRole="CalendarEvent" ToRole="Calendar" />
+          <NavigationProperty Name="Guests" Relationship="Self.FK_guest_event" FromRole="CalendarEvent" ToRole="Guest" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_notification_event" FromRole="CalendarEvent" ToRole="Notification" />
+          <NavigationProperty Name="Repeatables" Relationship="Self.FK_repeatable_event" FromRole="CalendarEvent" ToRole="Repeatable" />
         </EntityType>
-        <EntityType Name="guest">
+        <EntityType Name="Guest">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="event_id" Type="Int32" />
-          <NavigationProperty Name="event" Relationship="Self.FK_guest_event" FromRole="guest" ToRole="event" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EventId" Type="Int32" />
+          <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_guest_event" FromRole="Guest" ToRole="CalendarEvent" />
         </EntityType>
-        <EntityType Name="notification">
+        <EntityType Name="Notification">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="notification_type" Type="Int32" />
-          <Property Name="event_id" Type="Int32" />
-          <NavigationProperty Name="event" Relationship="Self.FK_notification_event" FromRole="notification" ToRole="event" />
-          <NavigationProperty Name="notification_type1" Relationship="Self.FK_notification_notification_type" FromRole="notification" ToRole="notification_type" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NotificationType" Type="Int32" />
+          <Property Name="EventId" Type="Int32" />
+          <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_notification_event" FromRole="Notification" ToRole="CalendarEvent" />
+          <NavigationProperty Name="NotificationTypeReference" Relationship="Self.FK_notification_notification_type" FromRole="Notification" ToRole="NotificationType" />
         </EntityType>
-        <EntityType Name="notification_type">
+        <EntityType Name="NotificationType">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="repetition_count" Type="Int32" />
-          <Property Name="interval" Type="Int32" />
-          <Property Name="time_before" Type="Int32" />
-          <Property Name="kind_of_notification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="notifications" Relationship="Self.FK_notification_notification_type" FromRole="notification_type" ToRole="notification" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RepetitionCount" Type="Int32" />
+          <Property Name="Interval" Type="Int32" />
+          <Property Name="TimeBefore" Type="Int32" />
+          <Property Name="KindOfNotification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Calendars" Relationship="Self.FK_Calendar_NotificationType" FromRole="NotificationType" ToRole="Calendar" />
+          <NavigationProperty Name="Notifications" Relationship="Self.FK_notification_notification_type" FromRole="NotificationType" ToRole="Notification" />
         </EntityType>
-        <EntityType Name="repeatable">
+        <EntityType Name="Repeatable">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="period" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="repeat_count" Type="Int32" />
-          <Property Name="event_id" Type="Int32" />
-          <NavigationProperty Name="event" Relationship="Self.FK_repeatable_event" FromRole="repeatable" ToRole="event" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Period" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RepeatCount" Type="Int32" />
+          <Property Name="EventId" Type="Int32" />
+          <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_repeatable_event" FromRole="Repeatable" ToRole="CalendarEvent" />
         </EntityType>
-        <EntityType Name="setting">
+        <EntityType Name="sysdiagram">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="timezone" Type="Byte" />
-          <Property Name="weekstart" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="default_view" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="users" Relationship="Self.FK_user_settings" FromRole="settings" ToRole="user" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="user">
+        <EntityType Name="User">
           <Key>
-            <PropertyRef Name="id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="calendars" Type="Int32" />
-          <Property Name="settings" Type="Int32" />
-          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="calendars1" Relationship="Self.FK_calendar_user" FromRole="user" ToRole="calendar" />
-          <NavigationProperty Name="setting" Relationship="Self.FK_user_settings" FromRole="user" ToRole="settings" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Calendars" Type="Int32" />
+          <Property Name="UserSettingsId" Type="Int32" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" />
+          <Property Name="AccessFailedCount" Type="Int32" />
+          <NavigationProperty Name="CalendarsCollection" Relationship="Self.FK_calendar_user" FromRole="User" ToRole="Calendar" />
+          <NavigationProperty Name="UserSetting" Relationship="Self.FK_user_settings" FromRole="User" ToRole="UserSettings" />
         </EntityType>
+        <EntityType Name="UserSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TimeZone" Type="Byte" />
+          <Property Name="WeekStart" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultView" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_user_settings" FromRole="UserSettings" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Calendar_NotificationType">
+          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NotificationType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calendar">
+              <PropertyRef Name="NotificationTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_calendar_user">
-          <End Role="user" Type="Self.user" Multiplicity="0..1">
+          <End Role="User" Type="Self.User" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="calendar" Type="Self.calendar" Multiplicity="*" />
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="user">
-              <PropertyRef Name="id" />
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="calendar">
-              <PropertyRef Name="user_id" />
+            <Dependent Role="Calendar">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_event_calendar">
-          <End Role="calendar" Type="Self.calendar" Multiplicity="0..1">
+          <End Role="Calendar" Type="Self.Calendar" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="event" Type="Self.event" Multiplicity="*" />
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="calendar">
-              <PropertyRef Name="id" />
+            <Principal Role="Calendar">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="event">
-              <PropertyRef Name="calendar_id" />
+            <Dependent Role="CalendarEvent">
+              <PropertyRef Name="CalendarId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_guest_event">
-          <End Role="event" Type="Self.event" Multiplicity="0..1">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="guest" Type="Self.guest" Multiplicity="*" />
+          <End Role="Guest" Type="Self.Guest" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="event">
-              <PropertyRef Name="id" />
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="guest">
-              <PropertyRef Name="event_id" />
+            <Dependent Role="Guest">
+              <PropertyRef Name="EventId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_notification_event">
-          <End Role="event" Type="Self.event" Multiplicity="0..1">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="event">
-              <PropertyRef Name="id" />
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="notification">
-              <PropertyRef Name="event_id" />
+            <Dependent Role="Notification">
+              <PropertyRef Name="EventId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_repeatable_event">
-          <End Role="event" Type="Self.event" Multiplicity="0..1">
+          <End Role="CalendarEvent" Type="Self.CalendarEvent" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="repeatable" Type="Self.repeatable" Multiplicity="*" />
+          <End Role="Repeatable" Type="Self.Repeatable" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="event">
-              <PropertyRef Name="id" />
+            <Principal Role="CalendarEvent">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="repeatable">
-              <PropertyRef Name="event_id" />
+            <Dependent Role="Repeatable">
+              <PropertyRef Name="EventId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_notification_notification_type">
-          <End Role="notification_type" Type="Self.notification_type" Multiplicity="0..1">
+          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="notification_type">
-              <PropertyRef Name="id" />
+            <Principal Role="NotificationType">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="notification">
-              <PropertyRef Name="notification_type" />
+            <Dependent Role="Notification">
+              <PropertyRef Name="NotificationType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_settings">
-          <End Role="settings" Type="Self.setting" Multiplicity="0..1">
+          <End Role="UserSettings" Type="Self.UserSetting" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="settings">
-              <PropertyRef Name="id" />
+            <Principal Role="UserSettings">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="user">
-              <PropertyRef Name="settings" />
+            <Dependent Role="User">
+              <PropertyRef Name="UserSettingsId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="web_calendarEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="calendars" EntityType="Self.calendar" />
-          <EntitySet Name="events" EntityType="Self.event" />
-          <EntitySet Name="guests" EntityType="Self.guest" />
-          <EntitySet Name="notifications" EntityType="Self.notification" />
-          <EntitySet Name="notification_type" EntityType="Self.notification_type" />
-          <EntitySet Name="repeatables" EntityType="Self.repeatable" />
-          <EntitySet Name="settings" EntityType="Self.setting" />
-          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="Calendars" EntityType="Self.Calendar" />
+          <EntitySet Name="CalendarEvents" EntityType="Self.CalendarEvent" />
+          <EntitySet Name="Guests" EntityType="Self.Guest" />
+          <EntitySet Name="Notifications" EntityType="Self.Notification" />
+          <EntitySet Name="NotificationTypes" EntityType="Self.NotificationType" />
+          <EntitySet Name="Repeatables" EntityType="Self.Repeatable" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserSettings" EntityType="Self.UserSetting" />
+          <AssociationSet Name="FK_Calendar_NotificationType" Association="Self.FK_Calendar_NotificationType">
+            <End Role="NotificationType" EntitySet="NotificationTypes" />
+            <End Role="Calendar" EntitySet="Calendars" />
+          </AssociationSet>
           <AssociationSet Name="FK_calendar_user" Association="Self.FK_calendar_user">
-            <End Role="user" EntitySet="users" />
-            <End Role="calendar" EntitySet="calendars" />
+            <End Role="User" EntitySet="Users" />
+            <End Role="Calendar" EntitySet="Calendars" />
           </AssociationSet>
           <AssociationSet Name="FK_event_calendar" Association="Self.FK_event_calendar">
-            <End Role="calendar" EntitySet="calendars" />
-            <End Role="event" EntitySet="events" />
+            <End Role="Calendar" EntitySet="Calendars" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
           </AssociationSet>
           <AssociationSet Name="FK_guest_event" Association="Self.FK_guest_event">
-            <End Role="event" EntitySet="events" />
-            <End Role="guest" EntitySet="guests" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+            <End Role="Guest" EntitySet="Guests" />
           </AssociationSet>
           <AssociationSet Name="FK_notification_event" Association="Self.FK_notification_event">
-            <End Role="event" EntitySet="events" />
-            <End Role="notification" EntitySet="notifications" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+            <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
           <AssociationSet Name="FK_repeatable_event" Association="Self.FK_repeatable_event">
-            <End Role="event" EntitySet="events" />
-            <End Role="repeatable" EntitySet="repeatables" />
+            <End Role="CalendarEvent" EntitySet="CalendarEvents" />
+            <End Role="Repeatable" EntitySet="Repeatables" />
           </AssociationSet>
           <AssociationSet Name="FK_notification_notification_type" Association="Self.FK_notification_notification_type">
-            <End Role="notification_type" EntitySet="notification_type" />
-            <End Role="notification" EntitySet="notifications" />
+            <End Role="NotificationType" EntitySet="NotificationTypes" />
+            <End Role="Notification" EntitySet="Notifications" />
           </AssociationSet>
           <AssociationSet Name="FK_user_settings" Association="Self.FK_user_settings">
-            <End Role="settings" EntitySet="settings" />
-            <End Role="user" EntitySet="users" />
+            <End Role="UserSettings" EntitySet="UserSettings" />
+            <End Role="User" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -470,95 +534,110 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="web_calendarModelStoreContainer" CdmEntityContainer="web_calendarEntities">
-          <EntitySetMapping Name="calendars">
-            <EntityTypeMapping TypeName="web_calendarModel.calendar">
-              <MappingFragment StoreEntitySet="calendar">
-                <ScalarProperty Name="id" ColumnName="id" />
+          <EntitySetMapping Name="Calendars">
+            <EntityTypeMapping TypeName="web_calendarModel.Calendar">
+              <MappingFragment StoreEntitySet="Calendar">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="CalendarColor" ColumnName="CalendarColor" />
+                <ScalarProperty Name="CalendarEvents" ColumnName="CalendarEvents" />
+                <ScalarProperty Name="Visibility" ColumnName="Visibility" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="NotificationTypeId" ColumnName="NotificationTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarEvents">
+            <EntityTypeMapping TypeName="web_calendarModel.CalendarEvent">
+              <MappingFragment StoreEntitySet="CalendarEvent">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="TimeBegin" ColumnName="TimeBegin" />
+                <ScalarProperty Name="TimeEnd" ColumnName="TimeEnd" />
+                <ScalarProperty Name="Visibility" ColumnName="Visibility" />
+                <ScalarProperty Name="AllDay" ColumnName="AllDay" />
+                <ScalarProperty Name="CalendarId" ColumnName="CalendarId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Guests">
+            <EntityTypeMapping TypeName="web_calendarModel.Guest">
+              <MappingFragment StoreEntitySet="Guest">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="web_calendarModel.Notification">
+              <MappingFragment StoreEntitySet="Notification">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotificationTypes">
+            <EntityTypeMapping TypeName="web_calendarModel.NotificationType">
+              <MappingFragment StoreEntitySet="NotificationType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RepetitionCount" ColumnName="RepetitionCount" />
+                <ScalarProperty Name="Interval" ColumnName="Interval" />
+                <ScalarProperty Name="TimeBefore" ColumnName="TimeBefore" />
+                <ScalarProperty Name="KindOfNotification" ColumnName="KindOfNotification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Repeatables">
+            <EntityTypeMapping TypeName="web_calendarModel.Repeatable">
+              <MappingFragment StoreEntitySet="Repeatable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Period" ColumnName="Period" />
+                <ScalarProperty Name="RepeatCount" ColumnName="RepeatCount" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="web_calendarModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="color" ColumnName="color" />
-                <ScalarProperty Name="events" ColumnName="events" />
-                <ScalarProperty Name="visibility" ColumnName="visibility" />
-                <ScalarProperty Name="timezone" ColumnName="timezone" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="notification_type_id" ColumnName="notification_type_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="events">
-            <EntityTypeMapping TypeName="web_calendarModel.event">
-              <MappingFragment StoreEntitySet="event">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="place" ColumnName="place" />
-                <ScalarProperty Name="time_begin" ColumnName="time_begin" />
-                <ScalarProperty Name="time_end" ColumnName="time_end" />
-                <ScalarProperty Name="visibility" ColumnName="visibility" />
-                <ScalarProperty Name="all_day" ColumnName="all_day" />
-                <ScalarProperty Name="calendar_id" ColumnName="calendar_id" />
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="web_calendarModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Calendars" ColumnName="Calendars" />
+                <ScalarProperty Name="UserSettingsId" ColumnName="UserSettingsId" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="guests">
-            <EntityTypeMapping TypeName="web_calendarModel.guest">
-              <MappingFragment StoreEntitySet="guest">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="event_id" ColumnName="event_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="notifications">
-            <EntityTypeMapping TypeName="web_calendarModel.notification">
-              <MappingFragment StoreEntitySet="notification">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="notification_type" ColumnName="notification_type" />
-                <ScalarProperty Name="event_id" ColumnName="event_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="notification_type">
-            <EntityTypeMapping TypeName="web_calendarModel.notification_type">
-              <MappingFragment StoreEntitySet="notification_type">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="repetition_count" ColumnName="repetition_count" />
-                <ScalarProperty Name="interval" ColumnName="interval" />
-                <ScalarProperty Name="time_before" ColumnName="time_before" />
-                <ScalarProperty Name="kind_of_notification" ColumnName="kind_of_notification" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="repeatables">
-            <EntityTypeMapping TypeName="web_calendarModel.repeatable">
-              <MappingFragment StoreEntitySet="repeatable">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="period" ColumnName="period" />
-                <ScalarProperty Name="repeat_count" ColumnName="repeat_count" />
-                <ScalarProperty Name="event_id" ColumnName="event_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="settings">
-            <EntityTypeMapping TypeName="web_calendarModel.setting">
-              <MappingFragment StoreEntitySet="settings">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="timezone" ColumnName="timezone" />
-                <ScalarProperty Name="weekstart" ColumnName="weekstart" />
-                <ScalarProperty Name="default_view" ColumnName="default_view" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="users">
-            <EntityTypeMapping TypeName="web_calendarModel.user">
-              <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="calendars" ColumnName="calendars" />
-                <ScalarProperty Name="settings" ColumnName="settings" />
-                <ScalarProperty Name="role" ColumnName="role" />
+          <EntitySetMapping Name="UserSettings">
+            <EntityTypeMapping TypeName="web_calendarModel.UserSetting">
+              <MappingFragment StoreEntitySet="UserSettings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
+                <ScalarProperty Name="WeekStart" ColumnName="WeekStart" />
+                <ScalarProperty Name="DefaultView" ColumnName="DefaultView" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -14,11 +14,11 @@ namespace ApplicationRepository.Models
     
     public partial class Notification
     {
-        public int id { get; set; }
-        public Nullable<int> notification_type { get; set; }
-        public Nullable<int> event_id { get; set; }
+        public int Id { get; set; }
+        public Nullable<int> NotificationType { get; set; }
+        public Nullable<int> EventId { get; set; }
     
-        public virtual Event @event { get; set; }
-        public virtual NotificationType notification_type1 { get; set; }
+        public virtual CalendarEvent CalendarEvent { get; set; }
+        public virtual NotificationType NotificationTypeReference { get; set; }
     }
 }

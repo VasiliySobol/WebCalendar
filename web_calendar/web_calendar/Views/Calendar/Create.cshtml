@@ -1,4 +1,4 @@
-﻿@model ApplicationRepository.Models.Calendar
+﻿@model web_calendar.Models.CalendarViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -16,68 +16,50 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.text, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.text, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.text, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.color, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CalendarColor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.color, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.color, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CalendarColor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CalendarColor, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.events, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Visibility, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.events, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.events, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Visibility, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Visibility, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.visibility, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TimeZone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.visibility, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.visibility, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.TimeZone, "", new { @class = "text-danger" })
+                @Html.DropDownList("timezone", TimeZoneInfo.GetSystemTimeZones().Select(tz => new SelectListItem()
+                {
+                    Text = tz.DisplayName,
+                    Value = tz.Id
+                }));
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.timezone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.timezone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.timezone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.notification_type_id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.notification_type_id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.notification_type_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @*place partial view of notification settings*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

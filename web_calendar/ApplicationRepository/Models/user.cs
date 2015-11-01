@@ -16,18 +16,22 @@ namespace ApplicationRepository.Models
     {
         public User()
         {
-            this.calendars_collection = new HashSet<Calendar>();
+            this.CalendarsCollection = new HashSet<Calendar>();
         }
     
-        public int id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string email { get; set; }
-        public Nullable<int> calendars { get; set; }
-        public Nullable<int> settings { get; set; }
-        public string role { get; set; }
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string PasswordHash { get; set; }
+        public string Email { get; set; }
+        public Nullable<int> Calendars { get; set; }
+        public Nullable<int> UserSettingsId { get; set; }
+        public string Role { get; set; }
+        public Nullable<bool> EmailConfirmed { get; set; }
+        public Nullable<System.DateTime> LockoutEndDateUtc { get; set; }
+        public Nullable<bool> LockoutEnabled { get; set; }
+        public Nullable<int> AccessFailedCount { get; set; }
     
-        public virtual ICollection<Calendar> calendars_collection { get; set; }
-        public virtual Settings settings_reference { get; set; }
+        public virtual ICollection<Calendar> CalendarsCollection { get; set; }
+        public virtual UserSetting UserSetting { get; set; }
     }
 }

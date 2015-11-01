@@ -1,5 +1,0 @@
-M:\WebCalendar\web_calendar\Infrastructure\obj\Debug\Infrastructure.csprojResolveAssemblyReference.cache
-M:\WebCalendar\web_calendar\Infrastructure\bin\Debug\Infrastructure.dll
-M:\WebCalendar\web_calendar\Infrastructure\bin\Debug\Infrastructure.pdb
-M:\WebCalendar\web_calendar\Infrastructure\obj\Debug\Infrastructure.dll
-M:\WebCalendar\web_calendar\Infrastructure\obj\Debug\Infrastructure.pdb

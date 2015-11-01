@@ -12,10 +12,10 @@ namespace ApplicationRepository.Concrete
     {
         public NotificationType GetNotificationType(int id)
         {
-            Notification n = FindFirst(x => x.id == id);
-            if (n!=null)
+            Notification notification = FindFirst(x => x.Id == id);
+            if (notification != null)
             {
-                return (n.notification_type1);
+                return (notification.NotificationTypeReference);
             }
             return null;
         }
