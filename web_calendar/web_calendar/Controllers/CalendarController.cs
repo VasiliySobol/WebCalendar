@@ -22,7 +22,7 @@ namespace web_calendar.Controllers
             var data = calRepo.GetAll();
 
             return JsonConvert.SerializeObject(data);  
-        } 
+        }
 
         /*public ActionResult Index()
         {
