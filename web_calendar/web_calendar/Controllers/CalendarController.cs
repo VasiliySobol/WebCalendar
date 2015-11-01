@@ -17,17 +17,17 @@ namespace web_calendar.Controllers
             this.calRepo = _calRepo;  
         }  
 
-        public string Index()  
+        /*public string Index()  
         {  
             var data = calRepo.GetAll();
 
             return JsonConvert.SerializeObject(data);  
-        }
+        }*/
 
-        /*public ActionResult Index()
+        public ActionResult Index()
         {
             return View();
-        }*/
+        }
 
         public ActionResult Create()
         {
