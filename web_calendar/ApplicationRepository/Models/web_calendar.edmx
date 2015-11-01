@@ -276,7 +276,7 @@
           <Property Name="NotificationTypeId" Type="Int32" />
           <NavigationProperty Name="NotificationType" Relationship="Self.FK_Calendar_NotificationType" FromRole="Calendar" ToRole="NotificationType" />
           <NavigationProperty Name="User" Relationship="Self.FK_calendar_user" FromRole="Calendar" ToRole="User" />
-          <NavigationProperty Name="CalendarEvents1" Relationship="Self.FK_event_calendar" FromRole="Calendar" ToRole="CalendarEvent" />
+          <NavigationProperty Name="CalendarEventsCollection" Relationship="Self.FK_event_calendar" FromRole="Calendar" ToRole="CalendarEvent" />
         </EntityType>
         <EntityType Name="CalendarEvent">
           <Key>
@@ -313,7 +313,7 @@
           <Property Name="NotificationType" Type="Int32" />
           <Property Name="EventId" Type="Int32" />
           <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_notification_event" FromRole="Notification" ToRole="CalendarEvent" />
-          <NavigationProperty Name="NotificationType1" Relationship="Self.FK_notification_notification_type" FromRole="Notification" ToRole="NotificationType" />
+          <NavigationProperty Name="NotificationTypeReference" Relationship="Self.FK_notification_notification_type" FromRole="Notification" ToRole="NotificationType" />
         </EntityType>
         <EntityType Name="NotificationType">
           <Key>
@@ -362,7 +362,7 @@
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" />
           <Property Name="AccessFailedCount" Type="Int32" />
-          <NavigationProperty Name="Calendars1" Relationship="Self.FK_calendar_user" FromRole="User" ToRole="Calendar" />
+          <NavigationProperty Name="CalendarsCollection" Relationship="Self.FK_calendar_user" FromRole="User" ToRole="Calendar" />
           <NavigationProperty Name="UserSetting" Relationship="Self.FK_user_settings" FromRole="User" ToRole="UserSettings" />
         </EntityType>
         <EntityType Name="UserSetting">

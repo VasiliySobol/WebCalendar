@@ -25,7 +25,7 @@ namespace ApplicationRepository
 
             // register all your components with the container here  
             //This is the important line to edit  
-            container.RegisterType<INotificationRepository, NotificationRepository>();
+            container.RegisterType<ICalendarRepository, CalendarRepository>();
 
 
             RegisterTypes(container);
