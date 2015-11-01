@@ -146,6 +146,29 @@ namespace web_calendar.Mappers
         }
 
         // -------- Calendars --------
+
+        public static CalendarViewModel MapToCalendarViewModel(Calendar calendar)
+        {
+            CalendarViewModel CVM = new CalendarViewModel();
+            CVM.CalendarColor = calendar.CalendarColor;
+            CVM.Description = calendar.Text;
+            CVM.Name = calendar.Name;
+            CVM.notificationSettings = new NotificationSettingsViewModel();
+            CVM.TimeZone = calendar.TimeZone;
+            CVM.Visibility = calendar.Visibility;          
+            return CVM;
+        }
+
+        public static Calendar MapToCalendarFromCalendarVM(CalendarViewModel calendar)
+        {
+            Calendar calendarTMP = new Calendar();
+            calendarTMP.CalendarColor = calendar.CalendarColor;
+            calendarTMP.Text = calendar.Description;
+            calendarTMP.Name = calendar.Name;            
+            calendarTMP.TimeZone = calendar.TimeZone;
+            calendarTMP.Visibility = calendar.Visibility;           
+            return calendarTMP;
+        }
         // -------- Users --------
     }
 }
