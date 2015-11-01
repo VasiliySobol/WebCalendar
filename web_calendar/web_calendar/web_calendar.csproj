@@ -333,6 +333,7 @@
     <Content Include="Views\Event\EditNotificationType.cshtml" />
     <Content Include="Views\Event\ListNotificationType.cshtml" />
     <Content Include="Views\Event\Schedule.cshtml" />
+    <Content Include="Views\Calendar\JSONIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationRepository\ApplicationRepository.csproj">

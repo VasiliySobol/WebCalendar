@@ -17,16 +17,16 @@ namespace web_calendar.Controllers
             this.calRepo = _calRepo;  
         }  
 
-        /*public string Index()  
-        {  
-            var data = calRepo.GetAll();
-
-            return JsonConvert.SerializeObject(data);  
-        }*/
-
         public ActionResult Index()
         {
             return View();
+        }
+
+        public string JSONIndex()
+        {
+            var data = calRepo.GetAll();
+
+            return JsonConvert.SerializeObject(data);
         }
 
         public ActionResult Create()
