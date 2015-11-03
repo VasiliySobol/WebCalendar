@@ -17,7 +17,7 @@
           <Property Name="Visibility" Type="nvarchar" MaxLength="50" />
           <Property Name="TimeZone" Type="tinyint" />
           <Property Name="NotificationTypeId" Type="int" />
-          <Property Name="UserId" Type="varchar(max)" />
+          <Property Name="UserId" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="CalendarEvent">
           <Key>
@@ -67,16 +67,6 @@
           <Property Name="Period" Type="nvarchar" MaxLength="50" />
           <Property Name="RepeatCount" Type="int" />
           <Property Name="EventId" Type="int" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_Calendar_NotificationType">
           <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
@@ -167,7 +157,6 @@
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Repeatable" EntityType="Self.Repeatable" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Calendar_NotificationType" Association="Self.FK_Calendar_NotificationType">
             <End Role="NotificationType" EntitySet="NotificationType" />
             <End Role="Calendar" EntitySet="Calendar" />
@@ -208,7 +197,7 @@
           <Property Name="CalendarEvents" Type="Int32" />
           <Property Name="Visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TimeZone" Type="Byte" />
-          <Property Name="UserId" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="UserId" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="NotificationTypeId" Type="Int32" />
           <NavigationProperty Name="NotificationType" Relationship="Self.FK_Calendar_NotificationType" FromRole="Calendar" ToRole="NotificationType" />
           <NavigationProperty Name="CalendarEventsCollection" Relationship="Self.FK_event_calendar" FromRole="Calendar" ToRole="CalendarEvent" />
@@ -271,16 +260,6 @@
           <Property Name="RepeatCount" Type="Int32" />
           <Property Name="EventId" Type="Int32" />
           <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_repeatable_event" FromRole="Repeatable" ToRole="CalendarEvent" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Calendar_NotificationType">
           <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
@@ -371,7 +350,6 @@
           <EntitySet Name="Notifications" EntityType="Self.Notification" />
           <EntitySet Name="NotificationTypes" EntityType="Self.NotificationType" />
           <EntitySet Name="Repeatables" EntityType="Self.Repeatable" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_Calendar_NotificationType" Association="Self.FK_Calendar_NotificationType">
             <End Role="NotificationType" EntitySet="NotificationTypes" />
             <End Role="Calendar" EntitySet="Calendars" />
@@ -469,17 +447,6 @@
                 <ScalarProperty Name="Period" ColumnName="Period" />
                 <ScalarProperty Name="RepeatCount" ColumnName="RepeatCount" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="web_calendarModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
