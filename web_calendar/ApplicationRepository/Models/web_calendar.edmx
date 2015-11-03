@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Calendar">
           <Key>
             <PropertyRef Name="Id" />
@@ -16,8 +16,8 @@
           <Property Name="CalendarEvents" Type="int" />
           <Property Name="Visibility" Type="nvarchar" MaxLength="50" />
           <Property Name="TimeZone" Type="tinyint" />
-          <Property Name="UserId" Type="int" />
           <Property Name="NotificationTypeId" Type="int" />
+          <Property Name="UserId" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="CalendarEvent">
           <Key>
@@ -78,31 +78,6 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
-          <Property Name="PasswordHash" Type="nvarchar" MaxLength="100" />
-          <Property Name="Email" Type="nvarchar" MaxLength="150" />
-          <Property Name="Calendars" Type="int" />
-          <Property Name="UserSettingsId" Type="int" />
-          <Property Name="Role" Type="nvarchar" MaxLength="50" />
-          <Property Name="EmailConfirmed" Type="bit" />
-          <Property Name="LockoutEndDateUtc" Type="datetime" />
-          <Property Name="LockoutEnabled" Type="bit" />
-          <Property Name="AccessFailedCount" Type="int" />
-        </EntityType>
-        <EntityType Name="UserSettings">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TimeZone" Type="tinyint" />
-          <Property Name="WeekStart" Type="nvarchar" MaxLength="2" />
-          <Property Name="DefaultView" Type="nvarchar" MaxLength="10" />
-        </EntityType>
         <Association Name="FK_Calendar_NotificationType">
           <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
           <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
@@ -112,20 +87,6 @@
             </Principal>
             <Dependent Role="Calendar">
               <PropertyRef Name="NotificationTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_calendar_user">
-          <End Role="User" Type="Self.User" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Calendar">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -199,20 +160,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_user_settings">
-          <End Role="UserSettings" Type="Self.UserSettings" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserSettings">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="UserSettingsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="web_calendarModelStoreContainer">
           <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalendarEvent" EntityType="Self.CalendarEvent" Schema="dbo" store:Type="Tables" />
@@ -221,14 +168,8 @@
           <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Repeatable" EntityType="Self.Repeatable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserSettings" EntityType="Self.UserSettings" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Calendar_NotificationType" Association="Self.FK_Calendar_NotificationType">
             <End Role="NotificationType" EntitySet="NotificationType" />
-            <End Role="Calendar" EntitySet="Calendar" />
-          </AssociationSet>
-          <AssociationSet Name="FK_calendar_user" Association="Self.FK_calendar_user">
-            <End Role="User" EntitySet="User" />
             <End Role="Calendar" EntitySet="Calendar" />
           </AssociationSet>
           <AssociationSet Name="FK_event_calendar" Association="Self.FK_event_calendar">
@@ -251,13 +192,8 @@
             <End Role="CalendarEvent" EntitySet="CalendarEvent" />
             <End Role="Repeatable" EntitySet="Repeatable" />
           </AssociationSet>
-          <AssociationSet Name="FK_user_settings" Association="Self.FK_user_settings">
-            <End Role="UserSettings" EntitySet="UserSettings" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="web_calendarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -272,10 +208,9 @@
           <Property Name="CalendarEvents" Type="Int32" />
           <Property Name="Visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TimeZone" Type="Byte" />
-          <Property Name="UserId" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="NotificationTypeId" Type="Int32" />
           <NavigationProperty Name="NotificationType" Relationship="Self.FK_Calendar_NotificationType" FromRole="Calendar" ToRole="NotificationType" />
-          <NavigationProperty Name="User" Relationship="Self.FK_calendar_user" FromRole="Calendar" ToRole="User" />
           <NavigationProperty Name="CalendarEventsCollection" Relationship="Self.FK_event_calendar" FromRole="Calendar" ToRole="CalendarEvent" />
         </EntityType>
         <EntityType Name="CalendarEvent">
@@ -347,34 +282,6 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="User">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordHash" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Calendars" Type="Int32" />
-          <Property Name="UserSettingsId" Type="Int32" />
-          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="EmailConfirmed" Type="Boolean" />
-          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
-          <Property Name="LockoutEnabled" Type="Boolean" />
-          <Property Name="AccessFailedCount" Type="Int32" />
-          <NavigationProperty Name="CalendarsCollection" Relationship="Self.FK_calendar_user" FromRole="User" ToRole="Calendar" />
-          <NavigationProperty Name="UserSetting" Relationship="Self.FK_user_settings" FromRole="User" ToRole="UserSettings" />
-        </EntityType>
-        <EntityType Name="UserSetting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TimeZone" Type="Byte" />
-          <Property Name="WeekStart" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="DefaultView" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_user_settings" FromRole="UserSettings" ToRole="User" />
-        </EntityType>
         <Association Name="FK_Calendar_NotificationType">
           <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
           <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
@@ -384,20 +291,6 @@
             </Principal>
             <Dependent Role="Calendar">
               <PropertyRef Name="NotificationTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_calendar_user">
-          <End Role="User" Type="Self.User" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Calendar">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -471,20 +364,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_user_settings">
-          <End Role="UserSettings" Type="Self.UserSetting" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserSettings">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="UserSettingsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="web_calendarEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Calendars" EntityType="Self.Calendar" />
           <EntitySet Name="CalendarEvents" EntityType="Self.CalendarEvent" />
@@ -493,14 +372,8 @@
           <EntitySet Name="NotificationTypes" EntityType="Self.NotificationType" />
           <EntitySet Name="Repeatables" EntityType="Self.Repeatable" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="UserSettings" EntityType="Self.UserSetting" />
           <AssociationSet Name="FK_Calendar_NotificationType" Association="Self.FK_Calendar_NotificationType">
             <End Role="NotificationType" EntitySet="NotificationTypes" />
-            <End Role="Calendar" EntitySet="Calendars" />
-          </AssociationSet>
-          <AssociationSet Name="FK_calendar_user" Association="Self.FK_calendar_user">
-            <End Role="User" EntitySet="Users" />
             <End Role="Calendar" EntitySet="Calendars" />
           </AssociationSet>
           <AssociationSet Name="FK_event_calendar" Association="Self.FK_event_calendar">
@@ -522,10 +395,6 @@
           <AssociationSet Name="FK_notification_notification_type" Association="Self.FK_notification_notification_type">
             <End Role="NotificationType" EntitySet="NotificationTypes" />
             <End Role="Notification" EntitySet="Notifications" />
-          </AssociationSet>
-          <AssociationSet Name="FK_user_settings" Association="Self.FK_user_settings">
-            <End Role="UserSettings" EntitySet="UserSettings" />
-            <End Role="User" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -614,34 +483,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="web_calendarModel.User">
-              <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Calendars" ColumnName="Calendars" />
-                <ScalarProperty Name="UserSettingsId" ColumnName="UserSettingsId" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserSettings">
-            <EntityTypeMapping TypeName="web_calendarModel.UserSetting">
-              <MappingFragment StoreEntitySet="UserSettings">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
-                <ScalarProperty Name="WeekStart" ColumnName="WeekStart" />
-                <ScalarProperty Name="DefaultView" ColumnName="DefaultView" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

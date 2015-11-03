@@ -4,23 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8136a3b1d4ae4520b2a8f352cb0cd4ad" Name="Diagram1">
+      <Diagram DiagramId="8136a3b1d4ae4520b2a8f352cb0cd4ad" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="web_calendarModel.Calendar" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="web_calendarModel.CalendarEvent" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="web_calendarModel.Guest" Width="1.5" PointX="7.5" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="web_calendarModel.Notification" Width="1.5" PointX="10.5" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="web_calendarModel.NotificationType" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="web_calendarModel.Repeatable" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="web_calendarModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="web_calendarModel.UserSetting" Width="1.5" PointX="1.5" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="web_calendarModel.Repeatable" Width="1.5" PointX="7.625" PointY="7.125" IsExpanded="true" />
         <AssociationConnector Association="web_calendarModel.FK_Calendar_NotificationType" ManuallyRouted="false" />
-        <AssociationConnector Association="web_calendarModel.FK_calendar_user" ManuallyRouted="false" />
         <AssociationConnector Association="web_calendarModel.FK_event_calendar" ManuallyRouted="false" />
         <AssociationConnector Association="web_calendarModel.FK_guest_event" ManuallyRouted="false" />
         <AssociationConnector Association="web_calendarModel.FK_notification_event" ManuallyRouted="false" />
         <AssociationConnector Association="web_calendarModel.FK_repeatable_event" ManuallyRouted="false" />
         <AssociationConnector Association="web_calendarModel.FK_notification_notification_type" ManuallyRouted="false" />
-        <AssociationConnector Association="web_calendarModel.FK_user_settings" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
