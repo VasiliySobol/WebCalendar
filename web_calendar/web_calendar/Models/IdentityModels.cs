@@ -6,14 +6,15 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace web_calendar.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public byte TimeZone { get; set; }
+        public string WeekStart { get; set; }
+        public string DefaultView { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
             return userIdentity;
         }
     }
@@ -21,7 +22,7 @@ namespace web_calendar.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("web_calendarEntities", throwIfV1Schema: false)
         {
         }
 
@@ -29,7 +30,5 @@ namespace web_calendar.Models
         {
             return new ApplicationDbContext();
         }
-
-        //public System.Data.Entity.DbSet<ApplicationRepository.Models.Calendar> Calendars { get; set; }
     }
 }
