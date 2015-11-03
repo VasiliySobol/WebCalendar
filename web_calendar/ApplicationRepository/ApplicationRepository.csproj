@@ -123,12 +123,10 @@
     <Compile Include="Concrete\EventRepository.cs" />
     <Compile Include="Concrete\GenericRepository.cs" />
     <Compile Include="Concrete\NotificationRepository.cs" />
-    <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Interface\INotificationRepository.cs" />
     <Compile Include="Interface\ICalendarRepository.cs" />
     <Compile Include="Interface\IEventRepository.cs" />
     <Compile Include="Interface\IGenericRepository.cs" />
-    <Compile Include="Interface\IUserRepository.cs" />
     <Compile Include="Models\Calendar.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
@@ -147,10 +145,7 @@
     <Compile Include="Models\Repeatable.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>web_calendar.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserSetting.cs">
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\web_calendar.Context.cs">
