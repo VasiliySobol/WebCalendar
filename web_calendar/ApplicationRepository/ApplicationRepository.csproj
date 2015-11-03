@@ -118,7 +118,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Concrete\CalendarRepository.cs" />
     <Compile Include="Concrete\EventRepository.cs" />
     <Compile Include="Concrete\GenericRepository.cs" />
