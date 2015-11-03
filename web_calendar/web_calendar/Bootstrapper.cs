@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using ApplicationRepository.Interface;
 using ApplicationRepository.Concrete;
+using web_calendar.Controllers;
 
 namespace ApplicationRepository
 {
@@ -27,6 +28,9 @@ namespace ApplicationRepository
             container.RegisterType<IEventRepository, EventRepository>();
             container.RegisterType<INotificationRepository, NotificationRepository>();
 
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
+
             RegisterTypes(container);
             return container;
         }
@@ -34,5 +38,5 @@ namespace ApplicationRepository
         {
 
         }
-    }  
+    }
 }

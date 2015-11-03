@@ -7,7 +7,7 @@ using ApplicationRepository.Models;
 
 namespace ApplicationRepository.Interface
 {
-    interface IEventRepository: IGenericRepository<CalendarEvent>
+    public interface IEventRepository: IGenericRepository<CalendarEvent>
     {
         Notification FindFirstNotification(int id, Func<Notification, bool> filter);
         IEnumerable<Notification> FindAllNotifications(int id, Func<Notification, bool> filter);

@@ -7,7 +7,7 @@ using ApplicationRepository.Models;
 
 namespace ApplicationRepository.Interface
 {
-    interface INotificationRepository: IGenericRepository<Notification>
+    public interface INotificationRepository: IGenericRepository<Notification>
     {
         NotificationType GetNotificationType(int id);
     }
