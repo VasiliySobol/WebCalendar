@@ -23,7 +23,6 @@ namespace ApplicationRepository
         {
             var container = new UnityContainer();
 
-            container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<ICalendarRepository, CalendarRepository>();
             container.RegisterType<IEventRepository, EventRepository>();
             container.RegisterType<INotificationRepository, NotificationRepository>();
