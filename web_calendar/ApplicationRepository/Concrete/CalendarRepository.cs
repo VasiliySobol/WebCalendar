@@ -10,12 +10,16 @@ namespace ApplicationRepository.Concrete
 {
     public sealed class CalendarRepository : GenericRepository<web_calendarEntities, Calendar>, ICalendarRepository
     {
-        public User GetUser(int Id)
+        public IEnumerable<Calendar> GetUserCalendars(string UserId)
+        {
+            return FindAll(x => x.UserId == UserId).ToList();
+        }
+        public string GetUserId(int Id)
         {
             Calendar calendar = FindFirst(x => x.Id == Id);
-            if ((calendar != null) && (calendar.UserId != null))
+            if (calendar != null)
             {
-                return calendar.User;
+                return calendar.UserId;
             }
             return null;
         }

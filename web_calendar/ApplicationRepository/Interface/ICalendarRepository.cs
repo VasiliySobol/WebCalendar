@@ -9,7 +9,8 @@ namespace ApplicationRepository.Interface
 {
     public interface ICalendarRepository : IGenericRepository<Calendar>
     {
-        User GetUser(int Id);
+        IEnumerable<Calendar> GetUserCalendars(string UserId);
+        string GetUserId(int Id);
         NotificationType GetStandartNotificationType(int Id);
         CalendarEvent FindFirstEvent(int Id, Func<CalendarEvent, bool> filter);
         IEnumerable<CalendarEvent> FindAllEvents(int Id, Func<CalendarEvent, bool> filter);
