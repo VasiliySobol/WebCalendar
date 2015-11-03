@@ -49,9 +49,9 @@ namespace web_calendar.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "User name or Email")]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Login { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -66,7 +66,7 @@ namespace web_calendar.Models
     {
         [Required]
         [Display(Name = "Username")]
-        public string Username { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [EmailAddress]
