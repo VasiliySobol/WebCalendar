@@ -26,11 +26,10 @@ namespace ApplicationRepository.Models
         public Nullable<int> CalendarEvents { get; set; }
         public string Visibility { get; set; }
         public Nullable<byte> TimeZone { get; set; }
-        public Nullable<int> UserId { get; set; }
+        public string UserId { get; set; }
         public Nullable<int> NotificationTypeId { get; set; }
     
         public virtual NotificationType NotificationType { get; set; }
-        public virtual User User { get; set; }
         public virtual ICollection<CalendarEvent> CalendarEventsCollection { get; set; }
     }
 }
