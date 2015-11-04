@@ -4,7 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ApplicationRepository.Interface;
-using Newtonsoft.Json;  
+using Newtonsoft.Json;
+using Microsoft.AspNet.Identity;
 
 namespace web_calendar.Controllers
 {
@@ -20,7 +21,7 @@ namespace web_calendar.Controllers
         public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
         {
             ViewBag.RenderPart = RenderPart;
-            return View(calRepo.GetAll());
+            return View(calRepo.GetUserCalendars(User.Identity.GetUserId()));
         }
 
         [ChildActionOnly]

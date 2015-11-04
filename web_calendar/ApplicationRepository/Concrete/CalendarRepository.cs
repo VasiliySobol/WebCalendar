@@ -14,6 +14,7 @@ namespace ApplicationRepository.Concrete
         {
             return FindAll(x => x.UserId == UserId).ToList();
         }
+
         public string GetUserId(int Id)
         {
             Calendar calendar = FindFirst(x => x.Id == Id);
@@ -23,6 +24,7 @@ namespace ApplicationRepository.Concrete
             }
             return null;
         }
+
         public NotificationType GetStandartNotificationType(int Id)
         {
             Calendar calendar = FindFirst(x => x.Id == Id);
@@ -30,6 +32,7 @@ namespace ApplicationRepository.Concrete
                 return calendar.NotificationType;
             return null;
         }
+
         public CalendarEvent FindFirstEvent(int Id, Func<CalendarEvent, bool> filter)
         {
             Calendar calendar = FindFirst(x => x.Id == Id);
@@ -37,6 +40,7 @@ namespace ApplicationRepository.Concrete
                 return calendar.CalendarEventsCollection.FirstOrDefault(filter);
             return null;
         }
+
         public IEnumerable<CalendarEvent> FindAllEvents(int Id, Func<CalendarEvent, bool> filter)
         {
             Calendar calendar = FindFirst(x => x.Id == Id);
@@ -44,6 +48,7 @@ namespace ApplicationRepository.Concrete
                 return calendar.CalendarEventsCollection.Where(filter).ToList();
             return null; 
         }
+
         public IEnumerable<CalendarEvent> GetAllEvents(int Id)
         {
             Calendar calendar = FindFirst(x => x.Id == Id);
