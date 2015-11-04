@@ -150,11 +150,11 @@ namespace web_calendar.Mappers
             return repeatable;
         }
 
-        public static DetailsEventViewModel MapToDetailsEventVM(CalendarEvent calendarEvent, 
+        /*public static DetailsEventViewModel MapToDetailsEventVM(CalendarEvent calendarEvent, 
             List<NotificationType> notificationTypes, List<Repeatable> repeatable)
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         // -------- Calendars --------
 
