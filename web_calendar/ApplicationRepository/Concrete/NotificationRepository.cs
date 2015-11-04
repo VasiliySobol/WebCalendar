@@ -19,5 +19,13 @@ namespace ApplicationRepository.Concrete
             }
             return null;
         }
+
+        public List<NotificationType> GetAllEventNotificationTypes(int eventId)
+        {
+            List<Notification> notifications = FindAll(x => x.EventId == eventId).ToList();
+            if (notifications != null)
+                return notifications.Select(x => x.NotificationTypeReference).ToList();
+            return null;
+        }
     }
 }

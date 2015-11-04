@@ -10,5 +10,6 @@ namespace ApplicationRepository.Interface
     public interface INotificationRepository: IGenericRepository<Notification>
     {
         NotificationType GetNotificationType(int id);
+        List<NotificationType> GetAllEventNotificationTypes(int eventId);
     }
 }
