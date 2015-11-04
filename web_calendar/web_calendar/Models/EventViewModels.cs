@@ -6,6 +6,50 @@ using System.Web;
 
 namespace web_calendar.Models
 {
+    public class DetailsEventViewModel
+    {
+        public int Id { get; set; }
+
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Display(Name = "Text")]
+        public string Text { get; set; }
+
+        [Display(Name = "Place")]
+        public string Place { get; set; }
+
+        [Display(Name = "Begin time")]
+        public System.DateTime TimeBegin { get; set; }
+
+        [Display(Name = "End time")]
+        public Nullable<System.DateTime> TimeEnd { get; set; }
+        
+        [Display(Name = "Visibility")]
+        public string Visibility { get; set; }
+
+        [Display(Name = "All day")]
+        public Nullable<bool> AllDay { get; set; }
+
+        // Guests
+        [Display(Name = "Guests")]
+        public ICollection<string> GuestsEmails { get; set; }
+
+        // Notification Settings
+        [Display(Name = "Notification settings")]
+        public ICollection<NotificationSettingsViewModel> notificationSettings { get; set; }
+
+        // Repeatable Settings
+        [Display(Name = "Make repeatable")]
+        public ICollection<RepeatableSettingsViewModel> repeatableSettings { get; set; }
+
+        // Parent Calendar
+        public int CalendarId { get; set; }
+
+        [Display(Name = "Calendar name")]
+        public string CalendarName { get; set; }
+    }
+
     public class DisplayEventViewModel
     {
         public int Id { get; set; }
@@ -58,7 +102,7 @@ namespace web_calendar.Models
         public string Visibility { get; set; }
 
         [Display(Name = "All day")]
-        public Nullable<bool> AllDay { get; set; }
+        public bool AllDay { get; set; }
 
         // Guests
         [Display(Name = "Guests")]
