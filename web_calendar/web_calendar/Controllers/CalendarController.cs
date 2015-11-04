@@ -18,18 +18,21 @@ namespace web_calendar.Controllers
             this.calendarRepository = _calendarRepository;  
         }
 
+        [Authorize]
         public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
         {
             ViewBag.RenderPart = RenderPart;
             return View(calendarRepository.GetUserCalendars(User.Identity.GetUserId()));
         }
 
+        [Authorize]
         [ChildActionOnly]
         public ActionResult CalendarDayPartial()
         {
             return PartialView("_CalendarDayPartial");
         }
 
+        [Authorize]
         [ChildActionOnly]
         public ActionResult CalendarWeekPartial()
         {
