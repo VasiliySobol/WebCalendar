@@ -99,6 +99,11 @@ namespace web_calendar.Mappers
             return calendarEvent;
         }
 
+        public static CreateEventViewModel MapToEditEventVM(CalendarEvent calendarEvent)
+        {
+            throw new NotImplementedException();
+        }
+        
         public static ICollection<NotificationType> MapToNotificationTypes(CreateEventViewModel eventVM)
         {
             List<NotificationType> list = new List<NotificationType>();
@@ -145,6 +150,12 @@ namespace web_calendar.Mappers
             return repeatable;
         }
 
+        public static DetailsEventViewModel MapToDetailsEventVM(CalendarEvent calendarEvent, 
+            List<NotificationType> notificationTypes, List<Repeatable> repeatable)
+        {
+            throw new NotImplementedException();
+        }
+
         // -------- Calendars --------
 
         public static CalendarViewModel MapToCalendarViewModel(Calendar calendar)
@@ -169,6 +180,5 @@ namespace web_calendar.Mappers
             calendarTMP.Visibility = calendar.Visibility;           
             return calendarTMP;
         }
-        // -------- Users --------
     }
 }
