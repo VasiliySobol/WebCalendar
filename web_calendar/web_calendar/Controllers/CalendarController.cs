@@ -11,11 +11,11 @@ namespace web_calendar.Controllers
 {
     public class CalendarController : Controller
     {
-        public ICalendarRepository calRepo;
+        public ICalendarRepository calendarRepository;
 
-        public CalendarController(ICalendarRepository _calRepo)  
-        {  
-            this.calRepo = _calRepo;  
+        public CalendarController(ICalendarRepository _calendarRepository)  
+        {
+            this.calendarRepository = _calendarRepository;  
         }
 
         public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
@@ -44,7 +44,7 @@ namespace web_calendar.Controllers
 
         public string JSONIndex()
         {
-            var data = calRepo.GetAll();
+            var data = calendarRepository.GetAll();
 
             return JsonConvert.SerializeObject(data);
         }
