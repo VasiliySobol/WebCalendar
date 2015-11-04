@@ -40,7 +40,7 @@ namespace web_calendar.Controllers
         }
         
         // GET: Event/Details/5
-        /*public ActionResult Details(int id)
+        public ActionResult Details(int id)
         {
             CalendarEvent calendarEvent = eventRepository.FindById(id);
             if (calendarEvent == null)
@@ -50,7 +50,7 @@ namespace web_calendar.Controllers
             List<NotificationType> notifications = notificationRepository.GetAllEventNotificationTypes(id);
             List<Repeatable> repeatables = calendarEvent.Repeatables.ToList();
             return View(Mapper.MapToDetailsEventVM(calendarEvent, notifications, repeatables));
-        }*/
+        }
 
         // GET: Event/Create
         public ActionResult Create()
