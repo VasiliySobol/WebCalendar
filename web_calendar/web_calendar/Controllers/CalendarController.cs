@@ -22,7 +22,7 @@ namespace web_calendar.Controllers
         public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
         {
             ViewBag.RenderPart = RenderPart;
-            return View(calRepo.GetUserCalendars(User.Identity.GetUserId()));
+            return View(calendarRepository.GetUserCalendars(User.Identity.GetUserId()));
         }
 
         [Authorize]
