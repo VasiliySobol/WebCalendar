@@ -64,7 +64,7 @@ namespace web_calendar.Models
 
     public class RegisterViewModel
     {
-        //[Required]
+        [Required]
         [Display(Name = "Username")]
         public string UserName { get; set; }
 
