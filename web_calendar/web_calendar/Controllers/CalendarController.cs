@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using ApplicationRepository.Interface;
 using Newtonsoft.Json;
 using Microsoft.AspNet.Identity;
+using ApplicationRepository.Models;
+using web_calendar.Models;
+using web_calendar.Mappers;
 
 namespace web_calendar.Controllers
 {
@@ -22,7 +25,16 @@ namespace web_calendar.Controllers
         public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
         {
             ViewBag.RenderPart = RenderPart;
-            return View(calendarRepository.GetUserCalendars(User.Identity.GetUserId()));
+
+            IEnumerable<Calendar> listOfCalendars = calendarRepository.GetUserCalendars(User.Identity.GetUserId());
+            List<CalendarViewModel> listOfCalendarViews = new List<CalendarViewModel>();
+
+            foreach (Calendar calendar in listOfCalendars)
+            {
+                listOfCalendarViews.Add(Mapper.MapToCalendarViewModel(calendar));
+            }
+
+            return View(listOfCalendarViews);
         }
 
         [Authorize]
@@ -39,6 +51,7 @@ namespace web_calendar.Controllers
             return PartialView("_CalendarWeekPartial");
         }
 
+        [Authorize]
         [ChildActionOnly]
         public ActionResult CalendarMonthPartial()
         {
