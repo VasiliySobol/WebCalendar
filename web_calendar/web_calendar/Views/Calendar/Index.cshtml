@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<ApplicationRepository.Models.Calendar>
+
+@{
     ViewBag.Title = "Calendar";
 }
 
@@ -34,6 +36,76 @@
         {
             @Html.Action("CalendarWeekPartial");
         }
+</div>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CalendarColor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CalendarEvents)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Visibility)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeZone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NotificationTypeId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalendarColor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalendarEvents)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Visibility)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeZone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotificationTypeId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
 </div>
 
 @section Scripts {
