@@ -1,4 +1,4 @@
-﻿@model web_calendar.Models.EventViewModel
+﻿@model web_calendar.Models.CreateEventViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -68,7 +68,7 @@
             @Html.LabelFor(model => model.AllDay, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.AllDay)
+                    @Html.CheckBoxFor(model => model.AllDay)
                     @Html.ValidationMessageFor(model => model.AllDay, "", new { @class = "text-danger" })
                 </div>
             </div>
