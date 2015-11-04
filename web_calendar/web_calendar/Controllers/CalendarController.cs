@@ -15,11 +15,30 @@ namespace web_calendar.Controllers
         public CalendarController(ICalendarRepository _calRepo)  
         {  
             this.calRepo = _calRepo;  
-        }  
+        }
 
-        public ActionResult Index()
+        public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
         {
+            ViewBag.RenderPart = RenderPart;
             return View();
+        }
+
+        [ChildActionOnly]
+        public ActionResult CalendarDayPartial()
+        {
+            return PartialView("_CalendarDayPartial");
+        }
+
+        [ChildActionOnly]
+        public ActionResult CalendarWeekPartial()
+        {
+            return PartialView("_CalendarWeekPartial");
+        }
+
+        [ChildActionOnly]
+        public ActionResult CalendarMonthPartial()
+        {
+            return PartialView("_CalendarMonthPartial");
         }
 
         public string JSONIndex()

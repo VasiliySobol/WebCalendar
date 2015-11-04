@@ -58,32 +58,57 @@ textarea {
     float: right;
 }
 
-.calendarTable
+.calendarMonthTable, .calendarDayTable, .calendarWeekTable
 {  
     background-color:aliceblue;
     width:100%; 
     height: 100%;
 }
 
-.calendarTable thead tr
+.calendarMonthTable thead tr, .calendarWeekTable thead tr 
 {
     height: 30px;
     background-color:cadetblue;
 }
 
-.calendarTable tbody tr
+.calendarMonthTable tbody tr
 {
     height: 90px;
 }
 
-.calendarTable th,
-.calendarTable td
+.timeCol
 {
-    border: 2px solid white;
+    width: 5%;
+}
+
+.col100
+{
     width: 100px;
 }
 
-.calendarTable th
+.calendarMonthTable th,
+.calendarMonthTable td,
+.calendarWeekTable th,
+.calendarWeekTable td
 {
-    height: 20px;
+    border: 2px solid white;
+}
+
+.fixedHeader td,
+.calendarDayTable td 
+{
+    border: 2px solid white;
+}
+
+.scrollCalendar
+{
+    overflow-y:auto; 
+    max-height:450px;
+}
+
+.fixedHeader 
+{
+    background-color: cadetblue;
+    width: 98%;
+    font-weight:bold;    
 }

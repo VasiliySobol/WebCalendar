@@ -1,0 +1,17 @@
+﻿<div class="scrollCalendar">
+    <table class="calendarDayTable">
+        <thead>
+        </thead>
+        <tbody>
+
+            @for (int i = 1; i <= 24; i++)
+            {
+                <tr>
+                    <td class="timeCol">@String.Format("{0:D2}:00", i)</td>
+                    <td>......................</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

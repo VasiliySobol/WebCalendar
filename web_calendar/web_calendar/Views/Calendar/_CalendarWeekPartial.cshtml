@@ -1,0 +1,29 @@
+﻿<table class="fixedHeader">
+    <tr>
+        <td class="timeCol"></td>
+        <td class="col100">Sunday</td>
+        <td class="col100">Monday</td>
+        <td class="col100">Tuesday</td>
+        <td class="col100">Wednesday</td>
+        <td class="col100">Thursday</td>
+        <td class="col100">Friday</td>
+        <td class="col100">Saturday</td>
+    </tr>
+</table>
+
+<div class="scrollCalendar">
+    <table class="calendarWeekTable">
+        <tbody>
+            @for (int i = 0; i < 24; i++)
+            {
+                <tr>
+                    <td class="timeCol">@String.Format("{0:D2}:00", i)</td>
+                    @for (int j = 1; j <= 7; j++)
+                    {
+                        <td class="col100">..</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
