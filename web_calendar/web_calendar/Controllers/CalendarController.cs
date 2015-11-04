@@ -20,7 +20,7 @@ namespace web_calendar.Controllers
         public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
         {
             ViewBag.RenderPart = RenderPart;
-            return View();
+            return View(calRepo.GetAll());
         }
 
         [ChildActionOnly]
