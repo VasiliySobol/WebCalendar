@@ -9,6 +9,7 @@ namespace ApplicationRepository.Interface
 {
     public interface IEventRepository: IGenericRepository<CalendarEvent>
     {
+        IEnumerable<CalendarEvent> GetAllUserEvents(string userId);
         Notification FindFirstNotification(int id, Func<Notification, bool> filter);
         IEnumerable<Notification> FindAllNotifications(int id, Func<Notification, bool> filter);
         bool IsRepeatable(CalendarEvent calendarEvent);

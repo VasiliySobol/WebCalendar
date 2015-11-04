@@ -10,6 +10,11 @@ namespace ApplicationRepository.Concrete
 {
     public sealed class EventRepository: GenericRepository<web_calendarEntities, CalendarEvent>, IEventRepository
     {
+        public IEnumerable<CalendarEvent> GetAllUserEvents(string userId)
+        {
+            return FindAll(x => x.Calendar.UserId == userId).ToList();
+        }
+
         public Notification FindFirstNotification(int id, Func<Notification, bool> filter)
         {
             CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
