@@ -340,6 +340,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+    <Content Include="Views\Calendar\_CalendarMonthPartial.cshtml" />
+    <Content Include="Views\Calendar\_CalendarDayPartial.cshtml" />
+    <Content Include="Views\Calendar\_CalendarWeekPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
