@@ -50,7 +50,6 @@ namespace web_calendar.Models
     {
         [Required]
         [Display(Name = "User name or Email")]
-        [EmailAddress]
         public string Login { get; set; }
 
         [Required]
