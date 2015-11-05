@@ -41,7 +41,7 @@ namespace web_calendar.Models
 
         // Repeatable Settings
         [Display(Name = "Make repeatable")]
-        public ICollection<RepeatableSettingsViewModel> repeatableSettings { get; set; }
+        public RepeatableSettingsViewModel repeatableSettings { get; set; }
 
         // Parent Calendar
         public int CalendarId { get; set; }
@@ -114,7 +114,7 @@ namespace web_calendar.Models
 
         // Repeatable Settings
         [Display(Name = "Make repeatable")]
-        public ICollection<RepeatableSettingsViewModel> repeatableSettings { get; set; }
+        public RepeatableSettingsViewModel repeatableSettings { get; set; }
 
         // Parent Calendar
         public int CalendarId { get; set; }
