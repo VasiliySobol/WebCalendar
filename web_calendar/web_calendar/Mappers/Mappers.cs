@@ -124,14 +124,13 @@ namespace web_calendar.Mappers
             return notificationType;
         }
 
-        public static ICollection<Repeatable> MapToRepeatables(CreateEventViewModel eventVM)
+        public static Repeatable MapToRepeatable(CreateEventViewModel eventVM)
         {
-            List<Repeatable> list = new List<Repeatable>();
-            foreach (RepeatableSettingsViewModel item in eventVM.repeatableSettings)
-            {
-                list.Add(MapToRepeatable(item));
-            }
-            return list;
+            Repeatable repeatable = new Repeatable();
+            repeatable.Period = eventVM.repeatableSettings.Period;
+            //TODO: count repetition count if end date
+            repeatable.RepeatCount = eventVM.repeatableSettings.RepeatCount;
+            return repeatable;
         }
 
         public static Repeatable MapToRepeatable(RepeatableSettingsViewModel repeatableSettingsVM)
