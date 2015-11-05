@@ -21,12 +21,22 @@
 <div class="miniCalendarContainer">
     <div id="datetimepicker" width ="80%"></div>
 
-    <table class="table">
+    <table class="table" width="10%">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+
         @foreach (var item in Model)
         {
             <tr>
                 <td>
                     @Html.ActionLink(item.Name, "Details", new { /* id=item.PrimaryKey */ })
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>
             </tr>
         }
@@ -34,6 +44,9 @@
 
 </div>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 
 <div class="calendarContainer">
         @if (ViewBag.RenderPart == "_CalendarMonthPartial")
@@ -49,10 +62,6 @@
             @Html.Action("CalendarWeekPartial");
         }
 </div>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 
 @section Scripts {
     <script type="text/javascript">
