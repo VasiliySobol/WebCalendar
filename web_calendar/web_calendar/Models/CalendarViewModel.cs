@@ -27,6 +27,6 @@ namespace web_calendar.Models
         // Notification Settings
         public NotificationSettingsViewModel notificationSettings { get; set; }        
 
-        int _userId {get; set; }
+        string _userId {get; set; }
     }
 }
