@@ -40,7 +40,7 @@ namespace web_calendar.Mappers
             eventVM.Place = calendarEvent.Place;
             eventVM.Visibility = calendarEvent.Visibility;
             eventVM.TimeBegin = calendarEvent.TimeBegin;
-            //eventVM.AllDay = calendarEvent.AllDay;
+            eventVM.AllDay = (calendarEvent.AllDay == null) ? false : calendarEvent.AllDay.GetValueOrDefault();
 
             // Notification Settings
             List<NotificationSettingsViewModel> list = new List<NotificationSettingsViewModel>();
