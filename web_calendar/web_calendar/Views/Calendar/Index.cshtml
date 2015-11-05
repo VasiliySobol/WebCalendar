@@ -20,6 +20,18 @@
 
 <div class="miniCalendarContainer">
     <div id="datetimepicker" width ="80%"></div>
+
+    <table class="table">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Name, "Details", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </table>
+
 </div>
 
 
@@ -37,25 +49,6 @@
             @Html.Action("CalendarWeekPartial");
         }
 </div>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.ActionLink(item.Name, "Details", new { /* id=item.PrimaryKey */ }) |
-            </td>
-        </tr>
-    }
-
-</table>
 
 <p>
     @Html.ActionLink("Create New", "Create")
