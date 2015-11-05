@@ -166,7 +166,8 @@ namespace web_calendar.Mappers
             CVM.Name = calendar.Name;
             CVM.notificationSettings = new NotificationSettingsViewModel();
             CVM.TimeZone = calendar.TimeZone;
-            CVM.Visibility = calendar.Visibility;          
+            CVM.Visibility = calendar.Visibility;
+            CVM.CalendarViewId = calendar.Id;
             return CVM;
         }
 
@@ -177,7 +178,8 @@ namespace web_calendar.Mappers
             calendarTMP.Text = calendar.Description;
             calendarTMP.Name = calendar.Name;            
             calendarTMP.TimeZone = calendar.TimeZone;
-            calendarTMP.Visibility = calendar.Visibility;           
+            calendarTMP.Visibility = calendar.Visibility;
+            calendarTMP.Id = calendar.CalendarViewId;
             return calendarTMP;
         }
     }
