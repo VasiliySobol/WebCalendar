@@ -70,7 +70,7 @@ namespace web_calendar.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Details()
         {
             ViewBag.Message = "Your application description page.";
 
