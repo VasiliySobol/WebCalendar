@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Tools
+namespace web_calendar.BL.Tools
 {
     public class NotificationTypes
     {

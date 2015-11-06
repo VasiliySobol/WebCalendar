@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 
-namespace Infrastructure.Tools
+namespace web_calendar.BL.Tools
 {
     public static class PasswordHasher
     {

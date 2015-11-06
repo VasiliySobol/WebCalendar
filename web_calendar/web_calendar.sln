@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web_calendar.Tests", "web_c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web_calendar.DAL", "ApplicationRepository\web_calendar.DAL.csproj", "{FCBD6ECA-B3EE-45ED-AE3F-3AB63AB9BD52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{3CDB7BC8-D9E7-4ABB-B084-3A988BFCCDBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web_calendar.BL", "Infrastructure\web_calendar.BL.csproj", "{3CDB7BC8-D9E7-4ABB-B084-3A988BFCCDBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

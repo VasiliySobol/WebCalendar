@@ -329,9 +329,9 @@
       <Project>{fcbd6eca-b3ee-45ed-ae3f-3ab63ab9bd52}</Project>
       <Name>web_calendar.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+    <ProjectReference Include="..\Infrastructure\web_calendar.BL.csproj">
       <Project>{3cdb7bc8-d9e7-4abb-b084-3a988bfccdbc}</Project>
-      <Name>Infrastructure</Name>
+      <Name>web_calendar.BL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
