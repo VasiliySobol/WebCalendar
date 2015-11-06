@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using ApplicationRepository.Models;
 using web_calendar.Models;
 using web_calendar.Mappers;
+using System.Net;
 
 namespace web_calendar.Controllers
 {
@@ -70,11 +71,9 @@ namespace web_calendar.Controllers
             return View();
         }
 
-        public ActionResult Details()
+        public ActionResult Details(int id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            return View(Mapper.MapToCalendarViewModel(calendarRepository.FindById(id)));
         }
 
         public ActionResult Contact()
