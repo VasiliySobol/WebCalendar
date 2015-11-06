@@ -72,9 +72,9 @@ namespace web_calendar.Controllers
             return View();
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details()
         {
-            return View(Mapper.MapToCalendarViewModel(calendarRepository.FindById(id)));
+            return View();
         }
 
         public ActionResult Contact()
