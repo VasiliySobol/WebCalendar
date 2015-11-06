@@ -12,6 +12,9 @@ namespace web_calendar.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public byte TimeZone { get; set; }
+        public string WeekStart { get; set; }
+        public string DefaultView { get; set; }
     }
 
     public class ManageLoginsViewModel
