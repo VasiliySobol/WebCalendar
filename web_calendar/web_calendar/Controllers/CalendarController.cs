@@ -8,8 +8,9 @@ using Newtonsoft.Json;
 using Microsoft.AspNet.Identity;
 using web_calendar.DAL.Models;
 using web_calendar.Models;
-using web_calendar.Mappers;
 using System.Net;
+using Infrastructure.ViewModels;
+using Infrastructure.Mappers;
 
 namespace web_calendar.Controllers
 {

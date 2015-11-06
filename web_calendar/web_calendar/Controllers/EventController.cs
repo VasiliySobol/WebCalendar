@@ -11,21 +11,28 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using web_calendar.DAL.Models;
 using web_calendar.Models;
-using web_calendar.Mappers;
 using web_calendar.DAL.Interface;
+using Newtonsoft.Json;
+using System.Web.Services;
+using Infrastructure.Mappers;
+using Infrastructure.ViewModels;
 
 namespace web_calendar.Controllers
 {
     [Authorize]
+    //[System.Web.Script.Services.ScriptService]
     public class EventController : Controller
     {
         public IEventRepository eventRepository;
         public INotificationRepository notificationRepository;
+        public ICalendarRepository calendarRepository;
 
-        public EventController(IEventRepository _eventRepository, INotificationRepository _notificationRepository)  
+        public EventController(IEventRepository _eventRepository, INotificationRepository _notificationRepository,
+            ICalendarRepository _calendarRepository)  
         {
             this.eventRepository = _eventRepository;
             this.notificationRepository = _notificationRepository;
+            this.calendarRepository = _calendarRepository;
         }
         // GET: Event/Schedule
         public ActionResult Schedule()
@@ -38,7 +45,7 @@ namespace web_calendar.Controllers
             }
             return View(list);
         }
-        
+
         // GET: Event/Details/5
         public ActionResult Details(int id)
         {
@@ -72,6 +79,15 @@ namespace web_calendar.Controllers
                 return RedirectToAction("Index");
             }
             return View(eventViewModel);
+        }
+
+        //[WebMethod]
+        public JsonResult JSONGetUserCalendarNames()
+        {
+            string userId = User.Identity.GetUserId();
+            var userCalendars = calendarRepository.GetUserCalendars(userId).Select(x => new { x.Id, x.Name }).ToList();
+            return Json(JsonConvert.SerializeObject(userCalendars), JsonRequestBehavior.AllowGet);
+            //return JsonConvert.SerializeObject(userCalendars);
         }
 
         // GET: Event/Edit/5
