@@ -73,9 +73,9 @@ namespace web_calendar.Controllers
             return View();
         }
 
-        public ActionResult Details()
+        public ActionResult Details(int id)
         {
-            return View();
+            return View(CalendarService.GetDetails(id));
         }
 
         public ActionResult Contact()

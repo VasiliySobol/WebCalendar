@@ -16,7 +16,6 @@ namespace web_calendar.BL.Services
 
         public static IEnumerable<CalendarViewModel> GetCalendarViewModels(string _userId)
         {
-            //User.Identity.GetUserId()
             IEnumerable<Calendar> listOfCalendars = calendarRepository.GetUserCalendars(_userId);
             List<CalendarViewModel> listOfCalendarViews = new List<CalendarViewModel>();
 
@@ -28,9 +27,9 @@ namespace web_calendar.BL.Services
             return listOfCalendarViews;
         }
 
-        /*public static CalendarViewModel GetDetails(int _id)
+        public static CalendarViewModel GetDetails(int _id)
         {
             return Mapper.MapToCalendarViewModel(calendarRepository.FindById(_id));
-        }*/
+        }
     }
 }
