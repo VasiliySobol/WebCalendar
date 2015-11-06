@@ -1,10 +1,10 @@
-﻿@model web_calendar.Models.CreateEventViewModel
+﻿@model web_calendar.BL.ViewModels.CreateEventViewModel
 
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Create event</h2>
 
 
 @using (Html.BeginForm()) 
@@ -74,79 +74,16 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.notificationSettings, htmlAttributes: new { @class = "control-label col-md-2" })
-            @foreach (var item in Model.notificationSettings)
-            {
-                @Html.Partial("EditNotificationType", item);
-            }
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.RepetitionCount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CalendarName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RepetitionCount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RepetitionCount, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CalendarName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CalendarName, "", new { @class = "text-danger" })
             </div>
         </div>
+        <label id="textjson"></label>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Interval, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Interval, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Interval, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TimeBefore, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeBefore, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TimeBefore, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.KindOfNotification, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KindOfNotification, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KindOfNotification, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IfRepeatable, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.IfRepeatable)
-                    @Html.ValidationMessageFor(model => model.IfRepeatable, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Period, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Period, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Period, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RepeatCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RepeatCount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RepeatCount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+        @*@Html.Partial("EditRepeatable", Model.repeatableSettings)*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -156,10 +93,27 @@
     </div>
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 
 @section Scripts {
+    @Scripts.Render("~/Scripts/jquery-1.10.2.js")
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "Event/JSONGetUserCalendarNames",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (txt) {
+                    alert(txt);
+                }
+            });
+        });
+    </script>
 }
