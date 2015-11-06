@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Calendar">
           <Key>
             <PropertyRef Name="Id" />
@@ -12,7 +12,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Text" Type="nvarchar(max)" />
-          <Property Name="CalendarColor" Type="int" />
+          <Property Name="CalendarColor" Type="nvarchar" MaxLength="50" />
           <Property Name="CalendarEvents" Type="int" />
           <Property Name="Visibility" Type="nvarchar" MaxLength="50" />
           <Property Name="TimeZone" Type="tinyint" />
@@ -193,7 +193,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CalendarColor" Type="Int32" />
+          <Property Name="CalendarColor" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="CalendarEvents" Type="Int32" />
           <Property Name="Visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TimeZone" Type="Byte" />
