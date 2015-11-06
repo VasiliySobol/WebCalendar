@@ -11,7 +11,7 @@ namespace Infrastructure.Services
 {
     static class CalendarService
     {
-        public ICalendarRepository calendarRepository;
+        /*public ICalendarRepository calendarRepository;
 
         public CalendarService(ICalendarRepository _calendarRepository)
         {
@@ -21,6 +21,6 @@ namespace Infrastructure.Services
         public CalendarViewModel GetDetails(int _id)
         {
             return Mapper.MapToCalendarViewModel(calendarRepository.FindById(_id));
-        }
+        }*/
     }
 }
