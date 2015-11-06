@@ -77,7 +77,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CalendarName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CalendarName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.CalendarName, Model.CalendarNameValues,
+                    @*Model.CalendarNameValues.Select(x => new SelectListItem() { Text = x }),*@
+                    new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CalendarName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -98,22 +100,5 @@
 </div>*@
 
 @section Scripts {
-    @Scripts.Render("~/Scripts/jquery-1.10.2.js")
     @Scripts.Render("~/bundles/jqueryval")
-
-    <script>
-        
-
-        $(document).ready(function () {
-            $.ajax({
-                type: "GET",
-                url: "Event/JSONGetUserCalendarNames",
-                dataType: 'json',
-                contentType: "application/json",
-                success: function (txt) {
-                    alert(txt);
-                }
-            });
-        });
-    </script>
 }
