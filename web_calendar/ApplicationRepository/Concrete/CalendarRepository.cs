@@ -1,12 +1,12 @@
-﻿using ApplicationRepository.Interface;
-using ApplicationRepository.Models;
+﻿using web_calendar.DAL.Interface;
+using web_calendar.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationRepository.Concrete
+namespace web_calendar.DAL.Concrete
 {
     public sealed class CalendarRepository : GenericRepository<web_calendarEntities, Calendar>, ICalendarRepository
     {

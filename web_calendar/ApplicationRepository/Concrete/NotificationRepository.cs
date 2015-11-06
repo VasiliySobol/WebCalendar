@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ApplicationRepository.Models;
-using ApplicationRepository.Interface;
+using web_calendar.DAL.Models;
+using web_calendar.DAL.Interface;
 
-namespace ApplicationRepository.Concrete
+namespace web_calendar.DAL.Concrete
 {
     public sealed class NotificationRepository: GenericRepository<web_calendarEntities, Notification>, INotificationRepository
     {

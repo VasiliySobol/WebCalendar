@@ -1,11 +1,11 @@
-﻿using ApplicationRepository.Models;
+﻿using web_calendar.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationRepository.Interface
+namespace web_calendar.DAL.Interface
 {
     public interface ICalendarRepository : IGenericRepository<Calendar>
     {

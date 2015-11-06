@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ApplicationRepository.Models
+namespace web_calendar.DAL.Models
 {
     using System;
     using System.Collections.Generic;

@@ -325,9 +325,9 @@
     <Content Include="Views\Calendar\JSONIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationRepository\ApplicationRepository.csproj">
+    <ProjectReference Include="..\ApplicationRepository\web_calendar.DAL.csproj">
       <Project>{fcbd6eca-b3ee-45ed-ae3f-3ab63ab9bd52}</Project>
-      <Name>ApplicationRepository</Name>
+      <Name>web_calendar.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{3cdb7bc8-d9e7-4abb-b084-3a988bfccdbc}</Project>
@@ -343,6 +343,7 @@
     <Content Include="Views\Calendar\_CalendarMonthPartial.cshtml" />
     <Content Include="Views\Calendar\_CalendarDayPartial.cshtml" />
     <Content Include="Views\Calendar\_CalendarWeekPartial.cshtml" />
+    <Content Include="Views\Calendar\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

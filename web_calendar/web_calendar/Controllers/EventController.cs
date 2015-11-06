@@ -9,10 +9,10 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ApplicationRepository.Models;
+using web_calendar.DAL.Models;
 using web_calendar.Models;
 using web_calendar.Mappers;
-using ApplicationRepository.Interface;
+using web_calendar.DAL.Interface;
 
 namespace web_calendar.Controllers
 {

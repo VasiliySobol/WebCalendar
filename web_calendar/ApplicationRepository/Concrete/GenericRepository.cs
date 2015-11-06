@@ -1,4 +1,4 @@
-﻿using ApplicationRepository.Interface;
+﻿using web_calendar.DAL.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationRepository.Concrete
+namespace web_calendar.DAL.Concrete
 {
     public abstract class GenericRepository<C, T> : IGenericRepository<T>
         where T : class
