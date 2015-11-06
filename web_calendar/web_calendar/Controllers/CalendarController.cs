@@ -27,7 +27,36 @@ namespace web_calendar.Controllers
         {
             ViewBag.RenderPart = RenderPart;
 
+            /*IEnumerable<Calendar> listOfCalendars = calendarRepository.GetUserCalendars(User.Identity.GetUserId());
+
+            
+            /*
+            IEnumerable<Calendar> listOfCalendars = calendarRepository.GetUserCalendars(User.Identity.GetUserId());
+
+            List<CalendarViewModel> listOfCalendarViews = new List<CalendarViewModel>();
+
+            foreach (Calendar calendar in listOfCalendars)
+            {
+                listOfCalendarViews.Add(Mapper.MapToCalendarViewModel(calendar));
+            }*/
+			
             return View(CalendarService.GetCalendarViewModels(User.Identity.GetUserId()));
+        }
+
+        [HttpPost]
+        public ActionResult Create(CalendarViewModel calendar)
+        {
+            CalendarService.calendarRepository.Add(Mapper.MapToCalendarFromCalendarVM(calendar));
+            CalendarService.calendarRepository.SaveChanges();
+            return View("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(CalendarViewModel calendar)
+        {
+            CalendarService.calendarRepository.Modify(Mapper.MapToCalendarFromCalendarVM(calendar));
+            CalendarService.calendarRepository.SaveChanges();
+            return View("Index");
         }
 
         [Authorize]

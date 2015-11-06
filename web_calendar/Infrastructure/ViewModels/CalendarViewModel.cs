@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 
 namespace web_calendar.BL.ViewModels
 {
@@ -19,7 +15,7 @@ namespace web_calendar.BL.ViewModels
         public string Description { get; set; }
 
         [Display(Name = "Color")]
-        public int? CalendarColor { get; set; }
+        public Color CalendarColor { get; set; }
 
         [Display(Name = "Visibility")]
         public string Visibility { get; set; }

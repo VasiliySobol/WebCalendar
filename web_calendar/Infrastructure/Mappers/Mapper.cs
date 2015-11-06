@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using web_calendar.DAL.Models;
+using System.Drawing;
 
 namespace web_calendar.BL.Mappers
 {
@@ -161,7 +162,7 @@ namespace web_calendar.BL.Mappers
         public static CalendarViewModel MapToCalendarViewModel(Calendar calendar)
         {
             CalendarViewModel CVM = new CalendarViewModel();
-            CVM.CalendarColor = calendar.CalendarColor;
+            CVM.CalendarColor = Color.FromArgb(calendar.CalendarColor.Value);
             CVM.Description = calendar.Text;
             CVM.Name = calendar.Name;
             CVM.notificationSettings = new NotificationSettingsViewModel();
@@ -174,7 +175,7 @@ namespace web_calendar.BL.Mappers
         public static Calendar MapToCalendarFromCalendarVM(CalendarViewModel calendar)
         {
             Calendar calendarTMP = new Calendar();
-            calendarTMP.CalendarColor = calendar.CalendarColor;
+            calendarTMP.CalendarColor = calendar.CalendarColor.ToArgb();
             calendarTMP.Text = calendar.Description;
             calendarTMP.Name = calendar.Name;
             calendarTMP.TimeZone = calendar.TimeZone;
