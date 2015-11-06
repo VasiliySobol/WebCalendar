@@ -25,21 +25,7 @@ namespace web_calendar.Controllers
         [Authorize]
         public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
         {
-            ViewBag.RenderPart = RenderPart;
-
-            /*IEnumerable<Calendar> listOfCalendars = calendarRepository.GetUserCalendars(User.Identity.GetUserId());
-
-            
-            /*
-            IEnumerable<Calendar> listOfCalendars = calendarRepository.GetUserCalendars(User.Identity.GetUserId());
-
-            List<CalendarViewModel> listOfCalendarViews = new List<CalendarViewModel>();
-
-            foreach (Calendar calendar in listOfCalendars)
-            {
-                listOfCalendarViews.Add(Mapper.MapToCalendarViewModel(calendar));
-            }*/
-			
+            ViewBag.RenderPart = RenderPart;			
             return View(CalendarService.GetCalendarViewModels(User.Identity.GetUserId()));
         }
 
