@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace web_calendar.BL.ViewModels
 {
@@ -122,6 +123,8 @@ namespace web_calendar.BL.ViewModels
 
         [Display(Name = "Calendar name")]
         public string CalendarName { get; set; }
+
+        public SelectList CalendarNameValues { get; set; }
     }
 
     public class RepeatableSettingsViewModel
