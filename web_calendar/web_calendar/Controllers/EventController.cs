@@ -62,7 +62,17 @@ namespace web_calendar.Controllers
         // GET: Event/Create
         public ActionResult Create()
         {
-            return View();
+            string userId = User.Identity.GetUserId();
+            CreateEventViewModel eventViewModel = new CreateEventViewModel();
+            //eventViewModel.CalendarNameValues = new List<string>();
+            //eventViewModel.CalendarNameValues.AddRange(calendarRepository.GetUserCalendars(userId)
+            //    .Select(x => x.Name).ToList());
+            eventViewModel.CalendarNameValues = new SelectList(calendarRepository.GetUserCalendars(userId).Select(x => x.Name).ToList());
+            //foreach (var item in calendarRepository.GetUserCalendars(userId).Select(x => new { x.Name, x.Id }).ToList())
+            //{
+            //    eventViewModel.CalendarNameValues.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+            //}
+            return View(eventViewModel);
         }
 
         // POST: Event/Create
@@ -72,11 +82,16 @@ namespace web_calendar.Controllers
         {
             if (ModelState.IsValid)
             {
-                CalendarEvent calendarEvent = Mapper.MapToEvent(eventViewModel);
-                //TODO add logic
-                eventRepository.Add(calendarEvent);
-                eventRepository.SaveChanges();
-                return RedirectToAction("Index");
+                if (eventViewModel.Name != "" || eventViewModel.TimeBegin != null)
+                {
+                    CalendarEvent calendarEvent = Mapper.MapToEvent(eventViewModel);
+                    //TODO add logic
+                    eventRepository.Add(calendarEvent);
+                    eventRepository.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    return View(eventViewModel);
             }
             return View(eventViewModel);
         }
