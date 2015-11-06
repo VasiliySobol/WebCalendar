@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace web_calendar.Models
+namespace Infrastructure.ViewModels
 {
     public class CalendarViewModel
     {
@@ -27,8 +28,8 @@ namespace web_calendar.Models
         public byte? TimeZone { get; set; }
 
         // Notification Settings
-        public NotificationSettingsViewModel notificationSettings { get; set; }        
+        public NotificationSettingsViewModel notificationSettings { get; set; }
 
-        string _userId {get; set; }
+        string _userId { get; set; }
     }
 }
