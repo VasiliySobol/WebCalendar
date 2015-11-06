@@ -19,7 +19,7 @@ namespace web_calendar.BL.ViewModels
         public string Description { get; set; }
 
         [Display(Name = "Color")]
-        public string CalendarColor { get; set; }
+        public int? CalendarColor { get; set; }
 
         [Display(Name = "Visibility")]
         public string Visibility { get; set; }

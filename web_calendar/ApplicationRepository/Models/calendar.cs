@@ -32,7 +32,7 @@ public partial class Calendar
 
     public string Text { get; set; }
 
-    public string CalendarColor { get; set; }
+    public Nullable<int> CalendarColor { get; set; }
 
     public Nullable<int> CalendarEvents { get; set; }
 
