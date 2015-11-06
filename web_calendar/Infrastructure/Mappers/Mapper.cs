@@ -1,4 +1,4 @@
-﻿using Infrastructure.ViewModels;
+﻿using web_calendar.BL.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using web_calendar.DAL.Models;
 
-namespace Infrastructure.Mappers
+namespace web_calendar.BL.Mappers
 {
     public static class Mapper
     {

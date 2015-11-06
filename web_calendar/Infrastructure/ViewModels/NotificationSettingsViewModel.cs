@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.ViewModels
+namespace web_calendar.BL.ViewModels
 {
     public class NotificationSettingsViewModel
     {

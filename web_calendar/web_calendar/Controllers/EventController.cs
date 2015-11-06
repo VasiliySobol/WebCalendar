@@ -14,8 +14,8 @@ using web_calendar.Models;
 using web_calendar.DAL.Interface;
 using Newtonsoft.Json;
 using System.Web.Services;
-using Infrastructure.Mappers;
-using Infrastructure.ViewModels;
+using web_calendar.BL.Mappers;
+using web_calendar.BL.ViewModels;
 
 namespace web_calendar.Controllers
 {

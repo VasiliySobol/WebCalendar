@@ -9,8 +9,8 @@ using Microsoft.AspNet.Identity;
 using web_calendar.DAL.Models;
 using web_calendar.Models;
 using System.Net;
-using Infrastructure.ViewModels;
-using Infrastructure.Mappers;
+using web_calendar.BL.ViewModels;
+using web_calendar.BL.Mappers;
 
 namespace web_calendar.Controllers
 {
