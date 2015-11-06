@@ -56,14 +56,14 @@
     <Compile Include="ViewModels\NotificationSettingsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\ApplicationRepository\web_calendar.DAL.csproj">
       <Project>{fcbd6eca-b3ee-45ed-ae3f-3ab63ab9bd52}</Project>
       <Name>web_calendar.DAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
