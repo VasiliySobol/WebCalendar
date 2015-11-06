@@ -344,6 +344,7 @@
     <Content Include="Views\Calendar\_CalendarDayPartial.cshtml" />
     <Content Include="Views\Calendar\_CalendarWeekPartial.cshtml" />
     <Content Include="Views\Calendar\Details.cshtml" />
+    <Content Include="Views\Event\EditRepeatable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
