@@ -169,6 +169,7 @@ namespace web_calendar.BL.Mappers
             CVM.TimeZone = calendar.TimeZone;
             CVM.Visibility = calendar.Visibility;
             CVM.CalendarViewId = calendar.Id;
+            CVM.userId = calendar.UserId;
             return CVM;
         }
 
@@ -178,9 +179,10 @@ namespace web_calendar.BL.Mappers
             calendarTMP.CalendarColor = calendar.CalendarColor.ToArgb();
             calendarTMP.Text = calendar.Description;
             calendarTMP.Name = calendar.Name;
-            calendarTMP.TimeZone = calendar.TimeZone;
+            calendarTMP.TimeZone = 1;
             calendarTMP.Visibility = calendar.Visibility;
             calendarTMP.Id = calendar.CalendarViewId;
+            calendarTMP.UserId = calendar.userId;
             return calendarTMP;
         }
     }

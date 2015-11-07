@@ -32,6 +32,7 @@ namespace web_calendar.Controllers
         [HttpPost]
         public ActionResult Create(CalendarViewModel calendar)
         {
+            calendar.userId = User.Identity.GetUserId();
             CalendarService.calendarRepository.Add(Mapper.MapToCalendarFromCalendarVM(calendar));
             CalendarService.calendarRepository.SaveChanges();
             return View("Index");
