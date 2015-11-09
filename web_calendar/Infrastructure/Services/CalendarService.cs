@@ -48,6 +48,11 @@ namespace web_calendar.BL.Services
             return 0;
         }
 
+        public static string GetTimeZoneNameById(byte? timeZoneId)
+        {
+            return timeZoneList[(int)timeZoneId].DisplayName;
+        }
+
         public static void CreateDefaultCalendar(string userId)
         {
             Calendar calendar = new Calendar();
