@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
 namespace web_calendar.BL.ViewModels
@@ -21,7 +22,7 @@ namespace web_calendar.BL.ViewModels
         public string Visibility { get; set; }
 
         [Display(Name = "Time zone")]
-        public byte? TimeZone { get; set; }
+        public string TimeZone { get; set; }
 
         // Notification Settings
         public NotificationSettingsViewModel notificationSettings { get; set; }
