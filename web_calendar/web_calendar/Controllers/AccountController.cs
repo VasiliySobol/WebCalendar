@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using web_calendar.Models;
+using web_calendar.DAL.Interface;
+using web_calendar.BL.Services;
 
 namespace web_calendar.Controllers
 {
@@ -21,8 +23,8 @@ namespace web_calendar.Controllers
         public AccountController()
         {
         }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -154,10 +156,10 @@ namespace web_calendar.Controllers
         {
             if (ModelState.IsValid)
             {
-                //if (UserManager.FindByName(model.UserName) == null)
-                //{
-                //    if (UserManager.FindByEmail(model.Email) == null)
-                //    {
+                if (UserManager.FindByName(model.UserName) == null)
+                {
+                    if (UserManager.FindByEmail(model.Email) == null)
+                    {
                         var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                         var result = await UserManager.CreateAsync(user, model.Password);
                         if (result.Succeeded)
@@ -170,21 +172,23 @@ namespace web_calendar.Controllers
                             // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                             // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                            CalendarService.CreateDefaultCalendar(user.Id);
+
                             return RedirectToAction("Index", "Calendar");
                         }
                         AddErrors(result);
-                    //}
-                    //else
-                    //{
-                    //    ModelState.AddModelError("", "User with this username already exits.");
-                    //    return View(model);
-                    //}
-                //}
-                //else
-                //{
-                //    ModelState.AddModelError("", "User with this email already exits.");
-                //    return View(model);
-                //}
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "User with this username already exits.");
+                        return View(model);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "User with this email already exits.");
+                    return View(model);
+                }
             }
 
             // If we got this far, something failed, redisplay form

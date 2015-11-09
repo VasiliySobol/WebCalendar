@@ -26,6 +26,15 @@ namespace web_calendar.BL.Services
             }
         }
 
+        public static void CreateDefaultCalendar(string userId)
+        {
+            Calendar calendar = new Calendar();
+            calendar.Name = "Default calendar";
+            calendar.UserId = userId;
+            //initialize other properties
+            calendarRepository.Add(calendar);
+        }
+
         public static IEnumerable<CalendarViewModel> GetCalendarViewModels(string _userId)
         {
             IEnumerable<Calendar> listOfCalendars = calendarRepository.GetUserCalendars(_userId);
