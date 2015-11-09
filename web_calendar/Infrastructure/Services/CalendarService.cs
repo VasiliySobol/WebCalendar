@@ -26,7 +26,17 @@ namespace web_calendar.BL.Services
             }
         }
 
-        public static int FindTimeZoneIdByName(string timeZoneName)
+        public static string[] GetTimeZoneNamesList()
+        {
+            string[] dateTimeNamesList = new string[timeZoneList.Count];
+            for (int i = 0; i < timeZoneList.Count; i++)
+            {
+                dateTimeNamesList[i] = timeZoneList[i].DisplayName;
+            }
+            return dateTimeNamesList;
+        }
+
+        public static int GetTimeZoneIdByName(string timeZoneName)
         {
             for (int i = 0; i < timeZoneList.Count; i++)
             {
