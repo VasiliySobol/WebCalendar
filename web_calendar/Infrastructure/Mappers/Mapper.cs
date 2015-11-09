@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using web_calendar.DAL.Models;
 using System.Drawing;
+using web_calendar.BL.Services;
 
 namespace web_calendar.BL.Mappers
 {
@@ -166,7 +167,7 @@ namespace web_calendar.BL.Mappers
             CVM.Description = calendar.Text;
             CVM.Name = calendar.Name;
             CVM.notificationSettings = new NotificationSettingsViewModel();
-            CVM.TimeZone = calendar.TimeZone;
+            //CVM.TimeZone = calendar.TimeZone;
             CVM.Visibility = calendar.Visibility;
             CVM.CalendarViewId = calendar.Id;
             CVM.userId = calendar.UserId;
@@ -179,7 +180,7 @@ namespace web_calendar.BL.Mappers
             calendarTMP.CalendarColor = calendar.CalendarColor.ToArgb();
             calendarTMP.Text = calendar.Description;
             calendarTMP.Name = calendar.Name;
-            calendarTMP.TimeZone = 1;
+            calendarTMP.TimeZone = CalendarService.GetTimeZoneIdByName(calendar.TimeZone);
             calendarTMP.Visibility = calendar.Visibility;
             calendarTMP.Id = calendar.CalendarViewId;
             calendarTMP.UserId = calendar.userId;
