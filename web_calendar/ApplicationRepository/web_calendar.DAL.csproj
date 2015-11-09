@@ -122,10 +122,12 @@
     <Compile Include="Concrete\EventRepository.cs" />
     <Compile Include="Concrete\GenericRepository.cs" />
     <Compile Include="Concrete\NotificationRepository.cs" />
+    <Compile Include="Concrete\RepeatableRepository.cs" />
     <Compile Include="Interface\INotificationRepository.cs" />
     <Compile Include="Interface\ICalendarRepository.cs" />
     <Compile Include="Interface\IEventRepository.cs" />
     <Compile Include="Interface\IGenericRepository.cs" />
+    <Compile Include="Interface\IRepeatableRepository.cs" />
     <Compile Include="Models\Calendar.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
