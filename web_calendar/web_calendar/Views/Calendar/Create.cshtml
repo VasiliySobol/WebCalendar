@@ -51,11 +51,7 @@
             @Html.LabelFor(model => model.TimeZone, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.ValidationMessageFor(model => model.TimeZone, "", new { @class = "text-danger" })
-                @Html.DropDownList("timezone", TimeZoneInfo.GetSystemTimeZones().Select(tz => new SelectListItem()
-                {
-                    Text = tz.DisplayName,
-                    Value = tz.Id
-                }), htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.TimeZone, new SelectList(@web_calendar.BL.Services.CalendarService.GetTimeZoneNamesList()), htmlAttributes: new { @class = "form-control" })
             </div>
         </div>
 
