@@ -167,7 +167,7 @@ namespace web_calendar.BL.Mappers
             CVM.Description = calendar.Text;
             CVM.Name = calendar.Name;
             CVM.notificationSettings = new NotificationSettingsViewModel();
-            //CVM.TimeZone = calendar.TimeZone;
+            CVM.TimeZone = CalendarService.GetTimeZoneNameById(calendar.TimeZone);
             CVM.Visibility = calendar.Visibility;
             CVM.CalendarViewId = calendar.Id;
             CVM.userId = calendar.UserId;
