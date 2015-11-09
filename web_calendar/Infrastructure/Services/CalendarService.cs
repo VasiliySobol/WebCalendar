@@ -36,9 +36,9 @@ namespace web_calendar.BL.Services
             return dateTimeNamesList;
         }
 
-        public static int GetTimeZoneIdByName(string timeZoneName)
+        public static byte GetTimeZoneIdByName(string timeZoneName)
         {
-            for (int i = 0; i < timeZoneList.Count; i++)
+            for (byte i = 0; i < timeZoneList.Count; i++)
             {
                 if (timeZoneName == timeZoneList[i].DisplayName)
                 {
