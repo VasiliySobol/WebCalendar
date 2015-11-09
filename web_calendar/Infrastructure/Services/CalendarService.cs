@@ -26,6 +26,18 @@ namespace web_calendar.BL.Services
             }
         }
 
+        public static int FindTimeZoneIdByName(string timeZoneName)
+        {
+            for (int i = 0; i < timeZoneList.Count; i++)
+            {
+                if (timeZoneName == timeZoneList[i].DisplayName)
+                {
+                    return i;
+                }
+            }
+            return 0;
+        }
+
         public static void CreateDefaultCalendar(string userId)
         {
             Calendar calendar = new Calendar();
