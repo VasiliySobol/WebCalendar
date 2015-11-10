@@ -23,26 +23,29 @@
 </p>-->
 
 <div class="miniCalendarContainer">
-    <div id="datetimepicker" width ="80%"></div>
+    <div id="datetimepicker" style="width:80%"></div>
 
-    <table class="table" width="10%">
+    <table class="table" style="width:10%">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
         </tr>
 
-        @foreach (var item in Model)
+        @if (Model != null)
         {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.Name, "Details", new {  id=item.CalendarViewId })
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Name, "Details", new { id = item.CalendarViewId })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.CalendarViewId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CalendarViewId })
+                    </td>
+                </tr>
+            }
         }
     </table>
 

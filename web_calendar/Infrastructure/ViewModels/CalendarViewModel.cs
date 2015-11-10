@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Web.Mvc;
 
 namespace web_calendar.BL.ViewModels
 {
     public class CalendarViewModel
     {
+        [HiddenInput(DisplayValue = false)]
         public int CalendarViewId { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
@@ -27,6 +29,7 @@ namespace web_calendar.BL.ViewModels
         // Notification Settings
         public NotificationSettingsViewModel notificationSettings { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
         public string userId { get; set; }
     }
 }

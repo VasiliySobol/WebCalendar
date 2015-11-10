@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Entity.Infrastructure;
 
 namespace web_calendar.DAL.Concrete
 {
@@ -58,7 +57,15 @@ namespace web_calendar.DAL.Concrete
 
         public virtual void SaveChanges()
         {
-            _entities.SaveChanges();
+           // _entities.SaveChanges();
+            try
+            {
+                _entities.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                _entities.SaveChangesAsync();
+            }
         }
     }
 }

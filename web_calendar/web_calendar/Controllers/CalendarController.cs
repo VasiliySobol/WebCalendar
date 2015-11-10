@@ -29,6 +29,7 @@ namespace web_calendar.Controllers
             return View(CalendarService.GetCalendarViewModels(User.Identity.GetUserId()));
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create(CalendarViewModel calendar)
         {
@@ -38,11 +39,34 @@ namespace web_calendar.Controllers
             return View("Index");
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(CalendarViewModel calendar)
         {
             CalendarService.calendarRepository.Modify(Mapper.MapToCalendarFromCalendarVM(calendar));
             CalendarService.calendarRepository.SaveChanges();
+            return View("Index");
+        }
+
+        [Authorize]
+        public ViewResult Edit(int id)
+        {
+            var calendar = CalendarService.calendarRepository.FindById(id);
+            return View(Mapper.MapToCalendarViewModel(calendar));
+        }
+
+        [Authorize]
+        public ActionResult Delete(int id)
+        {
+            var calendar = CalendarService.calendarRepository.FindById(id);
+            return View(Mapper.MapToCalendarViewModel(calendar));
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Delete(CalendarViewModel calendar)
+        {
+            CalendarService.calendarRepository.Delete(Mapper.MapToCalendarFromCalendarVM(calendar));
             return View("Index");
         }
 
@@ -74,16 +98,19 @@ namespace web_calendar.Controllers
             return JsonConvert.SerializeObject(data);
         }
 
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
+        [Authorize]
         public ActionResult Details(int id)
         {
             return View(CalendarService.GetDetails(id));
         }
 
+        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

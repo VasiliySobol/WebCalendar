@@ -183,7 +183,7 @@ namespace web_calendar.BL.Mappers
             calendarTMP.TimeZone = CalendarService.GetTimeZoneIdByName(calendar.TimeZone);
             calendarTMP.Visibility = calendar.Visibility;
             calendarTMP.Id = calendar.CalendarViewId;
-            calendarTMP.UserId = calendar.userId;
+            calendarTMP.UserId = calendar.userId;            
             return calendarTMP;
         }
     }
