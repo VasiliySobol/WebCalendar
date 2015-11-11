@@ -22,6 +22,7 @@ namespace web_calendar.BL.Mappers
             eventVM.Text = calendarEvent.Text;
             eventVM.Place = calendarEvent.Place;
             eventVM.TimeBegin = calendarEvent.TimeBegin;
+            eventVM.TimeEnd = calendarEvent.TimeEnd;
             if (calendarEvent.CalendarId != null)
             {
                 eventVM.CalendarId = (int)calendarEvent.CalendarId;
