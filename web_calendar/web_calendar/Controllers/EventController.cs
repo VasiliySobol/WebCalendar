@@ -23,9 +23,9 @@ namespace web_calendar.Controllers
     //[System.Web.Script.Services.ScriptService]
     public class EventController : Controller
     {
-        public IEventRepository eventRepository;
-        public INotificationRepository notificationRepository;
-        public ICalendarRepository calendarRepository;
+        private IEventRepository eventRepository;
+        private INotificationRepository notificationRepository;
+        private ICalendarRepository calendarRepository;
 
         public EventController(IEventRepository _eventRepository, INotificationRepository _notificationRepository,
             ICalendarRepository _calendarRepository)  
@@ -34,6 +34,7 @@ namespace web_calendar.Controllers
             this.notificationRepository = _notificationRepository;
             this.calendarRepository = _calendarRepository;
         }
+
         // GET: Event/Schedule
         public ActionResult Schedule()
         {
@@ -64,37 +65,54 @@ namespace web_calendar.Controllers
         {
             string userId = User.Identity.GetUserId();
             CreateEventViewModel eventViewModel = new CreateEventViewModel();
-            //eventViewModel.CalendarNameValues = new List<string>();
-            //eventViewModel.CalendarNameValues.AddRange(calendarRepository.GetUserCalendars(userId)
-            //    .Select(x => x.Name).ToList());
-            eventViewModel.CalendarNameValues = new SelectList(calendarRepository.GetUserCalendars(userId).Select(x => x.Name).ToList());
-            //foreach (var item in calendarRepository.GetUserCalendars(userId).Select(x => new { x.Name, x.Id }).ToList())
-            //{
-            //    eventViewModel.CalendarNameValues.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
-            //}
+            eventViewModel.CalendarItems = new SelectList(
+                calendarRepository.GetUserCalendars(userId).Select(
+                x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList(), "Value", "Text",
+                calendarRepository.GetUserCalendars(userId).First().Id.ToString());
+            eventViewModel.CalendarItems.First().Selected = true;
+            eventViewModel.SelectedCalendarId = calendarRepository.GetUserCalendars(userId).First().Id.ToString();
+            eventViewModel.TimeBegin = DateTime.Now;
+            eventViewModel.repeatableSettings = new RepeatableSettingsViewModel();
             return View(eventViewModel);
         }
 
         // POST: Event/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Text,Place,TimeBegin,TimeEnd,Visibility,AllDay,RepetitionCount,Interval,TimeBefore,KindOfNotification,IfRepeatable,Period,RepeatCount,EndDate,CalendarName")] CreateEventViewModel eventViewModel)
+        public ActionResult Create(CreateEventViewModel eventViewModel)
         {
             if (ModelState.IsValid)
             {
-                if (eventViewModel.Name != "" || eventViewModel.TimeBegin != null)
+                int calendarId;
+                if (eventViewModel.Name != "" && eventViewModel.TimeBegin != null &&
+                    Int32.TryParse(eventViewModel.SelectedCalendarId, out calendarId))
                 {
-                    CalendarEvent calendarEvent = Mapper.MapToEvent(eventViewModel);
-                    //TODO add logic
-                    eventRepository.Add(calendarEvent);
-                    eventRepository.SaveChanges();
-                    return RedirectToAction("Index");
+                    if (eventRepository.FindOtherById<Calendar>(calendarId) != null)
+                    {
+                        CalendarEvent calendarEvent = Mapper.MapToEvent(eventViewModel);
+                        eventRepository.Add(calendarEvent);
+                        eventRepository.AddCalendar(calendarEvent.Id, calendarId);
+
+                        if (eventViewModel.repeatableSettings != null)
+                            if (eventViewModel.repeatableSettings.IfRepeatable)
+                            {
+                                Repeatable repeatable = Mapper.MapToRepeatable(eventViewModel);
+                                repeatable.EventId = calendarEvent.Id;
+                                repeatable.CalendarEvent = calendarEvent;
+                                eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
+                                //add repeated events
+                            }
+
+                        //add notifications
+
+                        eventRepository.SaveChanges();
+
+                        return RedirectToAction("Index", "Calendar");
+                    }
                 }
-                else
-                    return View(eventViewModel);
             }
             return View(eventViewModel);
-        }
+        } 
 
         //[WebMethod]
         public JsonResult JSONGetUserCalendarNames()
