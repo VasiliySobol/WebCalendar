@@ -115,16 +115,18 @@ namespace web_calendar.BL.ViewModels
         public ICollection<NotificationSettingsViewModel> notificationSettings { get; set; }
 
         // Repeatable Settings
-        [Display(Name = "Make repeatable")]
+        //[Display(Name = "Make repeatable")]
         public RepeatableSettingsViewModel repeatableSettings { get; set; }
 
         // Parent Calendar
-        public int CalendarId { get; set; }
+        //public int CalendarId { get; set; }
 
         [Display(Name = "Calendar name")]
-        public string CalendarName { get; set; }
+        public string SelectedCalendarId { get; set; }
+        //public IEnumerable<SelectListItem> SelectedCalendarId { get; set; }
 
-        public SelectList CalendarNameValues { get; set; }
+        public SelectList CalendarItems { get; set; }
+        //public IEnumerable<SelectListItem> CalendarItems { get; set; }
     }
 
     public class RepeatableSettingsViewModel
