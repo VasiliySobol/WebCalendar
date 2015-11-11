@@ -31,7 +31,7 @@ namespace web_calendar.BL.ViewModels
         public string Visibility { get; set; }
 
         [Display(Name = "All day")]
-        public Nullable<bool> AllDay { get; set; }
+        public bool AllDay { get; set; }
 
         // Guests
         [Display(Name = "Guests")]
@@ -39,7 +39,7 @@ namespace web_calendar.BL.ViewModels
 
         // Notification Settings
         [Display(Name = "Notification settings")]
-        public ICollection<NotificationSettingsViewModel> notificationSettings { get; set; }
+        public List<NotificationSettingsViewModel> Notifications { get; set; }
 
         // Repeatable Settings
         [Display(Name = "Make repeatable")]
@@ -74,12 +74,19 @@ namespace web_calendar.BL.ViewModels
         // Parent Calendar
         public int CalendarId { get; set; }
 
-        [Display(Name = "Interval")]
+        [Display(Name = "Calendar name")]
         public string CalendarName { get; set; }
     }
 
     public class CreateEventViewModel
     {
+        public CreateEventViewModel()
+        {
+            TimeBegin = DateTime.Now;
+            repeatableSettings = new RepeatableSettingsViewModel();
+            Notifications = new List<NotificationSettingsViewModel>();
+        }
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
@@ -112,25 +119,45 @@ namespace web_calendar.BL.ViewModels
 
         // Notification Settings
         [Display(Name = "Notification settings")]
-        public ICollection<NotificationSettingsViewModel> notificationSettings { get; set; }
+        public List<NotificationSettingsViewModel> Notifications { get; set; }
 
         // Repeatable Settings
-        //[Display(Name = "Make repeatable")]
+        [Display(Name = "Make repeatable")]
         public RepeatableSettingsViewModel repeatableSettings { get; set; }
 
         // Parent Calendar
-        //public int CalendarId { get; set; }
-
         [Display(Name = "Calendar name")]
         public string SelectedCalendarId { get; set; }
-        //public IEnumerable<SelectListItem> SelectedCalendarId { get; set; }
 
         public SelectList CalendarItems { get; set; }
-        //public IEnumerable<SelectListItem> CalendarItems { get; set; }
+    }
+    public class NotificationsGroupViewModel
+    {
+        public IList<NotificationSettingsViewModel> Notifications { get; set; }
+
+        public IList<NotificationSettingsViewModel> Template
+        {
+            get
+            {
+                return new List<NotificationSettingsViewModel>
+                       {
+                           new NotificationSettingsViewModel {}
+                       };
+            }
+        }
+
+        public NotificationsGroupViewModel()
+        {
+            Notifications = new List<NotificationSettingsViewModel>();
+        }
     }
 
     public class RepeatableSettingsViewModel
     {
+        public RepeatableSettingsViewModel()
+        {
+        }
+
         public int Id { get; set; }
 
         [Display(Name = "If repeatable")]
