@@ -13,10 +13,26 @@ namespace web_calendar.BL.Mappers
     public static class Mapper
     {
         // -------- Events --------
+
+        public static DetailsEventViewModel MapToDetailsEventVM(CalendarEvent calendarEvent)
+        {
+            DetailsEventViewModel eventVM = new DetailsEventViewModel();
+            eventVM.Id = calendarEvent.Id;
+            eventVM.Name = calendarEvent.Name;
+            eventVM.Text = calendarEvent.Text;
+            eventVM.Place = calendarEvent.Place;
+            eventVM.TimeBegin = calendarEvent.TimeBegin;
+            if (calendarEvent.CalendarId != null)
+            {
+                eventVM.CalendarId = (int)calendarEvent.CalendarId;
+                eventVM.CalendarName = calendarEvent.Calendar.Name;
+            }
+            return eventVM;
+        }
+
         public static DisplayEventViewModel MapToDisplayEventVM(CalendarEvent calendarEvent)
         {
             DisplayEventViewModel eventVM = new DisplayEventViewModel();
-
             eventVM.Id = calendarEvent.Id;
             eventVM.Name = calendarEvent.Name;
             eventVM.Text = calendarEvent.Text;
@@ -51,7 +67,7 @@ namespace web_calendar.BL.Mappers
             {
                 list.Add(MapToNotificationSettingsViewModel(item));
             }
-            eventVM.notificationSettings = list;
+            eventVM.Notifications = list;
 
             // Repeatable Settings
             List<RepeatableSettingsViewModel> listr = new List<RepeatableSettingsViewModel>();
@@ -59,7 +75,7 @@ namespace web_calendar.BL.Mappers
             {
                 listr.Add(MapToRepeatableSettingsViewModel(item));
             }
-            eventVM.notificationSettings = list;
+            eventVM.Notifications = list;
 
             eventVM.GuestsEmails = emails;
 
@@ -76,6 +92,17 @@ namespace web_calendar.BL.Mappers
             notificationSettingsVM.RepetitionCount = notificationType.RepetitionCount;
             notificationSettingsVM.TimeBefore = notificationType.TimeBefore;
             return notificationSettingsVM;
+        }
+
+        public static List<NotificationSettingsViewModel> MapToNotificationListViewModel(
+            IEnumerable<NotificationType> notifications)
+        {
+            List<NotificationSettingsViewModel> list = new List<NotificationSettingsViewModel>();
+            foreach (NotificationType item in notifications)
+            {
+                list.Add(MapToNotificationSettingsViewModel(item));
+            }
+            return list;
         }
 
         public static RepeatableSettingsViewModel MapToRepeatableSettingsViewModel(Repeatable repeatable)
@@ -104,13 +131,24 @@ namespace web_calendar.BL.Mappers
 
         public static CreateEventViewModel MapToEditEventVM(CalendarEvent calendarEvent)
         {
-            throw new NotImplementedException();
+            CreateEventViewModel eventVM = new CreateEventViewModel();
+
+            eventVM.Name = calendarEvent.Name;
+            eventVM.Text = calendarEvent.Text;
+            eventVM.Place = calendarEvent.Place;
+            eventVM.TimeBegin = calendarEvent.TimeBegin;
+            eventVM.TimeEnd = calendarEvent.TimeEnd;
+            eventVM.Visibility = calendarEvent.Visibility;
+            if (calendarEvent.AllDay != null)
+                eventVM.AllDay = (bool)calendarEvent.AllDay;
+
+            return eventVM;
         }
 
-        public static ICollection<NotificationType> MapToNotificationTypes(CreateEventViewModel eventVM)
+        public static List<NotificationType> MapToNotificationTypes(CreateEventViewModel eventVM)
         {
             List<NotificationType> list = new List<NotificationType>();
-            foreach (NotificationSettingsViewModel item in eventVM.notificationSettings)
+            foreach (NotificationSettingsViewModel item in eventVM.Notifications)
             {
                 list.Add(MapToNotificationType(item));
             }
@@ -136,6 +174,15 @@ namespace web_calendar.BL.Mappers
             return repeatable;
         }
 
+        public static RepeatableSettingsViewModel MapToRepeatableViewModel(Repeatable repeatable)
+        {
+            RepeatableSettingsViewModel repeatableVM = new RepeatableSettingsViewModel();
+            repeatableVM.Period = repeatable.Period;
+            repeatableVM.IfRepeatable = true;
+            repeatableVM.RepeatCount = repeatable.RepeatCount;
+            return repeatableVM;
+        }
+
         public static Repeatable MapToRepeatable(RepeatableSettingsViewModel repeatableSettingsVM)
         {
             Repeatable repeatable = new Repeatable();
@@ -150,12 +197,6 @@ namespace web_calendar.BL.Mappers
                 throw new NotImplementedException();
             }
             return repeatable;
-        }
-
-        public static DetailsEventViewModel MapToDetailsEventVM(CalendarEvent calendarEvent,
-            List<NotificationType> notificationTypes, List<Repeatable> repeatable)
-        {
-            throw new NotImplementedException();
         }
 
         // -------- Calendars --------
