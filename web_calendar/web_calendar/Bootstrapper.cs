@@ -27,7 +27,6 @@ namespace ApplicationRepository
             container.RegisterType<ICalendarRepository, CalendarRepository>();
             container.RegisterType<IEventRepository, EventRepository>();
             container.RegisterType<INotificationRepository, NotificationRepository>();
-            container.RegisterType<IRepeatableRepository, RepeatableRepository>();
 
             container.RegisterType<AccountController>(new InjectionConstructor());
             container.RegisterType<ManageController>(new InjectionConstructor());
