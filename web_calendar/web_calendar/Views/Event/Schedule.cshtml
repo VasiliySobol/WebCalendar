@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<web_calendar.BL.ViewModels.DisplayEventViewModel>
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create event</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -19,9 +24,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NotificationCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CalendarId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CalendarName)
@@ -47,9 +49,6 @@
             @Html.DisplayFor(modelItem => item.NotificationCount)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CalendarId)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.CalendarName)
         </td>
         <td>
@@ -61,3 +60,7 @@
 }
 
 </table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
