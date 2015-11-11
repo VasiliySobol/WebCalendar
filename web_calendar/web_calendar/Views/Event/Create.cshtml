@@ -1,5 +1,4 @@
 ﻿@model web_calendar.BL.ViewModels.CreateEventViewModel
-
 @{
     ViewBag.Title = "Create";
 }
@@ -7,7 +6,7 @@
 <h2>Create event</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Event", FormMethod.Post)) 
 {
     @Html.AntiForgeryToken()
     
@@ -82,39 +81,73 @@
             </div>
         </div>
 
+        @Html.Partial("_EditRepeatable", Model.repeatableSettings, new ViewDataDictionary()
+           {
+               TemplateInfo = new TemplateInfo()
+                   {
+                       HtmlFieldPrefix = "repeatableSettings"
+                   }
+           })
+
+        <hr/>
+            @Html.Label("Notifications:")
+            <table>
+                <thead>
+                    <tr>
+                        <td>
+                            Repetition count
+                        </td>
+                        <td>
+                            Interval
+                        </td>
+                        <td>
+                            Time before event
+                        </td>
+                        <td>
+                            Kind of notification
+                        </td>
+                    </tr>
+                </thead>
+                <tbody id="tbNotifications"></tbody>
+            </table>
+        <div>
+            <input id="btnAddNotification" type="button" onclick="addRow();" value="Add Notification" />
+        </div>
         <hr />
-        <div class="form-group">
-            @Html.LabelFor(model => model.repeatableSettings.IfRepeatable, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.CheckBoxFor(model => model.repeatableSettings.IfRepeatable)
-                    @Html.ValidationMessageFor(model => model.repeatableSettings.IfRepeatable, "", new { @class = "text-danger" })
+
+        @*<div class="form-group">
+
+            @Html.Label("Notifications:")
+
+            <input id="notificationCount" type="hidden" value="0" />
+            <div class="templateContainer">
+                <div class="reminder">
+                    @Html.Partial("_EditNotification", new web_calendar.BL.ViewModels.NotificationSettingsViewModel(),
+                    new ViewDataDictionary()
+                        {
+                            TemplateInfo = new TemplateInfo()
+                            {
+                                HtmlFieldPrefix = "Notifications_"
+                            }
+                        })
                 </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.repeatableSettings.Period, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.repeatableSettings.Period, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.repeatableSettings.Period, "", new { @class = "text-danger" })
+            <div class="items">
+                @foreach (var notification in Model.Notifications)
+                {
+                    <div class="reminder">
+                        @Html.Partial("_EditNotification", notification, new ViewDataDictionary()
+                        {
+                            TemplateInfo = new TemplateInfo()
+                            {
+                                HtmlFieldPrefix = "Notifications_"
+                            }
+                        }))
+                    </div>
+                }
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.repeatableSettings.RepeatCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.repeatableSettings.RepeatCount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.repeatableSettings.RepeatCount, "", new { @class = "text-danger" })
-            </div>
-            or
-            @Html.LabelFor(model => model.repeatableSettings.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.repeatableSettings.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.repeatableSettings.EndDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <hr />
+            <input id="addAnother" type="button" onclick="addNotification();" value="Add Notification" />
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -124,10 +157,83 @@
     </div>
 }
 
-@*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script language="javascript" type="text/javascript">
+
+    function addRow() {
+            @{
+                Model.Notifications.Add(new web_calendar.BL.ViewModels.NotificationSettingsViewModel());
+            }
+
+        var index = $("#tbNotifications").children("tr").length;
+
+        var indexCell = "<td style='display:none'><input name='Notifications.Index' type='hidden' value='"
+            + index + "' /></td>";
+        var repetitionCell = "<td><input id='Notifications_" + index + "__RepetitionCount' name='Notifications[" + index
+            + "].RepetitionCount' type='text' value='' /></td>";
+        var intervalCell = "<td><input id='Notifications_" + index + "__Interval' name='Notifications[" + index
+            + "].Interval' type='text' value='' /></td>";
+        var timeBeforeCell = "<td><input id='Notifications_" + index + "__TimeBefore' name='Notifications[" + index
+            + "].TimeBefore' type='text' value='' /></td>";
+        var kindCell = "<td><input id='Notifications_" + index + "__KindOfNotification' name='Notifications[" + index
+            + "].KindOfNotification' type='text' value='' /></td>";
+        var removeCell = "<td><input id='btnAddNotification' type='button' value='Remove' onclick='removeRow("
+            + index + ");' /></td>";
+
+        var newRow = "<tr id='trNotification" + index + "'>" +
+            indexCell + repetitionCell + intervalCell + timeBeforeCell + kindCell + removeCell + "</tr>";
+        $("#tbNotifications").append(newRow);
+    }
+
+    function removeRow(id) {
+        var controlToBeRemoved = "#trNotification" + id;
+        $(controlToBeRemoved).remove();
+    }
+
+    @*function addNotification() {
+        @{
+           Model.Notifications.Add(new web_calendar.BL.ViewModels.NotificationSettingsViewModel());
+        }
+
+        var counter = $("#notificationCount");
+        var count = parseInt(counter.val());
+        count++;
+
+        var template = $("#templateContainer");
+        var newItem = template.clone(true);
+        var newId = "item_" + count;
+        var newNotification = newItem.children().first();
+        newNotification.attr("id", newId);
+        newNotification.appendTo('#items');
+
+        $("#" + newId + " :input").each(function (index, input) {
+            input.id = input.id.replace("Template_0", "Notifications_" + (count - 1));
+            input.name = input.name.replace("Template[0]", "Notifications[" + (count - 1) + "]");
+        });
+
+        counter.val(count);
+    }*@
+</script>
+
+    @*<script>
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("Create", "Event")',
+            data: $('form').serialize(),
+            success: function func(data) {
+                if (data.IsSuccess == true) {
+                    alert("success");
+                    return data;
+                }
+                else {
+                    alert("no success");
+                }
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+    </script>*@
 }
