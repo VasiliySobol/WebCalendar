@@ -15,6 +15,7 @@
         @Html.ActionLink("Day", "Index", new { RenderPart = "_CalendarDayPartial" })
         @Html.ActionLink("Week", "Index", new { RenderPart = "_CalendarWeekPartial" })
         @Html.ActionLink("Month", "Index", new { RenderPart = "_CalendarMonthPartial" })
+        @Html.ActionLink("Schedule", "Schedule", "Event")
 </div>  
 </div>
 
@@ -42,7 +43,8 @@
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { id = item.CalendarViewId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.CalendarViewId })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.CalendarViewId }) |                        
+                        @Html.ActionLink("Schedule", "Schedule", "Event", new { id = item.CalendarViewId }, new { })
                     </td>
                 </tr>
             }
