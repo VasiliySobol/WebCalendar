@@ -10,9 +10,13 @@ namespace web_calendar.DAL.Interface
     {
         T FindById(int id);
 
+        M FindOtherById<M>(int id) where M : class;
+
         IEnumerable<T> GetAll();
 
         void Add(T instance);
+
+        void AddOther<M>(M entity) where M : class;
 
         void Modify(T instance);
 

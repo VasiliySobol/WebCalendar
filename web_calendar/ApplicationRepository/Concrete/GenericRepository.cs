@@ -25,6 +25,11 @@ namespace web_calendar.DAL.Concrete
             return _entities.Set<T>().Find(id);
         }
 
+        public M FindOtherById<M>(int id) where M: class
+        {
+            return _entities.Set<M>().Find(id);
+        }
+
         public virtual IEnumerable<T> GetAll()
         {
             return _entities.Set<T>().ToList();
@@ -48,6 +53,11 @@ namespace web_calendar.DAL.Concrete
         public virtual void Add(T entity)
         {
             _entities.Set<T>().Add(entity);
+        }
+
+        public virtual void AddOther<M>(M entity) where M : class
+        {
+            _entities.Set<M>().Add(entity);
         }
 
         public virtual void Delete(T entity)
