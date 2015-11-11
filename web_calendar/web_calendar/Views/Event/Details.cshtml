@@ -8,6 +8,9 @@
 
 <div>
     <h4>Event</h4>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    </p>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -18,7 +21,7 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
 
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.Text)
         </dt>
 
@@ -67,88 +70,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.RepetitionCount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RepetitionCount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Interval)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Interval)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeBefore)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeBefore)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.KindOfNotification)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.KindOfNotification)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IfRepeatable)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IfRepeatable)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Period)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Period)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.RepeatCount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RepeatCount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CalendarId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CalendarId)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.CalendarName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.CalendarName)
-        </dd>*@
+        </dd>
 
     </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <div class="row">
+        @if (Model.repeatableSettings.IfRepeatable)
+        {
+            <h4>Repeatable settings</h4>
+                @Html.Partial("_RepeatableDetails", Model.repeatableSettings)
+        }
+    </div>
+    <div class="row">
+        @if (Model.Notifications != null)
+        {
+            <h4>Notifications</h4>
+                @Html.Partial("_ListNotificationType", Model.Notifications)
+        }
+    </div>
+
+    </div>
