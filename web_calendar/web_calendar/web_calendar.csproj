@@ -315,8 +315,8 @@
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Calendar\ChangeCalendarNotificationSettings.cshtml" />
-    <Content Include="Views\Event\EditNotificationType.cshtml" />
-    <Content Include="Views\Event\ListNotificationType.cshtml" />
+    <Content Include="Views\Event\_EditNotification.cshtml" />
+    <Content Include="Views\Event\_ListNotificationType.cshtml" />
     <Content Include="Views\Event\Schedule.cshtml" />
     <Content Include="Views\Calendar\JSONIndex.cshtml" />
   </ItemGroup>
@@ -340,7 +340,8 @@
     <Content Include="Views\Calendar\_CalendarDayPartial.cshtml" />
     <Content Include="Views\Calendar\_CalendarWeekPartial.cshtml" />
     <Content Include="Views\Calendar\Details.cshtml" />
-    <Content Include="Views\Event\EditRepeatable.cshtml" />
+    <Content Include="Views\Event\_EditRepeatable.cshtml" />
+    <Content Include="Views\Event\_RepeatableDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
