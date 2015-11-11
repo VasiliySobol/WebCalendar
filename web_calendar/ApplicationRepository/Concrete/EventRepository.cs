@@ -60,6 +60,13 @@ namespace web_calendar.DAL.Concrete
             return null;
         }
 
+        public void AddRepeatableSettings(int eventId, Repeatable repeatable)
+        {
+            CalendarEvent calendarEvent = FindById(eventId);
+            AddOther<Repeatable>(repeatable);
+            calendarEvent.Repeatables.Add(repeatable);
+        }
+
         public Calendar GetCalendar(int id)
         {
             CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
@@ -68,6 +75,17 @@ namespace web_calendar.DAL.Concrete
                 return calendarEvent.Calendar;
             }
             return null;
+        }
+
+        public void AddCalendar(int eventId, int calendarId)
+        {
+            Calendar calendar = FindOtherById<Calendar>(calendarId);
+            if (calendar != null)
+            {
+                CalendarEvent calendarEvent = FindById(eventId);
+                calendarEvent.CalendarId = calendarId;
+                calendarEvent.Calendar = calendar;
+            }
         }
 
         public Guest FindFirstGuest(int id, Func<Guest, bool> filter)

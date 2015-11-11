@@ -14,7 +14,9 @@ namespace web_calendar.DAL.Interface
         IEnumerable<Notification> FindAllNotifications(int id, Func<Notification, bool> filter);
         bool IsRepeatable(CalendarEvent calendarEvent);
         Repeatable GetRepeatableSettings(int id);
+        void AddRepeatableSettings(int eventId, Repeatable repeatable);
         Calendar GetCalendar(int id);
+        void AddCalendar(int eventId, int calendarId);
         IEnumerable<Guest> FindAllGuests(int id, Func<Guest, bool> filter);
     }
 }
