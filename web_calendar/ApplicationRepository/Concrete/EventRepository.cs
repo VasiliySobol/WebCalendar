@@ -35,14 +35,61 @@ namespace web_calendar.DAL.Concrete
             return null;
         }
 
-        public IEnumerable<Notification> GetAllNotifications(int id)
+        public IEnumerable<Notification> GetAllNotifications(int eventId)
         {
-            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == eventId);
             if (calendarEvent != null && calendarEvent.Notifications != null)
             {
                 return calendarEvent.Notifications.ToList();
             }
             return null;
+        }
+
+        public IEnumerable<NotificationType> GetAllNotificationTypes(int id)
+        {
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            if (calendarEvent != null && calendarEvent.Notifications != null)
+            {
+                List<NotificationType> list = new List<NotificationType>();
+                foreach (Notification item in calendarEvent.Notifications.ToList())
+                {
+                    list.Add(item.NotificationTypeReference);                    
+                }
+                return list;
+            }
+            return null;
+        }
+
+        public IEnumerable<NotificationType> FindAllNotifications(int id, Func<NotificationType, bool> filter)
+        {
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            if (calendarEvent != null && calendarEvent.Notifications != null)
+            {
+                List<NotificationType> list = new List<NotificationType>();
+                foreach (Notification item in calendarEvent.Notifications.Where(x => 
+                    filter(x.NotificationTypeReference)).ToList())
+                {
+                    list.Add(item.NotificationTypeReference);
+                }
+                return list;
+            }
+            return null;
+        }
+
+        public void AddNotifications(int eventId, IEnumerable<NotificationType> notifications)
+        {
+            CalendarEvent calendarEvent = FindById(eventId);
+            if (calendarEvent != null)
+                foreach (NotificationType item in notifications)
+                {
+                    AddOther<NotificationType>(item);
+                    Notification newNotification = new Notification();
+                    newNotification.NotificationType = item.Id;
+                    newNotification.NotificationTypeReference = item;
+                    newNotification.EventId = calendarEvent.Id;
+                    newNotification.CalendarEvent = calendarEvent;
+                    AddOther<Notification>(newNotification);
+                }
         }
 
         public bool IsRepeatable(CalendarEvent calendarEvent)
