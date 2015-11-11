@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>@Html.DisplayFor(model => model.CalendarName)</h4>
         <h4>Event</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -75,17 +74,47 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CalendarName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SelectedCalendarId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CalendarName, Model.CalendarNameValues,
-                    @*Model.CalendarNameValues.Select(x => new SelectListItem() { Text = x }),*@
+                @Html.DropDownListFor(model => model.SelectedCalendarId, Model.CalendarItems as SelectList,
                     new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CalendarName, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.SelectedCalendarId, "", new { @class = "text-danger" })
             </div>
         </div>
-        <label id="textjson"></label>
 
-        @*@Html.Partial("EditRepeatable", Model.repeatableSettings)*@
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.repeatableSettings.IfRepeatable, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.repeatableSettings.IfRepeatable)
+                    @Html.ValidationMessageFor(model => model.repeatableSettings.IfRepeatable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.repeatableSettings.Period, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.repeatableSettings.Period, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.repeatableSettings.Period, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.repeatableSettings.RepeatCount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.repeatableSettings.RepeatCount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.repeatableSettings.RepeatCount, "", new { @class = "text-danger" })
+            </div>
+            or
+            @Html.LabelFor(model => model.repeatableSettings.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.repeatableSettings.EndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.repeatableSettings.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
