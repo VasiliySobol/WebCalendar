@@ -70,8 +70,10 @@ namespace web_calendar.Controllers
         [HttpPost]
         public ActionResult Delete(CalendarViewModel calendarVM)
         {
-            Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
+            //Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
+            Calendar calendar = CalendarService.calendarRepository.FindById(calendarVM.Id);
             CalendarService.calendarRepository.Delete(calendar);
+            CalendarService.calendarRepository.SaveChanges();
             return RedirectToAction("Index");
         }
 
