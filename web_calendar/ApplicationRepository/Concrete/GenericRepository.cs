@@ -67,15 +67,7 @@ namespace web_calendar.DAL.Concrete
 
         public virtual void SaveChanges()
         {
-           // _entities.SaveChanges();
-            try
-            {
-                _entities.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                _entities.SaveChangesAsync();
-            }
+            _entities.SaveChanges();
         }
     }
 }
