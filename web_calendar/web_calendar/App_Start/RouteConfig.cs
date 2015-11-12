@@ -14,6 +14,12 @@ namespace web_calendar
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Schedule",
+                url: "Event/{action}/{id}",
+                defaults: new { controller = "Event", action = "Schedule", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Calendar", action = "Index", id = UrlParameter.Optional }
