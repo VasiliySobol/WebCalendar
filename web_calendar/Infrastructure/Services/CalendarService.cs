@@ -40,7 +40,7 @@ namespace web_calendar.BL.Services
         {
             for (byte i = 0; i < timeZoneList.Count; i++)
             {
-                if (timeZoneName == timeZoneList[i].DisplayName)
+                if (timeZoneName == timeZoneList[i].StandardName)
                 {
                     return i;
                 }
@@ -50,7 +50,7 @@ namespace web_calendar.BL.Services
 
         public static string GetTimeZoneNameById(byte? timeZoneId)
         {
-            return timeZoneList[(int)timeZoneId].DisplayName;
+            return timeZoneList[(int)timeZoneId].StandardName;
         }
 
         public static void CreateDefaultCalendar(string userId)
