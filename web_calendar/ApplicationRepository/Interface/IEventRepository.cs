@@ -21,6 +21,7 @@ namespace web_calendar.DAL.Interface
         void AddRepeatableSettings(int eventId, Repeatable repeatable);
         Calendar GetCalendar(int id);
         void AddCalendar(int eventId, int calendarId);
+        void AddGuests(int eventId, List<string> emails);
         IEnumerable<Guest> FindAllGuests(int id, Func<Guest, bool> filter);
     }
 }

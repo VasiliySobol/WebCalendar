@@ -135,6 +135,20 @@ namespace web_calendar.DAL.Concrete
             }
         }
 
+        public void AddGuests(int eventId, List<string> emails)
+        {
+            CalendarEvent calendarEvent = FindFirst(x => x.Id == eventId);
+            foreach (string email in emails)
+            {
+                Guest guest = new Guest();
+                guest.Email = email;
+                guest.EventId = eventId;
+                guest.CalendarEvent = calendarEvent;
+                AddOther<Guest>(guest);
+                calendarEvent.Guests.Add(guest);
+            }
+        }
+
         public Guest FindFirstGuest(int id, Func<Guest, bool> filter)
         {
             CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
