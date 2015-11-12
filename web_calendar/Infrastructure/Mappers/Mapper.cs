@@ -14,13 +14,15 @@ namespace web_calendar.BL.Mappers
     {
         // -------- Events --------
 
-        public static DetailsEventViewModel MapToDetailsEventVM(CalendarEvent calendarEvent)
+        public static DetailsEventViewModel MapToDetailsEventVM(CalendarEvent calendarEvent, List<string> guests)
         {
             DetailsEventViewModel eventVM = new DetailsEventViewModel();
             eventVM.Id = calendarEvent.Id;
             eventVM.Name = calendarEvent.Name;
             eventVM.Text = calendarEvent.Text;
             eventVM.Place = calendarEvent.Place;
+            eventVM.Visibility = calendarEvent.Visibility;
+            eventVM.AllDay = calendarEvent.AllDay.Value.ToString();
             eventVM.TimeBegin = calendarEvent.TimeBegin;
             eventVM.TimeEnd = calendarEvent.TimeEnd;
             if (calendarEvent.CalendarId != null)
@@ -28,6 +30,9 @@ namespace web_calendar.BL.Mappers
                 eventVM.CalendarId = (int)calendarEvent.CalendarId;
                 eventVM.CalendarName = calendarEvent.Calendar.Name;
             }
+            eventVM.Guests = new List<string>();
+            if (guests != null)
+                eventVM.Guests.AddRange(guests);
             return eventVM;
         }
 
@@ -78,7 +83,7 @@ namespace web_calendar.BL.Mappers
             }
             eventVM.Notifications = list;
 
-            eventVM.GuestsEmails = emails;
+            //eventVM.Guests = emails;
 
             return eventVM;
         }
@@ -119,6 +124,7 @@ namespace web_calendar.BL.Mappers
         {
             CalendarEvent calendarEvent = new CalendarEvent();
 
+            calendarEvent.Id = eventVM.Id;
             calendarEvent.Name = eventVM.Name;
             calendarEvent.Text = eventVM.Text;
             calendarEvent.Place = eventVM.Place;
@@ -128,6 +134,17 @@ namespace web_calendar.BL.Mappers
             calendarEvent.AllDay = eventVM.AllDay;
 
             return calendarEvent;
+        }
+
+        public static void MapToEvent(CalendarEvent calendarEvent, CreateEventViewModel eventVM)
+        {
+            calendarEvent.Name = eventVM.Name;
+            calendarEvent.Text = eventVM.Text;
+            calendarEvent.Place = eventVM.Place;
+            calendarEvent.TimeBegin = eventVM.TimeBegin;
+            calendarEvent.TimeEnd = eventVM.TimeEnd;
+            calendarEvent.Visibility = eventVM.Visibility;
+            calendarEvent.AllDay = eventVM.AllDay;
         }
 
         public static CreateEventViewModel MapToEditEventVM(CalendarEvent calendarEvent)
