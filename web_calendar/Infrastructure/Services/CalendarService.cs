@@ -62,7 +62,7 @@ namespace web_calendar.BL.Services
             calendar.UserId = userId;
             calendar.CalendarColor = 0;
             calendar.TimeZone = 0;
-            calendar.Visibility = "true";
+            calendar.Visibility = "Всем";
 
             calendarRepository.Add(calendar);
             calendarRepository.SaveChanges();
