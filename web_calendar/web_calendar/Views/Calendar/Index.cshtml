@@ -39,12 +39,12 @@
             {
                 <tr>
                     <td>
-                        @Html.ActionLink(item.Name, "Details", new { id = item.CalendarViewId })
+                        @Html.ActionLink(item.Name, "Details", new { id = item.Id })
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.CalendarViewId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.CalendarViewId }) |                        
-                        @Html.ActionLink("Schedule", "Schedule", "Event", new { id = item.CalendarViewId }, new { })
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |                        
+                        @Html.ActionLink("Schedule", "Schedule", "Event", new { id = item.Id }, new { })
                     </td>
                 </tr>
             }

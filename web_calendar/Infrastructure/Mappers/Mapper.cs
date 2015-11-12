@@ -204,29 +204,29 @@ namespace web_calendar.BL.Mappers
 
         public static CalendarViewModel MapToCalendarViewModel(Calendar calendar)
         {
-            CalendarViewModel CVM = new CalendarViewModel();
-            CVM.CalendarColor = Color.FromArgb(calendar.CalendarColor.Value);
-            CVM.Description = calendar.Text;
-            CVM.Name = calendar.Name;
-            CVM.notificationSettings = new NotificationSettingsViewModel();
-            CVM.TimeZone = CalendarService.GetTimeZoneNameById(calendar.TimeZone);
-            CVM.Visibility = calendar.Visibility;
-            CVM.CalendarViewId = calendar.Id;
-            CVM.userId = calendar.UserId;
-            return CVM;
+            CalendarViewModel calendarVM = new CalendarViewModel();
+            calendarVM.CalendarColor = Color.FromArgb(calendar.CalendarColor.Value);
+            calendarVM.Description = calendar.Text;
+            calendarVM.Name = calendar.Name;
+            calendarVM.notificationSettings = new NotificationSettingsViewModel();
+            calendarVM.TimeZone = CalendarService.GetTimeZoneNameById(calendar.TimeZone);
+            calendarVM.Visibility = calendar.Visibility;
+            calendarVM.Id = calendar.Id;
+            calendarVM.userId = calendar.UserId;
+            return calendarVM;
         }
 
-        public static Calendar MapToCalendarFromCalendarVM(CalendarViewModel calendar)
+        public static Calendar MapToCalendarFromCalendarVM(CalendarViewModel calendarVM)
         {
-            Calendar calendarTMP = new Calendar();
-            calendarTMP.CalendarColor = calendar.CalendarColor.ToArgb();
-            calendarTMP.Text = calendar.Description;
-            calendarTMP.Name = calendar.Name;
-            calendarTMP.TimeZone = CalendarService.GetTimeZoneIdByName(calendar.TimeZone);
-            calendarTMP.Visibility = calendar.Visibility;
-            calendarTMP.Id = calendar.CalendarViewId;
-            calendarTMP.UserId = calendar.userId;            
-            return calendarTMP;
+            Calendar calendar = new Calendar();
+            calendar.CalendarColor = calendarVM.CalendarColor.ToArgb();
+            calendar.Text = calendarVM.Description;
+            calendar.Name = calendarVM.Name;
+            calendar.TimeZone = CalendarService.GetTimeZoneIdByName(calendarVM.TimeZone);
+            calendar.Visibility = calendarVM.Visibility;
+            calendar.Id = calendarVM.Id;
+            calendar.UserId = calendarVM.userId;            
+            return calendar;
         }
     }
 }
