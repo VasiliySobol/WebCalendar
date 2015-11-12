@@ -1,7 +1,7 @@
 ﻿@model web_calendar.BL.ViewModels.CalendarViewModel
 
 <div>
-    <h4>CalendarViewModel</h4>
+    <h4>Calendar</h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
@@ -47,6 +47,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /*id = Model.PrimaryKey*/ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CalendarViewId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
