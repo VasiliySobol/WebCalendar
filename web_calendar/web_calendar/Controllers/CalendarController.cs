@@ -48,6 +48,8 @@ namespace web_calendar.Controllers
         {
             Calendar calendar = CalendarService.calendarRepository.FindById(id);
             CalendarViewModel calendarVM = Mapper.MapToCalendarViewModel(calendar);
+            string userId = User.Identity.GetUserId();
+            calendarVM.userId = userId;
             return View(calendarVM);
         }
 
@@ -64,6 +66,8 @@ namespace web_calendar.Controllers
         {
             Calendar calendar = CalendarService.calendarRepository.FindById(id);
             CalendarViewModel calendarVM = Mapper.MapToCalendarViewModel(calendar);
+            string userId = User.Identity.GetUserId();
+            calendarVM.userId = userId;
             return View(calendarVM);
         }
 
