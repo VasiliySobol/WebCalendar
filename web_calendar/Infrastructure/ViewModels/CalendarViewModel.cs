@@ -8,23 +8,23 @@ namespace web_calendar.BL.ViewModels
     public class CalendarViewModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
         [Display(Name = "Name")]
-        public string Name { get; set; }
+        public string name { get; set; }
 
         [Display(Name = "Description")]
-        public string Description { get; set; }
+        public string description { get; set; }
 
         [Display(Name = "Color")]
-        public Color CalendarColor { get; set; }
+        public Color calendarColor { get; set; }
 
         [Display(Name = "Visibility")]
-        public string Visibility { get; set; }
+        public string visibility { get; set; }
 
         [Display(Name = "Time zone")]
-        public string TimeZone { get; set; }
+        public string timeZone { get; set; }
 
         // Notification Settings
         public NotificationSettingsViewModel notificationSettings { get; set; }

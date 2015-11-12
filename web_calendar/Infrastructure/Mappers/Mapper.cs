@@ -222,13 +222,13 @@ namespace web_calendar.BL.Mappers
         public static CalendarViewModel MapToCalendarViewModel(Calendar calendar)
         {
             CalendarViewModel calendarVM = new CalendarViewModel();
-            calendarVM.CalendarColor = Color.FromArgb(calendar.CalendarColor.Value);
-            calendarVM.Description = calendar.Text;
-            calendarVM.Name = calendar.Name;
+            calendarVM.calendarColor = Color.FromArgb(calendar.CalendarColor.Value);
+            calendarVM.description = calendar.Text;
+            calendarVM.name = calendar.Name;
             calendarVM.notificationSettings = new NotificationSettingsViewModel();
-            calendarVM.TimeZone = CalendarService.GetTimeZoneNameById(calendar.TimeZone);
-            calendarVM.Visibility = calendar.Visibility;
-            calendarVM.Id = calendar.Id;
+            calendarVM.timeZone = CalendarService.GetTimeZoneNameById(calendar.TimeZone);
+            calendarVM.visibility = calendar.Visibility;
+            calendarVM.id = calendar.Id;
             calendarVM.userId = calendar.UserId;
             return calendarVM;
         }
@@ -236,12 +236,12 @@ namespace web_calendar.BL.Mappers
         public static Calendar MapToCalendarFromCalendarVM(CalendarViewModel calendarVM)
         {
             Calendar calendar = new Calendar();
-            calendar.CalendarColor = calendarVM.CalendarColor.ToArgb();
-            calendar.Text = calendarVM.Description;
-            calendar.Name = calendarVM.Name;
-            calendar.TimeZone = CalendarService.GetTimeZoneIdByName(calendarVM.TimeZone);
-            calendar.Visibility = calendarVM.Visibility;
-            calendar.Id = calendarVM.Id;
+            calendar.CalendarColor = calendarVM.calendarColor.ToArgb();
+            calendar.Text = calendarVM.description;
+            calendar.Name = calendarVM.name;
+            calendar.TimeZone = CalendarService.GetTimeZoneIdByName(calendarVM.timeZone);
+            calendar.Visibility = calendarVM.visibility;
+            calendar.Id = calendarVM.id;
             calendar.UserId = calendarVM.userId;            
             return calendar;
         }

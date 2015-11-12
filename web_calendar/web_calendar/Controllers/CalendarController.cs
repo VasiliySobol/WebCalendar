@@ -71,7 +71,7 @@ namespace web_calendar.Controllers
         public ActionResult Delete(CalendarViewModel calendarVM)
         {
             //Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
-            Calendar calendar = CalendarService.calendarRepository.FindById(calendarVM.Id);
+            Calendar calendar = CalendarService.calendarRepository.FindById(calendarVM.id);
             CalendarService.calendarRepository.Delete(calendar);
             CalendarService.calendarRepository.SaveChanges();
             return RedirectToAction("Index");
