@@ -30,6 +30,11 @@ namespace web_calendar.Controllers
             return View(CalendarService.GetCalendarViewModels(User.Identity.GetUserId()));
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult Create(CalendarViewModel calendar)
         {
@@ -39,30 +44,34 @@ namespace web_calendar.Controllers
             return View("Index");
         }
 
-        [HttpPost]
-        public ActionResult Edit(CalendarViewModel calendar)
+        public ViewResult Edit(int id)
         {
-            CalendarService.calendarRepository.Modify(Mapper.MapToCalendarFromCalendarVM(calendar));
+            Calendar calendar = CalendarService.calendarRepository.FindById(id);
+            CalendarViewModel calendarVM = Mapper.MapToCalendarViewModel(calendar);
+            return View(calendarVM);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(CalendarViewModel calendarVM)
+        {
+            Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
+            CalendarService.calendarRepository.Modify(calendar);
             CalendarService.calendarRepository.SaveChanges();
             return View("Index");
         }
 
-        public ViewResult Edit(int id)
-        {
-            var calendar = CalendarService.calendarRepository.FindById(id);
-            return View(Mapper.MapToCalendarViewModel(calendar));
-        }
-
         public ActionResult Delete(int id)
         {
-            var calendar = CalendarService.calendarRepository.FindById(id);
-            return View(Mapper.MapToCalendarViewModel(calendar));
+            Calendar calendar = CalendarService.calendarRepository.FindById(id);
+            CalendarViewModel calendarVM = Mapper.MapToCalendarViewModel(calendar);
+            return View(calendarVM);
         }
 
         [HttpPost]
-        public ActionResult Delete(CalendarViewModel calendar)
+        public ActionResult Delete(CalendarViewModel calendarVM)
         {
-            CalendarService.calendarRepository.Delete(Mapper.MapToCalendarFromCalendarVM(calendar));
+            Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
+            CalendarService.calendarRepository.Delete(calendar);
             return View("Index");
         }
 
@@ -86,14 +95,9 @@ namespace web_calendar.Controllers
 
         public string JSONIndex()
         {
-            var data = CalendarService.calendarRepository.GetAll();
+            var data = CalendarService.calendarRepository.GetAll().ToList();
 
             return JsonConvert.SerializeObject(data);
-        }
-
-        public ActionResult Create()
-        {
-            return View();
         }
 
         public ActionResult Details(int id)

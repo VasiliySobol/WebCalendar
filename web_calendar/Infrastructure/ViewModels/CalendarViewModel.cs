@@ -8,7 +8,7 @@ namespace web_calendar.BL.ViewModels
     public class CalendarViewModel
     {
         [HiddenInput(DisplayValue = false)]
-        public int CalendarViewId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
         [Display(Name = "Name")]
