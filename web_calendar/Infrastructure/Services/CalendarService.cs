@@ -57,8 +57,11 @@ namespace web_calendar.BL.Services
         {
             Calendar calendar = new Calendar();
             calendar.Name = "Default calendar";
+            calendar.Text = "Default calendar-description";
             calendar.UserId = userId;
-            //initialize other properties
+            calendar.CalendarColor = 0;
+            calendar.TimeZone = 0;
+            calendar.Visibility = "true";
             calendarRepository.Add(calendar);
         }
 
