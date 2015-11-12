@@ -17,7 +17,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Place, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Place, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Place, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Place, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -57,7 +57,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Visibility, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Visibility, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.Visibility, new SelectList(new string[] 
+                    { "Only me", "Me and my guests", "Everybody" }), htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Visibility, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -115,6 +116,23 @@
         </div>
         <hr />
 
+        <hr />
+        @Html.Label("Guests:")
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        Email
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="tbGuests"></tbody>
+        </table>
+        <div>
+            <input id="btnAddGuest" type="button" onclick="addGuest();" value="Add Guest" />
+        </div>
+        <hr />
+
         @*<div class="form-group">
 
             @Html.Label("Notifications:")
@@ -163,7 +181,7 @@
     <script language="javascript" type="text/javascript">
 
     function addRow() {
-            @{
+        @{
                 Model.Notifications.Add(new web_calendar.BL.ViewModels.NotificationSettingsViewModel());
             }
 
@@ -189,6 +207,30 @@
 
     function removeRow(id) {
         var controlToBeRemoved = "#trNotification" + id;
+        $(controlToBeRemoved).remove();
+    }
+
+    function addGuest() {
+            @{
+                Model.Guests.Add(new web_calendar.BL.ViewModels.GuestsEmail());
+            }
+
+        var index = $("#tbGuests").children("tr").length;
+
+        var indexCell = "<td style='display:none'><input name='Guests.Index' type='hidden' value='"
+            + index + "' /></td>";
+        var emailCell = "<td><input id='Guests_" + index + "__Email' name='Guests[" + index
+            + "].Email' type='text' value='' /></td>";
+        var removeCell = "<td><input id='btnAddGuest' type='button' value='Remove' onclick='removeRow("
+            + index + ");' /></td>";
+
+        var newRow = "<tr id='trGuest" + index + "'>" +
+            indexCell + emailCell + removeCell + "</tr>";
+        $("#tbGuests").append(newRow);
+    }
+
+    function removeGuest(id) {
+        var controlToBeRemoved = "#trGuest" + id;
         $(controlToBeRemoved).remove();
     }
 

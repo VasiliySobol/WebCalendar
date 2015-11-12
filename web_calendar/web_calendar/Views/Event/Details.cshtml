@@ -79,18 +79,34 @@
 
     </dl>
     <div class="row">
-        @if (Model.repeatableSettings.IfRepeatable)
+        @if (Model.repeatableSettings != null)
         {
-            <h4>Repeatable settings</h4>
+            if (Model.repeatableSettings.IfRepeatable)
+            {
+                <h4>Repeatable settings</h4>
                 @Html.Partial("_RepeatableDetails", Model.repeatableSettings)
+            }
         }
     </div>
     <div class="row">
         @if (Model.Notifications != null)
         {
             <h4>Notifications</h4>
-                @Html.Partial("_ListNotificationType", Model.Notifications)
+            @Html.Partial("_ListNotificationType", Model.Notifications)
         }
     </div>
-
-    </div>
+    <div class="row">
+        @if (Model.Guests != null)
+        {
+            <h4>Guests</h4>
+            <dl class="dl-horizontal">
+            @foreach (var item in Model.Guests)
+            {
+                <dd>
+                    @item
+                </dd>
+            }
+            </dl>
+        }
+</div>
+</div>
