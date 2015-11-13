@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using System.Web.Services;
 using web_calendar.BL.Mappers;
 using web_calendar.BL.ViewModels;
+using web_calendar.BL.ServerValidation;
 
 namespace web_calendar.Controllers
 {
@@ -93,46 +94,44 @@ namespace web_calendar.Controllers
         {
             if (ModelState.IsValid)
             {
-                int calendarId;
-                if (eventViewModel.Name != "" && eventViewModel.TimeBegin != null &&
-                    Int32.TryParse(eventViewModel.SelectedCalendarId, out calendarId))
+                if (EventValidator.Validate(eventViewModel))
                 {
-                    if (eventRepository.FindOtherById<Calendar>(calendarId) != null)
+                    int calendarId;
+                    if (Int32.TryParse(eventViewModel.SelectedCalendarId, out calendarId))
                     {
-                        CalendarEvent calendarEvent = Mapper.MapToEvent(eventViewModel);
-                        eventRepository.Add(calendarEvent);
-                        eventRepository.AddCalendar(calendarEvent.Id, calendarId);
+                        if (eventRepository.FindOtherById<Calendar>(calendarId) != null)
+                        {
+                            CalendarEvent calendarEvent = Mapper.MapToEvent(eventViewModel);
+                            eventRepository.Add(calendarEvent);
+                            eventRepository.AddCalendar(calendarEvent.Id, calendarId);
+                            eventRepository.SaveChanges();
 
-                        eventRepository.SaveChanges();
+                            if (eventViewModel.repeatableSettings != null)
+                                if (eventViewModel.repeatableSettings.IfRepeatable)
+                                {
+                                    Repeatable repeatable = Mapper.MapToRepeatable(eventViewModel);
+                                    repeatable.EventId = calendarEvent.Id;
+                                    repeatable.CalendarEvent = calendarEvent;
+                                    eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
+                                    //TODO : add repeatedevents
+                                }
+                            eventRepository.SaveChanges();
 
-                        if (eventViewModel.repeatableSettings != null)
-                            if (eventViewModel.repeatableSettings.IfRepeatable)
-                            {
-                                Repeatable repeatable = Mapper.MapToRepeatable(eventViewModel);
-                                repeatable.EventId = calendarEvent.Id;
-                                repeatable.CalendarEvent = calendarEvent;
-                                eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
-                                //TODO : add repeatedevents
-                            }
+                            if (eventViewModel.Notifications != null)
+                                if (eventViewModel.Notifications.Count > 0)
+                                {
+                                    List<NotificationType> notifications = Mapper.MapToNotificationTypes(eventViewModel);
+                                    eventRepository.AddNotifications(calendarEvent.Id, notifications);
+                                }
+                            eventRepository.SaveChanges();
 
-                        eventRepository.SaveChanges();
+                            if (eventViewModel.Guests != null)
+                                eventRepository.AddGuests(calendarEvent.Id,
+                                    eventViewModel.Guests.Select(x => x.Email).ToList());
+                            eventRepository.SaveChanges();
 
-                        if (eventViewModel.Notifications != null)
-                            if (eventViewModel.Notifications.Count > 0)
-                            {
-                                List<NotificationType> notifications = Mapper.MapToNotificationTypes(eventViewModel);
-                                eventRepository.AddNotifications(calendarEvent.Id, notifications);
-                            }
-
-                        eventRepository.SaveChanges();
-
-                        if (eventViewModel.Guests != null)
-                            eventRepository.AddGuests(calendarEvent.Id, 
-                                eventViewModel.Guests.Select(x => x.Email).ToList());
-
-                        eventRepository.SaveChanges();
-
-                        return RedirectToAction("Schedule");
+                            return RedirectToAction("Schedule");
+                        }
                     }
                 }
             }
@@ -171,41 +170,44 @@ namespace web_calendar.Controllers
         {
             if (ModelState.IsValid)
             {
-                CalendarEvent calendarEvent = eventRepository.FindById(eventViewModel.Id);
-                Mapper.MapToEvent(calendarEvent, eventViewModel);                
-                //int calendarId;
-                //if (Int32.TryParse(eventViewModel.SelectedCalendarId, out calendarId))
-                //    if (calendarId != eventRepository.GetCalendar(calendarEvent.Id).Id)
-                //    {
-                //        Calendar calendar = eventRepository.FindOtherById<Calendar>(calendarId);
-                //        if (calendar != null)
-                //        {
-                //            calendarEvent.CalendarId = calendarId;
-                //            calendarEvent.Calendar = calendar;
-                //        }
-                //    }
-                eventRepository.Modify(calendarEvent);
-                eventRepository.SaveChanges();
-                if (eventViewModel.repeatableSettings.IfRepeatable)
+                if (EventValidator.Validate(eventViewModel))
                 {
-                    Repeatable repeatable = eventRepository.GetRepeatableSettings(calendarEvent.Id);
-                    if (repeatable != null)
+                    CalendarEvent calendarEvent = eventRepository.FindById(eventViewModel.Id);
+                    Mapper.MapToEvent(calendarEvent, eventViewModel);
+                    //int calendarId;
+                    //if (Int32.TryParse(eventViewModel.SelectedCalendarId, out calendarId))
+                    //    if (calendarId != eventRepository.GetCalendar(calendarEvent.Id).Id)
+                    //    {
+                    //        Calendar calendar = eventRepository.FindOtherById<Calendar>(calendarId);
+                    //        if (calendar != null)
+                    //        {
+                    //            calendarEvent.CalendarId = calendarId;
+                    //            calendarEvent.Calendar = calendar;
+                    //        }
+                    //    }
+                    eventRepository.Modify(calendarEvent);
+                    eventRepository.SaveChanges();
+                    if (eventViewModel.repeatableSettings.IfRepeatable)
                     {
-                        repeatable.Period = eventViewModel.repeatableSettings.Period;
-                        repeatable.RepeatCount = eventViewModel.repeatableSettings.RepeatCount;
-                        //add logic
+                        Repeatable repeatable = eventRepository.GetRepeatableSettings(calendarEvent.Id);
+                        if (repeatable != null)
+                        {
+                            repeatable.Period = eventViewModel.repeatableSettings.Period;
+                            repeatable.RepeatCount = eventViewModel.repeatableSettings.RepeatCount;
+                            //add logic
+                        }
+                        else
+                        {
+                            repeatable = new Repeatable();
+                            repeatable.Period = eventViewModel.repeatableSettings.Period;
+                            repeatable.RepeatCount = eventViewModel.repeatableSettings.RepeatCount;
+                            //add logic
+                            eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
+                        }
                     }
-                    else
-                    {
-                        repeatable = new Repeatable();
-                        repeatable.Period = eventViewModel.repeatableSettings.Period;
-                        repeatable.RepeatCount = eventViewModel.repeatableSettings.RepeatCount;
-                        //add logic
-                        eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
-                    }
+                    eventRepository.SaveChanges();
+                    return RedirectToAction("Schedule");
                 }
-                eventRepository.SaveChanges();
-                return RedirectToAction("Schedule");
             }
             return View(eventViewModel);
         }
