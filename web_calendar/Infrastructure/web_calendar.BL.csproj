@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTypes\Visibility.cs" />
+    <Compile Include="ServerValidation\EventValidator.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Mappers\Mapper.cs" />
