@@ -23,12 +23,32 @@
     <div id="datetimepicker" style="width:80%"></div>
 
     <div>
-        @using (Ajax.BeginForm("GetCalendars", "Calendar", new System.Web.Mvc.Ajax.AjaxOptions { UpdateTargetId = "results" }))
+        <!--using (Ajax.BeginForm("GetCalendars", "Calendar", new System.Web.Mvc.Ajax.AjaxOptions { UpdateTargetId = "results" }))
         {
-            <input type="submit" value="AjaxButton" />
-            @Html.Partial("GetCalendars");
-        }
-        <div id="results"></div>
+            <!--Html.Partial("GetCalendars");
+            <form action="/Calendar/GetCalendars" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">    
+                <input type="submit" value="AjaxButton" />
+            </form>
+        }-->
+
+        <script type="text/javascript">
+	        jQuery(function($) {
+	 	        $('#update-container').click(function(e) {
+	 		        e.preventDefault();
+
+	 		    $.ajax({
+	 			    url: '@Url.Action("Index", "GetCalendars")',
+	 			    success: function(data) {
+	 				    $('#container').html(data);
+	 			    }
+	 		    });
+	 	    })
+	    })
+        </script>
+
+        <div id="container">
+            @Html.Partial("GetCalendars")
+        </div>
     </div>
 
 </div>
