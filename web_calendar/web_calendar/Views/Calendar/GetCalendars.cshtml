@@ -1,0 +1,11 @@
+﻿@model IEnumerable <web_calendar.BL.ViewModels.CalendarViewModel>
+
+    <div id="results">
+        <h3>Все календарики:</h3>
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>@item.name</li>
+            }
+        </ul>
+    </div>
