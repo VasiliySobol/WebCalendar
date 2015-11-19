@@ -326,7 +326,7 @@
     <Content Include="Views\Event\Schedule.cshtml" />
     <Content Include="Views\Calendar\JSONIndex.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <Content Include="Views\Calendar\_CalendarListPartial.cshtml" />
+    <Content Include="Views\Calendar\GetCalendars.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationRepository\web_calendar.DAL.csproj">
