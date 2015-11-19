@@ -1,18 +1,1 @@
-﻿@model IEnumerable<web_calendar.BL.ViewModels.CalendarViewModel>
-
-@if (Model != null)
-{
-    foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.ActionLink(item.name, "Details", new { id = item.id })
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
-                @Html.ActionLink("Schedule", "Schedule", "Event", new { id = item.id }, new { })
-            </td>
-        </tr>
-    }
-}
+﻿
