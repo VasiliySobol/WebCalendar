@@ -22,38 +22,15 @@
 <div class="miniCalendarContainer">
     <div id="datetimepicker" style="width:80%"></div>
 
-    <table class="table" style="width:10%">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.name)
-            </th>
-        </tr>
-        
-        @if (Model != null)
+    <div>
+        @using (Ajax.BeginForm("GetCalendars", "Calendar", new System.Web.Mvc.Ajax.AjaxOptions { UpdateTargetId = "results" }))
         {
-            foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.ActionLink(item.name, "Details", new { id = item.id })
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
-                        @Html.ActionLink("Schedule", "Schedule", "Event", new { id = item.id })
-                    </td>
-                </tr>
-            }
+            <input type="submit" value="AjaxButton" />
+            @Html.Partial("GetCalendars");
         }
-    </table>
-</div>
+        <div id="results"></div>
+    </div>
 
-<div>
-    @using (Ajax.BeginForm("GetCalendars", "Calendar", new System.Web.Mvc.Ajax.AjaxOptions { UpdateTargetId = "results" }))
-    {
-        <input type="submit" value="AjaxButton" />
-    }
-    <div id="results"></div>
 </div>
 
 <div class="calendarContainer">
