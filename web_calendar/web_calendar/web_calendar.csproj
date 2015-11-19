@@ -205,6 +205,8 @@
     <Content Include="Content\bootstrap-datepicker3.min.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -213,7 +215,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.az.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.bg.min.js" />
@@ -318,6 +325,8 @@
     <Content Include="Views\Event\_ListNotificationType.cshtml" />
     <Content Include="Views\Event\Schedule.cshtml" />
     <Content Include="Views\Calendar\JSONIndex.cshtml" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Views\Calendar\_CalendarListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationRepository\web_calendar.DAL.csproj">
@@ -330,10 +339,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Calendar\_CalendarMonthPartial.cshtml" />
     <Content Include="Views\Calendar\_CalendarDayPartial.cshtml" />
