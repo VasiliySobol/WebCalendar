@@ -2,10 +2,28 @@
 
     <div id="results">
         <h3>Все календарики:</h3>
-        <ul>
-            @foreach (var item in Model)
-            {
-                <li>@item.name</li>
-            }
-        </ul>
+            <table class="table" style="width:10%">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.name)
+                    </th>
+                </tr>
+
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.ActionLink(item.name, "Details", new { id = item.id })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
+                                @Html.ActionLink("Schedule", "Schedule", "Event", new { id = item.id })
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
     </div>
