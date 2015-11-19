@@ -19,6 +19,18 @@ namespace web_calendar.Controllers
     [Authorize]
     public class CalendarController : Controller
     {
+        [HttpPost]
+        public ActionResult GetCalendars()
+        {
+            var allCalendars = CalendarService.calendarRepository.GetAll();
+            List<CalendarViewModel> list = new List<CalendarViewModel>();
+            foreach (var item in allCalendars)
+            {
+                list.Add(Mapper.MapToCalendarViewModel(item));
+            }
+            return PartialView(list);
+        }
+
         public CalendarController(ICalendarRepository _calendarRepository)  
         {
             CalendarService.calendarRepository = _calendarRepository;  
