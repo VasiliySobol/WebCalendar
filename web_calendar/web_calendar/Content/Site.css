@@ -26,52 +26,56 @@ textarea {
 /*-------------------------------------------------------------------*/
 /*------------------------------custom css---------------------------*/
 /*-------------------------------------------------------------------*/
+.calendarWrapper{
+    height: 90%;
+}
 
-.navigationCalendarContainer
-{
-    margin: 10px 10px 10px 0px;
+.navigationCalendarContainer{
+    padding: 10px 10px 10px 0px;
 }
 
 .leftNav 
 {
-    width:90%; 
-    float: left;
-    padding-bottom: 10px;
+    padding-left: 16%;
+    width:85%; 
+    float: left;  
 }
 
 .rightNav 
 {
-    width:10%; 
+    width:15%; 
     float: right;
-    padding-bottom: 10px;
 }
 
 .miniCalendarContainer
 {
-    width:20%; 
+    width:16%; 
     float: left;
 }
 
 .calendarContainer
 {
-    width:80%; 
+    width:84%; 
+    height:100%;
     float: right;
 }
 
 .calendarMonthTable, .calendarDayTable, .calendarWeekTable
 {  
+    background-color:aliceblue;
     width:100%; 
     height: 100%;
 }
 
 .calendarMonthTable thead tr, .calendarWeekTable thead tr 
 {
-    height: 30px;
+    height: 40px;
+    background-color:cadetblue;
 }
 
 .calendarMonthTable tbody tr
 {
-    height: 90px;
+    height: 100px;
 }
 
 .timeCol
@@ -106,6 +110,7 @@ textarea {
 
 .fixedHeader 
 {
+    background-color: cadetblue;
     width: 98%;
     font-weight:bold;    
 }

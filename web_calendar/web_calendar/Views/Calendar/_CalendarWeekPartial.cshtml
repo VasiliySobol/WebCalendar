@@ -1,39 +1,29 @@
-﻿<div class="calendarWeekTable">
-    <div class="fixedHeader">
-        <div class="weekHeadRow">
-            <div class="timeColTh"></div>
-            <div class="weekHeadTh">Sunday</div>
-            <div class="weekHeadTh">Monday</div>
-            <div class="weekHeadTh">Tuesday</div>
-            <div class="weekHeadTh">Wednesday</div>
-            <div class="weekHeadTh">Thursday</div>
-            <div class="weekHeadTh">Friday</div>
-            <div class="weekHeadTh">Saturday</div>
-        </div>
-        <div class="weekHeadRow">
-            <div class="timeColTh"></div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-        </div>
-    </div>
+﻿<table class="fixedHeader">
+    <tr>
+        <td class="timeCol"></td>
+        <td class="col100">Sunday</td>
+        <td class="col100">Monday</td>
+        <td class="col100">Tuesday</td>
+        <td class="col100">Wednesday</td>
+        <td class="col100">Thursday</td>
+        <td class="col100">Friday</td>
+        <td class="col100">Saturday</td>
+    </tr>
+</table>
 
-    <div class="scrollCalendar">
-        @for (int i = 0; i < 24; i++)
-        {
-            <div class="weekBodyRow">
-                <div class="timeColTd">@String.Format("{0:D2}:00", i)</div>
-                @for (int j = 1; j <= 7; j++)
-                {
-                    <div class="weekBodyTd">
-                        <div class="calendarEvent">event</div>
-                    </div>
-                }
-            </div>
-        }
-    </div>
+<div class="scrollCalendar">
+    <table class="calendarWeekTable">
+        <tbody>
+            @for (int i = 0; i < 24; i++)
+            {
+                <tr>
+                    <td class="timeCol">@String.Format("{0:D2}:00", i)</td>
+                    @for (int j = 1; j <= 7; j++)
+                    {
+                        <td class="col100">..</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
