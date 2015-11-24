@@ -26,94 +26,86 @@ textarea {
 /*-------------------------------------------------------------------*/
 /*------------------------------custom css---------------------------*/
 /*-------------------------------------------------------------------*/
-.calendarWrapper {
-    height: 90%;
+
+.navigationCalendarContainer
+{
+    margin: 10px 10px 10px 0px;
 }
 
-.navigationCalendarContainer {
-    padding: 10px 10px 10px 0px;
-}
-
-.leftNav {
-    padding-left: 16%;
-    width: 85%;
+.leftNav 
+{
+    width:90%; 
     float: left;
-    padding: 5px 5px 5px 16%;
+    padding-bottom: 10px;
 }
 
-.rightNav {
-    width: 15%;
+.rightNav 
+{
+    width:10%; 
+    float: right;
+    padding-bottom: 10px;
+}
+
+.miniCalendarContainer
+{
+    width:20%; 
+    float: left;
+}
+
+.calendarContainer
+{
+    width:80%; 
     float: right;
 }
 
-.miniCalendarContainer {
-    width: 16%;
-    float: left;
-}
-
-.calendarContainer {
-    width: 84%;
-    height: 100%;
-    float: right;
-}
-
-.calendarMonthTable, .calendarDayTable, .calendarWeekTable {
-    width: 100%;
+.calendarMonthTable, .calendarDayTable, .calendarWeekTable
+{  
+    width:100%; 
     height: 100%;
 }
 
-.fixedHeader {
-    width: 96.5%;
+.calendarMonthTable thead tr, .calendarWeekTable thead tr 
+{
+    height: 30px;
+}
+
+.calendarMonthTable tbody tr
+{
+    height: 90px;
+}
+
+.timeCol
+{
+    width: 5%;
+}
+
+.col100
+{
+    width: 100px;
+}
+
+.calendarMonthTable th,
+.calendarMonthTable td,
+.calendarWeekTable th,
+.calendarWeekTable td
+{
+    border: 2px solid white;
+}
+
+.fixedHeader td,
+.calendarDayTable td 
+{
+    border: 2px solid white;
 }
 
 .scrollCalendar
 {
-    width: 98%;
     overflow-y:auto; 
-    max-height:470px;
+    max-height:450px;
 }
 
-.monthHeadTh, .monthBodyTd, .timeColTh, .weekHeadTh, .timeColTd, .weekBodyTd {
-    float: left;
-    border: 1px solid white;
+.fixedHeader 
+{
+    width: 98%;
+    font-weight:bold;    
 }
-
-.timeColTd, .weekBodyTd, .dayBodyTd, .monthBodyTd{
-    background-color: aliceblue;    
-}
-
-.monthHeadTh, .monthBodyTd {
-    width: 14%;
-}
-
-.timeColTh, .timeColTd {
-    width: 4%;   
-}
-
-.weekHeadTh, .weekBodyTd {
-    width: 13.7%;
-}
-
-.monthBodyTd {
-    height: 101px;
-}
-
-.timeColTd, .weekBodyTd, .dayBodyTd {
-    height: 40px;
-}
-
-.monthHeadTh, .timeColTh, .weekHeadTh {
-    background-color: cadetblue;
-    font-weight: bold;
-    text-align: center;
-}
-
-.calendarEvent {
-    text-align: center;
-    background-color: lightblue;
-    color: royalblue;
-    border-left: 3px solid deepskyblue;
-}
-
-
-
