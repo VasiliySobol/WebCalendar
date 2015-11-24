@@ -1,17 +1,20 @@
-﻿<div class="scrollCalendar">
-    <table class="calendarDayTable">
-        <thead>
-        </thead>
-        <tbody>
+﻿<div class="calendarDayTable">
+    <div class="fixedHeader">
+        <div class="dayHeadRow">
+            <div class="timeColTd"></div>
+            <div class="dayBodyTd">all day event here</div>
+        </div>
+    </div>
 
-            @for (int i = 1; i <= 24; i++)
-            {
-                <tr>
-                    <td class="timeCol">@String.Format("{0:D2}:00", i)</td>
-                    <td>......................</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="scrollCalendar">
+        @for (int i = 1; i <= 24; i++)
+        {
+            <div>
+                <div class="timeColTd">@String.Format("{0:D2}:00", i)</div>
+                <div class="dayBodyTd">
+                    <div class="calendarEvent">event</div>
+                </div>
+            </div>
+        }
+    </div>
 </div>
-

@@ -40,14 +40,9 @@
     <div>
         @RenderBody()
     </div>
-    <footer class="footer" style="position:absolute; bottom:0px;">
-        <hr />
-        <div class="container" >
-            <p>&copy; @DateTime.Now.Year - Apriorit courses project. "Web Calendar"</p>
-        </div>
-    </footer>
+    
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")    
+    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
