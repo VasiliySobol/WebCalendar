@@ -16,27 +16,28 @@
         @Html.ActionLink("Week", "Index", new { RenderPart = "_CalendarWeekPartial" })
         @Html.ActionLink("Month", "Index", new { RenderPart = "_CalendarMonthPartial" })
         @Html.ActionLink("Schedule", "Schedule", "Event")
-</div>  
+    </div>  
 </div>
 
-<div class="miniCalendarContainer">
-    <div id="datetimepicker" style="width:80%"></div>
+<div class="calendarWrapper">
+    <div class="miniCalendarContainer">
+        <div id="datetimepicker"></div>
 
-    <div>
-        @using (Ajax.BeginForm("GetCalendars", "Calendar", new System.Web.Mvc.Ajax.AjaxOptions { UpdateTargetId = "results" }))
-        {
-            @Html.Partial("GetCalendars");
-            <form action="/Calendar/GetCalendars" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">    
-                <input type="submit" value="AjaxButton" />
-            </form>
-        }
+        <div>
+            @using (Ajax.BeginForm("GetCalendars", "Calendar", new System.Web.Mvc.Ajax.AjaxOptions { UpdateTargetId = "results" }))
+            {
+                @Html.Partial("GetCalendars");
+                <form action="/Calendar/GetCalendars" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#results" id="form0" method="post">
+                    <input type="submit" value="AjaxButton" />
+                </form>
+            }
+        </div>
+
     </div>
 
-</div>
-
-<div class="calendarContainer">
+    <div class="calendarContainer">
         @if (ViewBag.RenderPart == "_CalendarMonthPartial")
-        { 
+        {
             @Html.Action("CalendarMonthPartial");
         }
         @if (ViewBag.RenderPart == "_CalendarDayPartial")
@@ -47,6 +48,7 @@
         {
             @Html.Action("CalendarWeekPartial");
         }
+    </div>
 </div>
 
 @section Scripts {
