@@ -1,25 +1,26 @@
-﻿<table class="calendarMonthTable">
-    <thead>
-        <tr>
-            <th>Sunday</th>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
-            <th>Saturday</th>
-        </tr>
-    </thead>
-    <tbody>
+﻿<div class="calendarMonthTable">
+    <div class="monthHead">
+        <div class="monthHeadTh">Sunday</div>
+        <div class="monthHeadTh">Monday</div>
+        <div class="monthHeadTh">Tuesday</div>
+        <div class="monthHeadTh">Wednesday</div>
+        <div class="monthHeadTh">Thursday</div>
+        <div class="monthHeadTh">Friday</div>
+        <div class="monthHeadTh">Saturday</div>
+    </div>
+    <div>
         @for (int i = 1; i <= 5; i++)
         {
-            <tr>
+            <div>
                 @for (int j = 1; j <= 7; j++)
                 {
-                    <td>@(i * j)</td>
+                    <div class="monthBodyTd">
+                        @(i * j)
+                        <div class="calendarEvent">event</div>
+                    </div>
                 }
-            </tr>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
 
