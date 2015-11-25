@@ -1,4 +1,11 @@
-﻿function GetCalendarId(data)
+﻿arrayOfCalendars = new Array();
+
+function GetCalendarId()
 {
-    alert(data.calendarColor.toString());
+    alert(arrayOfCalendars.length);
+}
+
+function Add(data)
+{
+    arrayOfCalendars.push(data);
 }
