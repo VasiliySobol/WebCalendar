@@ -128,7 +128,7 @@ namespace web_calendar.BL.ViewModels
 
         // Parent Calendar
         [Display(Name = "Calendar name")]
-        public string SelectedCalendarId { get; set; }
+        public int SelectedCalendarId { get; set; }
 
         public SelectList CalendarItems { get; set; }
     }
