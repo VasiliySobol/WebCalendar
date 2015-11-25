@@ -30,14 +30,14 @@ namespace web_calendar.Controllers
             return PartialView(list);
         }
 
-        public CalendarController(ICalendarRepository _calendarRepository)  
+        public CalendarController(ICalendarRepository _calendarRepository)
         {
-            CalendarService.calendarRepository = _calendarRepository;  
+            CalendarService.calendarRepository = _calendarRepository;
         }
 
         public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
         {
-            ViewBag.RenderPart = RenderPart;			
+            ViewBag.RenderPart = RenderPart;
             return View(CalendarService.GetCalendarViewModels(User.Identity.GetUserId()));
         }
 
@@ -49,11 +49,18 @@ namespace web_calendar.Controllers
         [HttpPost]
         public ActionResult Create(CalendarViewModel calendarVM)
         {
-            calendarVM.userId = User.Identity.GetUserId();
-            Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
-            CalendarService.calendarRepository.Add(calendar);
-            CalendarService.calendarRepository.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                calendarVM.userId = User.Identity.GetUserId();
+                Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
+                CalendarService.calendarRepository.Add(calendar);
+                CalendarService.calendarRepository.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ViewResult Edit(int id)
@@ -65,11 +72,18 @@ namespace web_calendar.Controllers
         [HttpPost]
         public ActionResult Edit(CalendarViewModel calendarVM)
         {
-            Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
-            calendar.UserId = User.Identity.GetUserId();
-            CalendarService.calendarRepository.Modify(calendar);
-            CalendarService.calendarRepository.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
+                calendar.UserId = User.Identity.GetUserId();
+                CalendarService.calendarRepository.Modify(calendar);
+                CalendarService.calendarRepository.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ViewResult Delete(int id)

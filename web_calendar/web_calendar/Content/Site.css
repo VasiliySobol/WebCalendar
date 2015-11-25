@@ -114,3 +114,10 @@ textarea {
     color: royalblue;
     border-left: 3px solid deepskyblue;
 }
+
+/*required label*/
+
+.required-label:after { 
+   content:"*";
+   color:red;
+}
