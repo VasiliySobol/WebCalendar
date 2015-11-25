@@ -14,7 +14,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.ActionLink(item.name, "Details", new { id = item.id })
+                                @Html.ActionLink(item.name, "Details", new { id = item.id }, new { onclick = "return confirm('Are you sure?');" })
                             </td>
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
