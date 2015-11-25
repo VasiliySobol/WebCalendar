@@ -29,6 +29,8 @@ namespace web_calendar.BL.ViewModels
         // Notification Settings
         public NotificationSettingsViewModel notificationSettings { get; set; }
 
+        public string CSSColor { get; set; }
+
         public bool isActive { get; set; }
 
         [HiddenInput(DisplayValue = false)]
