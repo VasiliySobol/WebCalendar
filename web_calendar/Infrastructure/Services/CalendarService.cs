@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,11 @@ namespace web_calendar.BL.Services
             {
                 timeZoneList.Add(i, timeZoneInfoList[i]);
             }
+        }
+
+        public static string ColorToCSS(Color calendarColor)
+        {
+            return "#" + calendarColor.R.ToString("X2") + calendarColor.G.ToString("X2") + calendarColor.B.ToString("X2");
         }
 
         public static string[] GetTimeZoneNamesList()

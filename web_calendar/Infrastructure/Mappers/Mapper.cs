@@ -230,6 +230,7 @@ namespace web_calendar.BL.Mappers
             calendarVM.visibility = calendar.Visibility;
             calendarVM.id = calendar.Id;
             calendarVM.userId = calendar.UserId;
+            calendarVM.CSSColor = CalendarService.ColorToCSS(calendarVM.calendarColor);
             return calendarVM;
         }
 
