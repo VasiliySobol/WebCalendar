@@ -15,7 +15,6 @@ using web_calendar.BL.Services;
 
 namespace web_calendar.Controllers
 {
-
     [Authorize]
     public class CalendarController : Controller
     {
