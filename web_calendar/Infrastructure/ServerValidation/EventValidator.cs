@@ -9,17 +9,11 @@ namespace web_calendar.BL.ServerValidation
 {
     public static class EventValidator
     {
-        public static bool Validate(CreateEventViewModel eventVM)
+        public static int Validate(CreateEventViewModel eventVM)
         {
-            bool ifValid = (eventVM.Name != null);
-            if (!ifValid) return false;
-            ifValid &= (eventVM.TimeBegin != null);
-            if (!ifValid) return false;
-            ifValid &= (eventVM.TimeBegin.CompareTo(DateTime.Now) > 0);
-            if (eventVM.TimeEnd != null)
-                ifValid &= (eventVM.TimeBegin.CompareTo(eventVM.TimeBegin) > 0);
-            // add other validation (visibility, etc.)
-            return ifValid;
+            if (eventVM.Name == null) return 1;
+            if (eventVM.TimeBegin == null) return 2;
+            return 0;
         }
     }
 }
