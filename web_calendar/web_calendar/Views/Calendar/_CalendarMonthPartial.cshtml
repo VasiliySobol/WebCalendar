@@ -1,4 +1,6 @@
-﻿<div class="calendarMonthTable">
+﻿<script src="~/Scripts/customScripts.js"></script>
+
+<div class="calendarMonthTable">
     <div class="monthHead">
         <div class="monthHeadTh">Sunday</div>
         <div class="monthHeadTh">Monday</div>
@@ -9,17 +11,24 @@
         <div class="monthHeadTh">Saturday</div>
     </div>
     <div>
+        @{int counter = 1;}
+
         @for (int i = 1; i <= 5; i++)
         {
             <div>
                 @for (int j = 1; j <= 7; j++)
                 {
-                    <div class="monthBodyTd">
+                    <div id="cellId@(counter)" class="monthBodyTd">
                         @(i * j)
                         <div class="calendarEvent">event</div>
+                        @{counter++;}
                     </div>
                 }
             </div>
         }
     </div>
+    <script type="text/javascript">
+        document.getElementById('monthCell').style.backgroundColor = "#AA0000";
+        //div.style.backgroundColor = "#AA0000";
+    </script>
 </div>
