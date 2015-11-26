@@ -79,7 +79,6 @@ textarea {
 }
 
 .timeColTd, .weekBodyTd, .dayBodyTd, .monthBodyTd{
-    background-color: aliceblue;    
 }
 
 .monthHeadTh, .monthBodyTd {
@@ -103,14 +102,12 @@ textarea {
 }
 
 .monthHeadTh, .timeColTh, .weekHeadTh {
-    background-color: cadetblue;
     font-weight: bold;
     text-align: center;
 }
 
 .calendarEvent {
     text-align: center;
-    background-color: lightblue;
     color: royalblue;
     border-left: 3px solid deepskyblue;
 }
