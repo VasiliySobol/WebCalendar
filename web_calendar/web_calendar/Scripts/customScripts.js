@@ -1,11 +1,29 @@
 ﻿arrayOfCalendars = new Array();
 
-function GetCalendarId()
+function GetCalendarId(id)
 {
-    alert(arrayOfCalendars.length);
+    return arrayOfCalendars[id];
+}
+
+function GetCalendarColor(id)
+{
+    alert(arrayOfCalendars[id].CSSColor);
 }
 
 function Add(data)
 {
     arrayOfCalendars.push(data);
+}
+
+function SetsColor(idName)
+{
+    document.getElementById(idName).style.backgroundColor = "#AA0000";
+    alert("fdsa");
+}
+
+function ColorCalendarDays(color, calendarLength)
+{
+    for (var i = 1; i < calendarLength; i++) {
+        document.getElementById("cellId" + i).style.backgroundColor = color;
+    }
 }
