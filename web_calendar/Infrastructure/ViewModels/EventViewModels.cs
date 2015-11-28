@@ -27,7 +27,7 @@ namespace web_calendar.BL.ViewModels
         [Display(Name = "End time")]
         public Nullable<System.DateTime> TimeEnd { get; set; }
 
-        [Display(Name = "Visibility")]
+        [Display(Name = "Share")]
         public string Visibility { get; set; }
 
         [Display(Name = "All day")]
@@ -107,8 +107,8 @@ namespace web_calendar.BL.ViewModels
         [Display(Name = "End time")]
         public Nullable<System.DateTime> TimeEnd { get; set; }
 
-        [Required(ErrorMessage = "Visibility is required.")]
-        [Display(Name = "Visibility")]
+        [Required(ErrorMessage = "Share is required.")]
+        [Display(Name = "Share")]
         public string Visibility { get; set; }
 
         [Display(Name = "All day")]
@@ -161,9 +161,10 @@ namespace web_calendar.BL.ViewModels
 
         public int Id { get; set; }
 
-        [Display(Name = "If repeatable")]
+        [Display(Name = "Repeatable")]
         public bool IfRepeatable { get; set; }
 
+        [Required(ErrorMessage="Period is required.")]
         [Display(Name = "Period")]
         public string Period { get; set; }
 

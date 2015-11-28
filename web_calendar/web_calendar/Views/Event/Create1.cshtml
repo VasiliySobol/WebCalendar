@@ -1,0 +1,281 @@
+﻿@model web_calendar.BL.ViewModels.CreateEventViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create event</h2>
+
+
+@using (Html.BeginForm("Create", "Event", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Event</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Place, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Place, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Place, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimeBegin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeBegin, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeBegin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimeEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimeEnd, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TimeEnd, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Visibility, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Visibility, new SelectList(new string[] 
+                    { "Only me", "Me and my guests", "Everybody" }), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Visibility, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AllDay, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.AllDay)
+                    @Html.ValidationMessageFor(model => model.AllDay, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedCalendarId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedCalendarId, Model.CalendarItems as SelectList,
+                    new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SelectedCalendarId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.Partial("_EditRepeatable", Model.repeatableSettings, new ViewDataDictionary()
+           {
+               TemplateInfo = new TemplateInfo()
+                   {
+                       HtmlFieldPrefix = "repeatableSettings"
+                   }
+           })
+
+        <hr/>
+            @Html.Label("Notifications:")
+            <table>
+                <thead>
+                    <tr>
+                        <td>
+                            Repetition count
+                        </td>
+                        <td>
+                            Interval
+                        </td>
+                        <td>
+                            Time before event
+                        </td>
+                        <td>
+                            Kind of notification
+                        </td>
+                    </tr>
+                </thead>
+                <tbody id="tbNotifications"></tbody>
+            </table>
+        <div>
+            <input id="btnAddNotification" type="button" onclick="addRow();" value="Add Notification" />
+        </div>
+        <hr />
+
+        <hr />
+        @Html.Label("Guests:")
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        Email
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="tbGuests"></tbody>
+        </table>
+        <div>
+            <input id="btnAddGuest" type="button" onclick="addGuest();" value="Add Guest" />
+        </div>
+        <hr />
+
+        @*<div class="form-group">
+
+            @Html.Label("Notifications:")
+
+            <input id="notificationCount" type="hidden" value="0" />
+            <div class="templateContainer">
+                <div class="reminder">
+                    @Html.Partial("_EditNotification", new web_calendar.BL.ViewModels.NotificationSettingsViewModel(),
+                    new ViewDataDictionary()
+                        {
+                            TemplateInfo = new TemplateInfo()
+                            {
+                                HtmlFieldPrefix = "Notifications_"
+                            }
+                        })
+                </div>
+            </div>
+            <div class="items">
+                @foreach (var notification in Model.Notifications)
+                {
+                    <div class="reminder">
+                        @Html.Partial("_EditNotification", notification, new ViewDataDictionary()
+                        {
+                            TemplateInfo = new TemplateInfo()
+                            {
+                                HtmlFieldPrefix = "Notifications_"
+                            }
+                        }))
+                    </div>
+                }
+            </div>
+            <input id="addAnother" type="button" onclick="addNotification();" value="Add Notification" />
+        </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script language="javascript" type="text/javascript">
+
+    function addRow() {
+        @{
+                Model.Notifications.Add(new web_calendar.BL.ViewModels.NotificationSettingsViewModel());
+            }
+
+        var index = $("#tbNotifications").children("tr").length;
+
+        var indexCell = "<td style='display:none'><input name='Notifications.Index' type='hidden' value='"
+            + index + "' /></td>";
+        var repetitionCell = "<td><input id='Notifications_" + index + "__RepetitionCount' name='Notifications[" + index
+            + "].RepetitionCount' type='text' value='' /></td>";
+        var intervalCell = "<td><input id='Notifications_" + index + "__Interval' name='Notifications[" + index
+            + "].Interval' type='text' value='' /></td>";
+        var timeBeforeCell = "<td><input id='Notifications_" + index + "__TimeBefore' name='Notifications[" + index
+            + "].TimeBefore' type='text' value='' /></td>";
+        var kindCell = "<td><input id='Notifications_" + index + "__KindOfNotification' name='Notifications[" + index
+            + "].KindOfNotification' type='text' value='' /></td>";
+        var removeCell = "<td><input id='btnAddNotification' type='button' value='Remove' onclick='removeRow("
+            + index + ");' /></td>";
+
+        var newRow = "<tr id='trNotification" + index + "'>" +
+            indexCell + repetitionCell + intervalCell + timeBeforeCell + kindCell + removeCell + "</tr>";
+        $("#tbNotifications").append(newRow);
+    }
+
+    function removeRow(id) {
+        var controlToBeRemoved = "#trNotification" + id;
+        $(controlToBeRemoved).remove();
+    }
+
+    function addGuest() {
+            @{
+                Model.Guests.Add(new web_calendar.BL.ViewModels.GuestsEmail());
+            }
+
+        var index = $("#tbGuests").children("tr").length;
+
+        var indexCell = "<td style='display:none'><input name='Guests.Index' type='hidden' value='"
+            + index + "' /></td>";
+        var emailCell = "<td><input id='Guests_" + index + "__Email' name='Guests[" + index
+            + "].Email' type='text' value='' /></td>";
+        var removeCell = "<td><input id='btnAddGuest' type='button' value='Remove' onclick='removeRow("
+            + index + ");' /></td>";
+
+        var newRow = "<tr id='trGuest" + index + "'>" +
+            indexCell + emailCell + removeCell + "</tr>";
+        $("#tbGuests").append(newRow);
+    }
+
+    function removeGuest(id) {
+        var controlToBeRemoved = "#trGuest" + id;
+        $(controlToBeRemoved).remove();
+    }
+
+    @*function addNotification() {
+        @{
+           Model.Notifications.Add(new web_calendar.BL.ViewModels.NotificationSettingsViewModel());
+        }
+
+        var counter = $("#notificationCount");
+        var count = parseInt(counter.val());
+        count++;
+
+        var template = $("#templateContainer");
+        var newItem = template.clone(true);
+        var newId = "item_" + count;
+        var newNotification = newItem.children().first();
+        newNotification.attr("id", newId);
+        newNotification.appendTo('#items');
+
+        $("#" + newId + " :input").each(function (index, input) {
+            input.id = input.id.replace("Template_0", "Notifications_" + (count - 1));
+            input.name = input.name.replace("Template[0]", "Notifications[" + (count - 1) + "]");
+        });
+
+        counter.val(count);
+    }*@
+</script>
+
+    @*<script>
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("Create", "Event")',
+            data: $('form').serialize(),
+            success: function func(data) {
+                if (data.IsSuccess == true) {
+                    alert("success");
+                    return data;
+                }
+                else {
+                    alert("no success");
+                }
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+    </script>*@
+}

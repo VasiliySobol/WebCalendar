@@ -9,7 +9,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-
         <div class="form-group">
             <br />
             <h3 class="control-label col-md-2" style="color: gray;">Edit сalendar</h3>
@@ -17,7 +16,6 @@
             <br />
         </div>
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "required-label control-label col-md-2" })
             <div class="col-md-10">
