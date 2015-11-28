@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Web.Mvc;
@@ -14,13 +15,14 @@ namespace web_calendar.BL.ViewModels
         [Display(Name = "Name")]
         public string name { get; set; }
 
+        [MaxLength(50, ErrorMessage = "Description is too long (50 characters max).")]
         [Display(Name = "Description")]
         public string description { get; set; }
 
         [Display(Name = "Color")]
         public Color calendarColor { get; set; }
 
-        [Display(Name = "Visibility")]
+        [Display(Name = "Share")]
         public string visibility { get; set; }
 
         [Display(Name = "Time zone")]
