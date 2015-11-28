@@ -221,7 +221,7 @@ namespace web_calendar.Controllers
                         }
                         eventRepository.SaveChanges();
                         return RedirectToAction("Schedule");
-                        break;
+                        
                     case 1:
                         ModelState.AddModelError("Name", "Name is required.");
                         break;

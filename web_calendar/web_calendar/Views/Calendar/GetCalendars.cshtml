@@ -12,22 +12,22 @@
 
                 @if (Model != null)
                 {
-                    foreach (var item in Model)
+                    foreach (var calendar in Model)
                     {
                         <tr>
-                            <div>
+                            <td>
                                 <script type="text/javascript">
-                                    var data = @Html.Raw(JsonConvert.SerializeObject(item))
+                                    var data = @Html.Raw(JsonConvert.SerializeObject(calendar))
                                     Add(data);
                                 </script>
-                            </div>
-                            <td>
-                                @Html.ActionLink(item.name, "Details", new { id = item.id }, new { @onclick = "GetCalendarId();" })
                             </td>
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.id }) |
-                                @Html.ActionLink("Schedule", "Schedule", "Event", new { id = item.id })
+                                @Ajax.ActionLink(calendar.name, "CalendarMonthPartial", new { id = calendar.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = calendar.id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = calendar.id }) |
+                                @Html.ActionLink("Schedule", "Schedule", "Event", new { id = calendar.id })
                             </td>
                         </tr>
                     }

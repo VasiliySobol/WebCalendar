@@ -1,4 +1,6 @@
-﻿<script src="~/Scripts/customScripts.js"></script>
+﻿@model IEnumerable<web_calendar.DAL.Models.CalendarEvent>
+
+<script src="~/Scripts/customScripts.js"></script>
 
 <div class="calendarMonthTable">
     <div class="monthHead">
@@ -21,7 +23,11 @@
                 {
                     <div id="cellId@(counter)" class="monthBodyTd">
                         @(i * j)
-                        <div class="calendarEvent">event</div>
+                        @foreach(web_calendar.DAL.Models.CalendarEvent evnt in Model)
+                        { 
+                            <div class="calendarEvent">@evnt.Name</div>
+                        }
+                        
                         @{counter++;}
                     </div>
                 }

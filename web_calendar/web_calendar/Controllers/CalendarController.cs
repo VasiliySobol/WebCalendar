@@ -36,7 +36,7 @@ namespace web_calendar.Controllers
         }
 
         public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
-        {
+        {         
             ViewBag.RenderPart = RenderPart;
             return View(CalendarService.GetCalendarViewModels(User.Identity.GetUserId()));
         }
@@ -101,22 +101,33 @@ namespace web_calendar.Controllers
             return RedirectToAction("Index");
         }
 
-        [ChildActionOnly]
         public PartialViewResult CalendarDayPartial()
         {
             return PartialView("_CalendarDayPartial");
         }
 
-        [ChildActionOnly]
         public PartialViewResult CalendarWeekPartial()
         {
             return PartialView("_CalendarWeekPartial");
         }
 
-        [ChildActionOnly]
-        public PartialViewResult CalendarMonthPartial()
+        public ActionResult CalendarMonthPartial(int id = 0)//!!!!!!!!!!!!
         {
-            return PartialView("_CalendarMonthPartial");
+            Calendar calendar;
+            if (id == 0)
+            {
+                var calendars = CalendarService.GetCalendarViewModels(User.Identity.GetUserId());
+                calendar = Mapper.MapToCalendarFromCalendarVM(calendars.First());
+            }
+            else
+            {
+                calendar = CalendarService.calendarRepository.FindById(id);
+            }
+            
+            var events = calendar.CalendarEventsCollection;
+            events.Add(new CalendarEvent() { Name = "myEvent", TimeBegin = DateTime.Now });
+
+            return PartialView("_CalendarMonthPartial", events);
         }
 
         public string JSONIndex()
