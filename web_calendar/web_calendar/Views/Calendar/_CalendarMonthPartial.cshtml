@@ -1,4 +1,4 @@
-﻿@model IEnumerable<web_calendar.DAL.Models.CalendarEvent>
+﻿@model web_calendar.BL.ViewModels.CalendarViewModel
 
 <script src="~/Scripts/customScripts.js"></script>
 
@@ -23,11 +23,7 @@
                 {
                     <div id="cellId@(counter)" class="monthBodyTd">
                         @(i * j)
-                        @foreach(web_calendar.DAL.Models.CalendarEvent evnt in Model)
-                        { 
-                            <div class="calendarEvent">@evnt.Name</div>
-                        }
-                        
+
                         @{counter++;}
                     </div>
                 }
@@ -36,6 +32,7 @@
     </div>
 
     <script type="text/javascript">
-        ColorCalendarDays("#AA0000", 35);
+        var model = @Html.Raw(Json.Encode(Model));
+        SetColor(model.CSSColor, 35);
     </script>
 </div>
