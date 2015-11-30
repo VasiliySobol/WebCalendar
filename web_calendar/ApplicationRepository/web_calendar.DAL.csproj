@@ -7,7 +7,7 @@
     <ProjectGuid>{FCBD6ECA-B3EE-45ED-AE3F-3AB63AB9BD52}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ApplicationRepository</RootNamespace>
+    <RootNamespace>web_calendar.DAL</RootNamespace>
     <AssemblyName>ApplicationRepository</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

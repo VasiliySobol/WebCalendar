@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Calendar">
           <Key>
             <PropertyRef Name="Id" />
@@ -32,6 +32,7 @@
           <Property Name="Visibility" Type="nvarchar" MaxLength="50" />
           <Property Name="AllDay" Type="bit" />
           <Property Name="CalendarId" Type="int" />
+          <Property Name="ParentEvent" Type="int" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
@@ -67,6 +68,10 @@
           <Property Name="Period" Type="nvarchar" MaxLength="50" />
           <Property Name="RepeatCount" Type="int" />
           <Property Name="EventId" Type="int" />
+          <Property Name="DaysOfWeek" Type="nvarchar" MaxLength="7" />
+          <Property Name="TimeOfDay" Type="time" Precision="7" />
+          <Property Name="DayOfYear" Type="date" />
+          <Property Name="DayOfMonth" Type="nvarchar" MaxLength="31" />
         </EntityType>
         <Association Name="FK_Calendar_NotificationType">
           <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
@@ -219,6 +224,7 @@
           <NavigationProperty Name="Guests" Relationship="Self.FK_guest_event" FromRole="CalendarEvent" ToRole="Guest" />
           <NavigationProperty Name="Notifications" Relationship="Self.FK_notification_event" FromRole="CalendarEvent" ToRole="Notification" />
           <NavigationProperty Name="Repeatables" Relationship="Self.FK_repeatable_event" FromRole="CalendarEvent" ToRole="Repeatable" />
+          <Property Name="ParentEvent" Type="Int32" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
@@ -260,6 +266,10 @@
           <Property Name="RepeatCount" Type="Int32" />
           <Property Name="EventId" Type="Int32" />
           <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_repeatable_event" FromRole="Repeatable" ToRole="CalendarEvent" />
+          <Property Name="DaysOfWeek" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="TimeOfDay" Type="Time" Precision="7" />
+          <Property Name="DayOfYear" Type="DateTime" Precision="0" />
+          <Property Name="DayOfMonth" Type="String" MaxLength="31" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Calendar_NotificationType">
           <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
@@ -399,6 +409,7 @@
           <EntitySetMapping Name="CalendarEvents">
             <EntityTypeMapping TypeName="web_calendarModel.CalendarEvent">
               <MappingFragment StoreEntitySet="CalendarEvent">
+                <ScalarProperty Name="ParentEvent" ColumnName="ParentEvent" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
@@ -443,6 +454,10 @@
           <EntitySetMapping Name="Repeatables">
             <EntityTypeMapping TypeName="web_calendarModel.Repeatable">
               <MappingFragment StoreEntitySet="Repeatable">
+                <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
+                <ScalarProperty Name="DayOfYear" ColumnName="DayOfYear" />
+                <ScalarProperty Name="TimeOfDay" ColumnName="TimeOfDay" />
+                <ScalarProperty Name="DaysOfWeek" ColumnName="DaysOfWeek" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Period" ColumnName="Period" />
                 <ScalarProperty Name="RepeatCount" ColumnName="RepeatCount" />
