@@ -116,24 +116,23 @@ namespace web_calendar.BL.Mappers
             CalendarEvent calendarEvent = new CalendarEvent();
 
             calendarEvent.Id = eventVM.Id;
-            calendarEvent.Name = eventVM.Name;
-            calendarEvent.Text = eventVM.Text;
-            calendarEvent.Place = eventVM.Place;
-            calendarEvent.TimeBegin = eventVM.TimeBegin;
-            calendarEvent.TimeEnd = eventVM.TimeEnd;
-            calendarEvent.Visibility = eventVM.Visibility;
-            calendarEvent.AllDay = eventVM.AllDay;
+            MapToEvent(ref calendarEvent, eventVM);
 
             return calendarEvent;
         }
 
-        public static void MapToEvent(CalendarEvent calendarEvent, CreateEventViewModel eventVM)
+        public static void MapToEvent(ref CalendarEvent calendarEvent, CreateEventViewModel eventVM)
         {
             calendarEvent.Name = eventVM.Name;
             calendarEvent.Text = eventVM.Text;
             calendarEvent.Place = eventVM.Place;
-            calendarEvent.TimeBegin = eventVM.TimeBegin;
-            calendarEvent.TimeEnd = eventVM.TimeEnd;
+            DateTime begin = new DateTime(eventVM.DateBegin.Year, eventVM.DateBegin.Month, eventVM.DateBegin.Day, eventVM.TimeBegin.Hour, eventVM.TimeBegin.Minute, eventVM.TimeBegin.Second);
+            calendarEvent.TimeBegin = begin;
+            if (eventVM.TimeEnd.HasValue)
+            {
+                DateTime end = new DateTime(eventVM.TimeEnd.Value.Year, eventVM.TimeEnd.Value.Month, eventVM.TimeEnd.Value.Day, eventVM.TimeEnd.Value.Hour, eventVM.TimeEnd.Value.Minute, eventVM.TimeEnd.Value.Second);
+                calendarEvent.TimeEnd = end;
+            }
             calendarEvent.Visibility = eventVM.Visibility;
             calendarEvent.AllDay = eventVM.AllDay;
         }
@@ -145,7 +144,9 @@ namespace web_calendar.BL.Mappers
             eventVM.Name = calendarEvent.Name;
             eventVM.Text = calendarEvent.Text;
             eventVM.Place = calendarEvent.Place;
+            eventVM.DateBegin = calendarEvent.TimeBegin;
             eventVM.TimeBegin = calendarEvent.TimeBegin;
+            eventVM.DateEnd = calendarEvent.TimeEnd;
             eventVM.TimeEnd = calendarEvent.TimeEnd;
             eventVM.Visibility = calendarEvent.Visibility;
             if (calendarEvent.AllDay != null)
