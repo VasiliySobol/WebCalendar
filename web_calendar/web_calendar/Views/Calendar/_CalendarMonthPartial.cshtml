@@ -4,13 +4,13 @@
 
 <div class="calendarMonthTable">
     <div class="monthHead">
-        <div class="monthHeadTh">Sunday</div>
-        <div class="monthHeadTh">Monday</div>
-        <div class="monthHeadTh">Tuesday</div>
-        <div class="monthHeadTh">Wednesday</div>
-        <div class="monthHeadTh">Thursday</div>
-        <div class="monthHeadTh">Friday</div>
-        <div class="monthHeadTh">Saturday</div>
+        <div class="monthHeadTh" id="day1">Sunday</div>
+        <div class="monthHeadTh" id="day2">Monday</div>
+        <div class="monthHeadTh" id="day3">Tuesday</div>
+        <div class="monthHeadTh" id="day4">Wednesday</div>
+        <div class="monthHeadTh" id="day5">Thursday</div>
+        <div class="monthHeadTh" id="day6">Friday</div>
+        <div class="monthHeadTh" id="day7">Saturday</div>
     </div>
 
     <div>
@@ -33,6 +33,7 @@
 
     <script type="text/javascript">
         var model = @Html.Raw(Json.Encode(Model));
-        SetColor(model.CSSColor, 35);
+        SetMainColor(model.CSSHeadColor, 35);
+        SetHeadColor(model.CSSHeadColor);
     </script>
 </div>
