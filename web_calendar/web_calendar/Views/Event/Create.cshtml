@@ -76,8 +76,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedCalendarId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedCalendarId, Model.CalendarItems as SelectList,
-                    new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.SelectedCalendarId, Model.CalendarItems as SelectList, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SelectedCalendarId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -168,7 +167,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" onclick="SetPeriod();" />
             </div>
         </div>
     </div>
@@ -178,6 +177,10 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script language="javascript" type="text/javascript">
+
+        function SetPeriod() {
+            document.getElementById("repeatableSettings_Period").value = document.querySelector('.nav-pills .active').id;
+        }
 
         function addRow() {
             @{
