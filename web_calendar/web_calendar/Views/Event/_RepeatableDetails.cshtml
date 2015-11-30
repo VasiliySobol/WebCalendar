@@ -18,6 +18,25 @@
         <dd>
             @Html.DisplayFor(model => model.RepeatCount)
         </dd>
-
+        <dt>
+            @Html.Label("Repeat at:")
+        </dt>
+        <dd>
+        @switch (Model.Period)
+        {
+            case "day":
+                @Html.DisplayFor(model => model.TimeOfDay);
+                break;
+            case "week":
+                @Html.DisplayFor(model => model.DaysOfWeek);
+                break;
+            case "month":
+                @Html.DisplayFor(model => model.DayOfMonth);
+                break;
+            case "year":
+                @Html.DisplayFor(model => model.DayOfYear);
+                break;
+        }
+        </dd>
     </dl>
 </div>

@@ -14,96 +14,56 @@
 <div class="form-group">
     @Html.LabelFor(model => model.RepeatCount, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
-        @Html.EditorFor(model => model.RepeatCount, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.TextBoxFor(model => model.RepeatCount, new { type = "number", min = "1", max = "50" ,  @class = "form-control" } )
         @Html.ValidationMessageFor(model => model.RepeatCount, "", new { @class = "text-danger" })
     </div>
 </div>
 <input type="hidden" id="repeatableSettings_Period" name="repeatableSettings.Period" value="day" />
-<div id="Tabs" role="tabpanel" style="margin-left:100px">
+<div style="margin-left:100px">
     <!-- Nav tabs -->
-    <ul id="Period" class="nav nav-pills" role="tablist">
-        <li class="active" id="day">
-            <a href="#day" aria-controls="day" role="tab" data-toggle="tab">Everyday</a>
-        </li>
-        <li id="week">
-            <a href="#week" aria-controls="week" role="tab" data-toggle="tab">Every week</a>
-        </li>
-        <li id="month">
-            <a href="#month" aria-controls="month" role="tab" data-toggle="tab">Every month</a>
-        </li>
-        <li id="year">
-            <a href="#year" aria-controls="year" role="tab" data-toggle="tab">Every year</a>
-        </li>
+    <ul id="Period" class="nav nav-pills">
+        <li id="day" class="active"><a href="#everyday" data-toggle="tab">Everyday</a></li>
+        <li id="week"><a href="#everyweek" data-toggle="tab">Every week</a></li>
+        <li id="month"><a href="#everymonth" data-toggle="tab">Every month</a></li>
+        <li id="year"><a href="#everyyear" data-toggle="tab">Every year</a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content" style="padding-top: 20px">
-        <div role="tabpanel" class="tab-pane active" id="day">
+        <div class="tab-pane active" id="everyday">
             <div id="TimeOfDay" class="form-group">
-                @Html.LabelFor(model => model.TimeOfDay, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("Repeat at:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.TimeOfDay, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TimeOfDay, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.TimeOfDay, new { @class = "form-control", @readonly="readonly" })
                 </div>
             </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="week">
-            <div id="DaysOfWeek" class="form-group">
-                @Html.LabelFor(model => model.DaysOfWeek, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.DaysOfWeek, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DaysOfWeek, "", new { @class = "text-danger" })
-                </div>
-            </div>
+        <div class="tab-pane" id="everyweek">
+            <input type="hidden" id="repeatableSettings_DaysOfWeek" name="repeatableSettings.DaysOfWeek" value="day" />
+            <label class="checkbox-inline"><input id="monday" type="checkbox" value="monday">Monday</label>
+            <label class="checkbox-inline"><input id="tuesday" type="checkbox" value="tuesday">Tuesday</label>
+            <label class="checkbox-inline"><input id="wednesday" type="checkbox" value="wednesday">Wednesday</label>
+            <label class="checkbox-inline"><input id="thursday" type="checkbox" value="thursday">Thursday</label>
+            <label class="checkbox-inline"><input id="friday" type="checkbox" value="friday">Friday</label>
+            <label class="checkbox-inline"><input id="saturday" type="checkbox" value="saturday">Saturday</label>
+            <label class="checkbox-inline"><input id="sunday" type="checkbox" value="sunday">Sunday</label>
         </div>
-        <div role="tabpanel" class="tab-pane" id="month">
+        <div class="tab-pane" id="everymonth">
             <div id="DayOfMonth" class="form-group">
-                @Html.LabelFor(model => model.DayOfMonth, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("Repeat at:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.DayOfMonth, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DayOfMonth, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.DayOfMonth, new { @class = "form-control", @readonly = "readonly" })
                 </div>
             </div>
         </div>
-        <div role="tabpanel" class="tab-pane" id="year">
+        <div class="tab-pane" id="everyyear">
             <div id="DayOfYear" class="form-group">
-                @Html.LabelFor(model => model.DayOfYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.Label("Repeat at:", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.DayOfYear, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.DayOfYear, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.DayOfYear, new { @class = "form-control", @readonly = "readonly" })
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-@*<div id="TimeOfDay" class="form-group">
-    @Html.LabelFor(model => model.TimeOfDay, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.TimeOfDay, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.TimeOfDay, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div id="DaysOfWeek" class="form-group">
-    @Html.LabelFor(model => model.DaysOfWeek, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.DaysOfWeek, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.DaysOfWeek, "", new { @class = "text-danger" })
-    </div>
-</div>
-<div id="DayOfMonth" class="form-group">
-    @Html.LabelFor(model => model.DayOfMonth, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.DayOfMonth, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.DayOfMonth, "", new { @class = "text-danger" })
-    </div>
-</div>
-<div id="DayOfYear" class="form-group">
-    @Html.LabelFor(model => model.DayOfYear, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.DayOfYear, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.DayOfYear, "", new { @class = "text-danger" })
-    </div>
-</div>*@
 
 <hr />
