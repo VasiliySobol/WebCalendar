@@ -42,14 +42,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateBegin, htmlAttributes: new { @class = "control-label col-md-2", @type = "datetime" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.DateBegin, @"{0:yyyy\/MM\/dd}", new { @class = "datepicker form-control" })
+                @Html.TextBoxFor(model => model.DateBegin, @"{0:MM/dd/yyyy}", new { @class = "datepicker form-control", @onchange = "changeDate()" })
                 @Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.TimeBegin, htmlAttributes: new { @class = "control-label col-md-2", @type = "datetime" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeBegin, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.TimeBegin, new { htmlAttributes = new { @class = "form-control", @onchange="changeTime()" } })
                 @Html.ValidationMessageFor(model => model.TimeBegin, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -57,7 +57,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.DateEnd, @"{0:yyyy\/MM\/dd}", new { @class = "datepicker form-control" })
+                @Html.TextBoxFor(model => model.DateEnd, @"{0:MM/dd/yyyy}", new { @class = "datepicker form-control" })
                 @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -181,7 +181,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" onclick="SetPeriod();" />
+                <input type="submit" value="Create" class="btn btn-default" onclick="SetRepeatable();" />
             </div>
         </div>
     </div>
@@ -190,12 +190,41 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-        $('.datepicker').datepicker(); //Initialise any date pickers
+        $('.datepicker').datepicker();
+        document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
+        var arr = document.getElementById("DateBegin").value.split("/");
+        document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
+        document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
     </script>
 
     <script language="javascript" type="text/javascript">
-        function SetPeriod() {
+        function changeDate() {
+            var arr = document.getElementById("DateBegin").value.split("/");
+            document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
+            document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
+        }
+
+        function changeTime() {
+            document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
+        }
+
+        function SetRepeatable() {
             document.getElementById("repeatableSettings_Period").value = document.querySelector('.nav-pills .active').id;
+            document.getElementById("repeatableSettings_DaysOfWeek").value = "";
+            if (document.getElementById("monday").checked == 1)
+                document.getElementById("repeatableSettings_DaysOfWeek").value += '1';
+            if (document.getElementById("tuesday").checked == 1)
+                document.getElementById("repeatableSettings_DaysOfWeek").value += '2';
+            if (document.getElementById("wednesday").checked == 1)
+                document.getElementById("repeatableSettings_DaysOfWeek").value += '3';
+            if (document.getElementById("thursday").checked == 1)
+                document.getElementById("repeatableSettings_DaysOfWeek").value += '4';
+            if (document.getElementById("friday").checked == 1)
+                document.getElementById("repeatableSettings_DaysOfWeek").value += '5';
+            if (document.getElementById("saturday").checked == 1)
+                document.getElementById("repeatableSettings_DaysOfWeek").value += '6';
+            if (document.getElementById("sunday").checked == 1)
+                document.getElementById("repeatableSettings_DaysOfWeek").value += '7';
         }
 
         function addRow() {

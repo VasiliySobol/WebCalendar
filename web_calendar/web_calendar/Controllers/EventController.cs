@@ -22,7 +22,7 @@ using web_calendar.Handlers;
 namespace web_calendar.Controllers
 {
     [Authorize]
-    [CustomHandleErrorAttribute]
+    //[CustomHandleErrorAttribute]
     public class EventController : Controller
     {
         private IEventRepository eventRepository;
@@ -111,7 +111,7 @@ namespace web_calendar.Controllers
                                 if (eventViewModel.repeatableSettings.IfRepeatable)
                                 {
                                     Repeatable repeatable = new Repeatable();
-                                    Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable);
+                                    Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
                                     repeatable.EventId = calendarEvent.Id;
                                     repeatable.CalendarEvent = calendarEvent;
                                     //add logic
@@ -210,14 +210,13 @@ namespace web_calendar.Controllers
                             if (repeatable != null)
                             {
                                 eventRepository.DeleteAllChildrenEvents(id);
-                                Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable);
-                                 
+                                Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);                                 
                                 //add logic
                             }
                             else
                             {
                                 repeatable = new Repeatable();
-                                Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable);
+                                Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
                                 repeatable.EventId = calendarEvent.Id;
                                 repeatable.CalendarEvent = calendarEvent;
                                 //add logic
