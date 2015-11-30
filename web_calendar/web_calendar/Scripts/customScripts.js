@@ -21,7 +21,7 @@ function SetsColor(idName)
     alert("fdsa");
 }
 
-function ColorCalendarDays(color, calendarLength)
+function SetColor(color, calendarLength)
 {
     for (var i = 1; i < calendarLength; i++) {
         document.getElementById("cellId" + i).style.backgroundColor = color;
