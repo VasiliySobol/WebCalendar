@@ -12,26 +12,98 @@
 </div>
 
 <div class="form-group">
-    @Html.LabelFor(model => model.Period, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.DropDownListFor(model => model.Period, new SelectList(new string[] { "Once", "Everyday", "Every week", "Every month", "Every year" }), htmlAttributes: new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Period, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
     @Html.LabelFor(model => model.RepeatCount, htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
         @Html.EditorFor(model => model.RepeatCount, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.RepeatCount, "", new { @class = "text-danger" })
     </div>
 </div>
-
-<div class="form-group">
-    @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control" } })
-        @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+<input type="hidden" id="repeatableSettings_Period" name="repeatableSettings.Period" value="day" />
+<div id="Tabs" role="tabpanel" style="margin-left:100px">
+    <!-- Nav tabs -->
+    <ul id="Period" class="nav nav-pills" role="tablist">
+        <li class="active" id="day">
+            <a href="#day" aria-controls="day" role="tab" data-toggle="tab">Everyday</a>
+        </li>
+        <li id="week">
+            <a href="#week" aria-controls="week" role="tab" data-toggle="tab">Every week</a>
+        </li>
+        <li id="month">
+            <a href="#month" aria-controls="month" role="tab" data-toggle="tab">Every month</a>
+        </li>
+        <li id="year">
+            <a href="#year" aria-controls="year" role="tab" data-toggle="tab">Every year</a>
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content" style="padding-top: 20px">
+        <div role="tabpanel" class="tab-pane active" id="day">
+            <div id="TimeOfDay" class="form-group">
+                @Html.LabelFor(model => model.TimeOfDay, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TimeOfDay, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TimeOfDay, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="week">
+            <div id="DaysOfWeek" class="form-group">
+                @Html.LabelFor(model => model.DaysOfWeek, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DaysOfWeek, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DaysOfWeek, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="month">
+            <div id="DayOfMonth" class="form-group">
+                @Html.LabelFor(model => model.DayOfMonth, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DayOfMonth, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DayOfMonth, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="year">
+            <div id="DayOfYear" class="form-group">
+                @Html.LabelFor(model => model.DayOfYear, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DayOfYear, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DayOfYear, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+@*<div id="TimeOfDay" class="form-group">
+    @Html.LabelFor(model => model.TimeOfDay, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.TimeOfDay, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.TimeOfDay, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div id="DaysOfWeek" class="form-group">
+    @Html.LabelFor(model => model.DaysOfWeek, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DaysOfWeek, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DaysOfWeek, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div id="DayOfMonth" class="form-group">
+    @Html.LabelFor(model => model.DayOfMonth, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DayOfMonth, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DayOfMonth, "", new { @class = "text-danger" })
+    </div>
+</div>
+<div id="DayOfYear" class="form-group">
+    @Html.LabelFor(model => model.DayOfYear, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DayOfYear, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.DayOfYear, "", new { @class = "text-danger" })
+    </div>
+</div>*@
+
 <hr />

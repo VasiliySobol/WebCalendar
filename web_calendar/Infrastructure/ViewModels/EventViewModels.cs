@@ -170,9 +170,18 @@ namespace web_calendar.BL.ViewModels
 
         [Display(Name = "Repeat count")]
         public Nullable<int> RepeatCount { get; set; }
-        // or
-        [Display(Name = "End date")]
-        public Nullable<System.DateTime> EndDate { get; set; }
+
+        [Display(Name = "Days of Week")]
+        public string DaysOfWeek { get; set; }
+
+        [Display(Name = "Time of day")]
+        public Nullable<System.TimeSpan> TimeOfDay { get; set; }
+
+        [Display(Name = "Day of Year")]
+        public Nullable<System.DateTime> DayOfYear { get; set; }
+
+        [Display(Name = "Days of Month")]
+        public string DayOfMonth { get; set; }
     }
 
     public class GuestsEmail
