@@ -31,7 +31,9 @@ namespace web_calendar.BL.ViewModels
         // Notification Settings
         public NotificationSettingsViewModel notificationSettings { get; set; }
 
-        public string CSSColor { get; set; }
+        public string CSSMainColor { get; set; }
+
+        public string CSSHeadColor { get; set; }
 
         public bool isActive { get; set; }
 
