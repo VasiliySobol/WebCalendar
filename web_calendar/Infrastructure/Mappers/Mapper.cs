@@ -190,21 +190,26 @@ namespace web_calendar.BL.Mappers
             repeatableVM.Period = repeatable.Period;
             repeatableVM.IfRepeatable = true;
             repeatableVM.RepeatCount = repeatable.RepeatCount;
-            repeatableVM.DayOfMonth = repeatable.DayOfMonth;
-            repeatableVM.DayOfYear = repeatable.DayOfYear;
+            if (repeatable.MonthDay.HasValue)
+                repeatableVM.DayOfMonth = repeatable.MonthDay.Value.ToString();
+            if (repeatable.DayOfYear.HasValue)
+                repeatableVM.DayOfYear = repeatable.DayOfYear.Value.Month + "/" + repeatable.DayOfYear.Value.Day;
             repeatableVM.DaysOfWeek = repeatable.DaysOfWeek;
-            repeatableVM.TimeOfDay = repeatable.TimeOfDay;
+            if (repeatable.TimeOfDay.HasValue)
+                repeatableVM.TimeOfDay = repeatable.TimeOfDay.Value.Hours + ":" + repeatable.TimeOfDay.Value.Minutes;
             return repeatableVM;
         }
 
-        public static void MapToRepeatable(RepeatableSettingsViewModel repeatableVM, ref Repeatable repeatable)
+        public static void MapToRepeatable(RepeatableSettingsViewModel repeatableVM, ref Repeatable repeatable, 
+            CalendarEvent calendarEvent)
         {
             repeatable.Period = repeatableVM.Period;
             repeatable.RepeatCount = repeatableVM.RepeatCount;
-            repeatable.DayOfMonth = repeatableVM.DayOfMonth;
-            repeatable.DayOfYear = repeatableVM.DayOfYear;
+            repeatable.MonthDay = calendarEvent.TimeBegin.Day;
+            repeatable.DayOfYear = new DateTime(calendarEvent.TimeBegin.Year, calendarEvent.TimeBegin.Month, 
+                calendarEvent.TimeBegin.Day);
+            repeatable.TimeOfDay = calendarEvent.TimeBegin.TimeOfDay;
             repeatable.DaysOfWeek = repeatableVM.DaysOfWeek;
-            repeatable.TimeOfDay = repeatableVM.TimeOfDay;
         }
 
         // -------- Calendars --------
