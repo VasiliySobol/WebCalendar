@@ -32,7 +32,7 @@ namespace web_calendar
                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             };
 
-            GlobalFilters.Filters.Add(new CustomHandleErrorAttribute());
+            //GlobalFilters.Filters.Add(new CustomHandleErrorAttribute());
         }        
     }
 }

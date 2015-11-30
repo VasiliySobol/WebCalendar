@@ -82,6 +82,7 @@
     <Compile Include="ViewModels\CalendarViewModel.cs" />
     <Compile Include="ViewModels\EventViewModels.cs" />
     <Compile Include="ViewModels\NotificationSettingsViewModel.cs" />
+    <Compile Include="ViewModels\RepeatableSettingsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

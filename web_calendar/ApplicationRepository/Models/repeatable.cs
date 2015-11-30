@@ -21,6 +21,7 @@ namespace web_calendar.DAL.Models
         public string DaysOfWeek { get; set; }
         public Nullable<System.TimeSpan> TimeOfDay { get; set; }
         public Nullable<System.DateTime> DayOfYear { get; set; }
+        public Nullable<int> MonthDay { get; set; }
         public string DayOfMonth { get; set; }
     
         public virtual CalendarEvent CalendarEvent { get; set; }
