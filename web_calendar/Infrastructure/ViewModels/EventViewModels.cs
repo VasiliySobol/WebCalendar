@@ -83,6 +83,7 @@ namespace web_calendar.BL.ViewModels
         public CreateEventViewModel()
         {
             TimeBegin = DateTime.Now;
+            DateBegin = DateTime.Now;
             repeatableSettings = new RepeatableSettingsViewModel();
             Notifications = new List<NotificationSettingsViewModel>();
             Guests = new List<GuestsEmail>();
@@ -102,10 +103,25 @@ namespace web_calendar.BL.ViewModels
 
         [Required(ErrorMessage = "Begin time is required.")]
         [Display(Name = "Begin time")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+        [DataType(DataType.Time)]
         public System.DateTime TimeBegin { get; set; }
 
+        [Required(ErrorMessage = "Begin date is required.")]
+        [Display(Name = "Begin date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DataType(DataType.Date)]
+        public System.DateTime DateBegin { get; set; }
+
         [Display(Name = "End time")]
-        public Nullable<System.DateTime> TimeEnd { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:HH:mm}")]
+        [DataType(DataType.Time)]
+        public System.DateTime? TimeEnd { get; set; }
+
+        [Display(Name = "End date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DataType(DataType.Date)]
+        public System.DateTime? DateEnd { get; set; }
 
         [Required(ErrorMessage = "Share is required.")]
         [Display(Name = "Share")]
