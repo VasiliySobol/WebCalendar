@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using web_calendar.Handlers;
 
 namespace web_calendar
 {
@@ -30,6 +31,8 @@ namespace web_calendar
                 Formatting = Newtonsoft.Json.Formatting.Indented,
                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             };
-        }
+
+            GlobalFilters.Filters.Add(new CustomHandleErrorAttribute());
+        }        
     }
 }
