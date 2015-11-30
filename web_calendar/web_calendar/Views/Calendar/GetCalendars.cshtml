@@ -27,7 +27,7 @@
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = calendar.id }) |
                                 @Html.ActionLink("Delete", "Delete", new { id = calendar.id }) |
-                                @Html.ActionLink("Schedule", "Schedule", "Event", new { id = calendar.id })
+                                @Html.ActionLink("Schedule", "Schedule", "Event", new { id = calendar.id }, htmlAttributes: new { @class = "" })
                             </td>
                         </tr>
                     }
