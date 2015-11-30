@@ -5,18 +5,19 @@
 }
 
 <div class="navigationCalendarContainer">
-    <div class="leftNav">
+    <div class="rightNav">
         <button type="button" class="btn btn-default btn-xs"> < </button>
         <button type="button" class="btn btn-default btn-xs"> > </button>
         Day/Week/Month
     </div>
 
-    <div class="rightNav">
+    <div class="leftNav">
         @Ajax.ActionLink("Day", "CalendarDayPartial", new AjaxOptions { UpdateTargetId = "calendarContainer" })
         @Ajax.ActionLink("Week", "CalendarWeekPartial", new AjaxOptions { UpdateTargetId = "calendarContainer" })
-        @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer"  })
+        @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
         @Html.ActionLink("Schedule", "Schedule", "Event")
     </div>
+
 </div>
 
 <div class="calendarWrapper">
