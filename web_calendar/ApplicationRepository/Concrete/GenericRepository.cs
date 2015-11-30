@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Data.Entity.Infrastructure;
-using Microsoft.AspNet.Identity;
 using System.Web;
 
 namespace web_calendar.DAL.Concrete
