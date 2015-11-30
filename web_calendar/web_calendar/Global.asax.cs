@@ -18,9 +18,9 @@ namespace web_calendar
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            GlobalFilters.Filters.Add(new CustomHandleErrorAttribute());
+           // GlobalFilters.Filters.Add(new CustomHandleErrorAttribute());
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
+         //   WebApiConfig.Register(GlobalConfiguration.Configuration);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
