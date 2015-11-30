@@ -79,7 +79,7 @@ namespace web_calendar.BL.Mappers
             List<RepeatableSettingsViewModel> listr = new List<RepeatableSettingsViewModel>();
             foreach (Repeatable item in repeatable)
             {
-                listr.Add(MapToRepeatableSettingsViewModel(item));
+                listr.Add(MapToRepeatableViewModel(item));
             }
             eventVM.Notifications = list;
 
@@ -109,15 +109,6 @@ namespace web_calendar.BL.Mappers
                 list.Add(MapToNotificationSettingsViewModel(item));
             }
             return list;
-        }
-
-        public static RepeatableSettingsViewModel MapToRepeatableSettingsViewModel(Repeatable repeatable)
-        {
-            RepeatableSettingsViewModel repeatableSettingsVM = new RepeatableSettingsViewModel();
-            repeatableSettingsVM.Id = repeatable.Id;
-            repeatableSettingsVM.Period = repeatable.Period;
-            repeatableSettingsVM.RepeatCount = repeatable.RepeatCount;
-            return repeatableSettingsVM;
         }
 
         public static CalendarEvent MapToEvent(CreateEventViewModel eventVM)
@@ -198,23 +189,21 @@ namespace web_calendar.BL.Mappers
             repeatableVM.Period = repeatable.Period;
             repeatableVM.IfRepeatable = true;
             repeatableVM.RepeatCount = repeatable.RepeatCount;
+            repeatableVM.DayOfMonth = repeatable.DayOfMonth;
+            repeatableVM.DayOfYear = repeatable.DayOfYear;
+            repeatableVM.DaysOfWeek = repeatable.DaysOfWeek;
+            repeatableVM.TimeOfDay = repeatable.TimeOfDay;
             return repeatableVM;
         }
 
-        public static Repeatable MapToRepeatable(RepeatableSettingsViewModel repeatableSettingsVM)
+        public static void MapToRepeatable(RepeatableSettingsViewModel repeatableVM, ref Repeatable repeatable)
         {
-            Repeatable repeatable = new Repeatable();
-            repeatable.Period = repeatableSettingsVM.Period;
-            if (repeatableSettingsVM.RepeatCount != null)
-            {
-                repeatable.RepeatCount = repeatableSettingsVM.RepeatCount;
-            }
-            else
-            {
-                //TODO: calculate repeat count using date
-                throw new NotImplementedException();
-            }
-            return repeatable;
+            repeatable.Period = repeatableVM.Period;
+            repeatable.RepeatCount = repeatableVM.RepeatCount;
+            repeatable.DayOfMonth = repeatableVM.DayOfMonth;
+            repeatable.DayOfYear = repeatableVM.DayOfYear;
+            repeatable.DaysOfWeek = repeatableVM.DaysOfWeek;
+            repeatable.TimeOfDay = repeatableVM.TimeOfDay;
         }
 
         // -------- Calendars --------

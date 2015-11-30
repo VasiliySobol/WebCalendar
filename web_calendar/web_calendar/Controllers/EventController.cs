@@ -110,9 +110,11 @@ namespace web_calendar.Controllers
                             if (eventViewModel.repeatableSettings != null)
                                 if (eventViewModel.repeatableSettings.IfRepeatable)
                                 {
-                                    Repeatable repeatable = Mapper.MapToRepeatable(eventViewModel);
+                                    Repeatable repeatable = new Repeatable();
+                                    Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable);
                                     repeatable.EventId = calendarEvent.Id;
                                     repeatable.CalendarEvent = calendarEvent;
+                                    //add logic
                                     eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
                                     //TODO : add repeated events
                                 }
@@ -207,15 +209,17 @@ namespace web_calendar.Controllers
                             Repeatable repeatable = eventRepository.GetRepeatableSettings(id);
                             if (repeatable != null)
                             {
-                                repeatable.Period = eventViewModel.repeatableSettings.Period;
-                                repeatable.RepeatCount = eventViewModel.repeatableSettings.RepeatCount;
+                                eventRepository.DeleteAllChildrenEvents(id);
+                                Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable);
+                                 
                                 //add logic
                             }
                             else
                             {
                                 repeatable = new Repeatable();
-                                repeatable.Period = eventViewModel.repeatableSettings.Period;
-                                repeatable.RepeatCount = eventViewModel.repeatableSettings.RepeatCount;
+                                Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable);
+                                repeatable.EventId = calendarEvent.Id;
+                                repeatable.CalendarEvent = calendarEvent;
                                 //add logic
                                 eventRepository.AddRepeatableSettings(id, repeatable);
                             }
