@@ -14,7 +14,7 @@
     <div class="rightNav">
         @Ajax.ActionLink("Day", "CalendarDayPartial", new AjaxOptions { UpdateTargetId = "calendarContainer" })
         @Ajax.ActionLink("Week", "CalendarWeekPartial", new AjaxOptions { UpdateTargetId = "calendarContainer" })
-        @Ajax.ActionLink("Month", "CalendarMonthPartial", new AjaxOptions { UpdateTargetId = "calendarContainer"  })
+        @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer"  })
         @Html.ActionLink("Schedule", "Schedule", "Event")
     </div>
 </div>
