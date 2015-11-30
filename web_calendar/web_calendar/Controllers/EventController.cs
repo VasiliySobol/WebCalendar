@@ -191,7 +191,7 @@ namespace web_calendar.Controllers
                 {
                     case 0:
                         CalendarEvent calendarEvent = eventRepository.FindById(id);
-                        Mapper.MapToEvent(calendarEvent, eventViewModel);
+                        Mapper.MapToEvent(ref calendarEvent, eventViewModel);
                         if (calendarId != eventRepository.GetCalendar(id).Id)
                         {
                             Calendar calendar = eventRepository.FindOtherById<Calendar>(calendarId);
