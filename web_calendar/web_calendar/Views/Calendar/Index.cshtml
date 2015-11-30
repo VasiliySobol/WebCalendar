@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<web_calendar.BL.ViewModels.CalendarViewModel>
+
+@{
     ViewBag.Title = "Calendar";
 }
 
@@ -28,6 +30,7 @@
     </div>
 
     <div class="calendarContainer" id="calendarContainer">
+        @Html.Action("CalendarMonthPartial", new { id = Model.FirstOrDefault().id })
     </div>
 </div>
 
