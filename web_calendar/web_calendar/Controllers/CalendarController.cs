@@ -111,24 +111,16 @@ namespace web_calendar.Controllers
             return PartialView("_CalendarWeekPartial");
         }
 
-        public ActionResult CalendarMonthPartial(int id = 0)//!!!!!!!!!!!!
+        public ActionResult CalendarMonthPartial(int id)
         {
-            Calendar calendar;
-            if (id == 0)
-            {
-                var calendars = CalendarService.GetCalendarViewModels(User.Identity.GetUserId());
-                calendar = Mapper.MapToCalendarFromCalendarVM(calendars.First());
-            }
-            else
-            {
-                calendar = CalendarService.calendarRepository.FindById(id);
-            }
-            
-            var events = calendar.CalendarEventsCollection;
-            events.Add(new CalendarEvent() { Name = "myEvent", TimeBegin = DateTime.Now });
+            var userCalendars = CalendarService.calendarRepository.GetUserCalendars(User.Identity.GetUserId());
 
-            return PartialView("_CalendarMonthPartial", events);
+            CalendarViewModel activeCalendar = Mapper.MapToCalendarViewModel(CalendarService.calendarRepository.FindById(id));
+
+            return PartialView("_CalendarMonthPartial", activeCalendar);
         }
+
+
 
         public string JSONIndex()
         {
