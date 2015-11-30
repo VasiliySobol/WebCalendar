@@ -27,7 +27,13 @@ namespace web_calendar.BL.Services
             }
         }
 
-        public static string ColorToCSS(Color calendarColor)
+        public static string ColorToMainCSS(Color calendarColor)
+        {
+            Color brightCalendarColor = Color.FromArgb(128, calendarColor);
+            return "#" + brightCalendarColor.R.ToString("X2") + brightCalendarColor.G.ToString("X2") + brightCalendarColor.B.ToString("X2");
+        }
+
+        public static string ColorToHeadCSS(Color calendarColor)
         {
             return "#" + calendarColor.R.ToString("X2") + calendarColor.G.ToString("X2") + calendarColor.B.ToString("X2");
         }
