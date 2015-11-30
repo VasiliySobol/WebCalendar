@@ -178,5 +178,12 @@ namespace web_calendar.DAL.Concrete
             }
             return null;
         }
+        public void DeleteAllChildrenEvents(int parentId)
+        {
+            foreach (CalendarEvent item in FindAll(x => x.ParentEvent == parentId).ToList())
+            {
+                Delete(item);
+            }
+        }
     }
 }

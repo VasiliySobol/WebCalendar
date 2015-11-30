@@ -23,5 +23,6 @@ namespace web_calendar.DAL.Interface
         void AddCalendar(int eventId, int calendarId);
         void AddGuests(int eventId, List<string> emails);
         IEnumerable<Guest> FindAllGuests(int id, Func<Guest, bool> filter);
+        void DeleteAllChildrenEvents(int parentId);
     }
 }
