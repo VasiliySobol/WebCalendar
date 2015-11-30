@@ -17,11 +17,12 @@ using System.Web.Services;
 using web_calendar.BL.Mappers;
 using web_calendar.BL.ViewModels;
 using web_calendar.BL.ServerValidation;
+using web_calendar.Handlers;
 
 namespace web_calendar.Controllers
 {
     [Authorize]
-    //[System.Web.Script.Services.ScriptService]
+    [CustomHandleErrorAttribute]
     public class EventController : Controller
     {
         private IEventRepository eventRepository;
@@ -137,7 +138,7 @@ namespace web_calendar.Controllers
                         ModelState.AddModelError("Name", "Name is required.");
                         break;
                     case 2:
-                        ModelState.AddModelError("TimeBegin", "Begin time is required.");
+                        ModelState.AddModelError("Begin time", "Begin time is required.");
                         break;
                 }
             }
@@ -226,7 +227,7 @@ namespace web_calendar.Controllers
                         ModelState.AddModelError("Name", "Name is required.");
                         break;
                     case 2:
-                        ModelState.AddModelError("TimeBegin", "Begin time is required.");
+                        ModelState.AddModelError("Begin time", "Begin time is required.");
                         break;
                 }
             }
