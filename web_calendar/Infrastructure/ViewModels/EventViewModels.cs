@@ -169,37 +169,6 @@ namespace web_calendar.BL.ViewModels
     //    }
     //}
 
-    public class RepeatableSettingsViewModel
-    {
-        public RepeatableSettingsViewModel()
-        {
-        }
-
-        public int Id { get; set; }
-
-        [Display(Name = "Repeatable")]
-        public bool IfRepeatable { get; set; }
-
-        [Required(ErrorMessage="Period is required.")]
-        [Display(Name = "Period")]
-        public string Period { get; set; }
-
-        [Display(Name = "Repeat count")]
-        public Nullable<int> RepeatCount { get; set; }
-
-        [Display(Name = "Days of Week")]
-        public string DaysOfWeek { get; set; }
-
-        [Display(Name = "Time of day")]
-        public Nullable<System.TimeSpan> TimeOfDay { get; set; }
-
-        [Display(Name = "Day of Year")]
-        public Nullable<System.DateTime> DayOfYear { get; set; }
-
-        [Display(Name = "Days of Month")]
-        public string DayOfMonth { get; set; }
-    }
-
     public class GuestsEmail
     {
         public int Id { get; set; }
