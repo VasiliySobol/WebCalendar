@@ -1,36 +1,41 @@
 ﻿@model IEnumerable<web_calendar.BL.ViewModels.CalendarViewModel>
 @using Newtonsoft.Json
 
-    <script src="~/Scripts/customScripts.js"></script>
-    <div id="results">
-            <table class="table" style="width:10%">
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.name)
-                    </th>
-                </tr>
+<script src="~/Scripts/customScripts.js"></script>
+<div id="results">
+    <table class="table" style="width:200px">
+        <tr>
+            <th colspan="2">My Calendars</th>
+        </tr>
 
-                @if (Model != null)
-                {
-                    foreach (var calendar in Model)
-                    {
-                        <tr>
-                            <td>
-                                <script type="text/javascript">
-                                    var data = @Html.Raw(JsonConvert.SerializeObject(calendar))
-                                    Add(data);
-                                </script>
-                            </td>
-                            <td>
-                                @Ajax.ActionLink(calendar.name, "CalendarMonthPartial", new { id = calendar.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = calendar.id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = calendar.id }) |
-                                @Html.ActionLink("Schedule", "Schedule", "Event", new { id = calendar.id }, htmlAttributes: new { @class = "" })
-                            </td>
-                        </tr>
-                    }
-                }
-            </table>
-    </div>
+        @if (Model != null)
+        {
+            foreach (var calendar in Model)
+            {
+                <tr>
+                    <td>
+                        <script type="text/javascript">
+                            var data = @Html.Raw(JsonConvert.SerializeObject(calendar));
+                            Add(data);
+                        </script>
+                        @Ajax.ActionLink(calendar.name, "CalendarMonthPartial", new { id = calendar.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Calendar", new { id = calendar.id })">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                            <span class="sr-only">Edit</span>
+                        </a>
+                        <a href="@Url.Action("Delete", "Calendar", new { id = calendar.id })">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            <span class="sr-only">Delete</span>
+                        </a>
+                        <a href="@Url.Action("Schedule", "Event", new { id = calendar.id })">
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                            <span class="sr-only">Schedule</span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
