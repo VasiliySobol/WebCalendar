@@ -12,11 +12,11 @@ using web_calendar.Handlers;
 using Microsoft.AspNet.Identity;
 using web_calendar.DAL.Concrete;
 using web_calendar.DAL.Models;
+using System.Web.Http.Cors;
 
 namespace web_calendar.Controllers
 {
     [Authorize]
-    [CustomHandleErrorAttribute]
     public class EventsController : ApiController
     {
         // GET: api/Events

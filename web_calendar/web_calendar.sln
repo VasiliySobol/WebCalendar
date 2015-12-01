@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web_calendar", "web_calendar\web_calendar.csproj", "{357120EE-7388-49DA-B298-B92F6AD21E7B}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web_calendar.DAL", "ApplicationRepository\web_calendar.DAL.csproj", "{FCBD6ECA-B3EE-45ED-AE3F-3AB63AB9BD52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web_calendar.BL", "Infrastructure\web_calendar.BL.csproj", "{3CDB7BC8-D9E7-4ABB-B084-3A988BFCCDBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webAPI_TestSite", "webAPI_TestSite\webAPI_TestSite.csproj", "{780221C9-0373-4805-B3E4-CEF7B1101051}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3CDB7BC8-D9E7-4ABB-B084-3A988BFCCDBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CDB7BC8-D9E7-4ABB-B084-3A988BFCCDBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CDB7BC8-D9E7-4ABB-B084-3A988BFCCDBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{780221C9-0373-4805-B3E4-CEF7B1101051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{780221C9-0373-4805-B3E4-CEF7B1101051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{780221C9-0373-4805-B3E4-CEF7B1101051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{780221C9-0373-4805-B3E4-CEF7B1101051}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
