@@ -30,14 +30,14 @@ namespace web_calendar.Controllers
             foreach (CalendarEvent item in events)
             {
                 list.Add(Mapper.MapToDisplayEventVM(item));
-            }
+            }            
             return list;
         }
 
         // POST: api/Events
         [HttpPost]
         public void Post(string value)
-        {
+        {            
             EventRepository eventRepository = new EventRepository();
             CreateEventViewModel CEVM = new CreateEventViewModel();
 

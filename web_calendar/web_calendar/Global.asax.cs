@@ -33,6 +33,26 @@ namespace web_calendar
                 Formatting = Newtonsoft.Json.Formatting.Indented,
                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             };
-        }        
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            var allowedOrigins = new[] { "http://localhost:54920" };
+            var request = HttpContext.Current.Request;
+            var response = HttpContext.Current.Response;
+            var origin = request.Headers["Origin"];
+
+            if (origin != null && allowedOrigins.Any(x => x == origin))
+            {
+                response.AddHeader("Access-Control-Allow-Origin", origin);
+                response.AddHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+                response.AddHeader("Access-Control-Allow-Headers", "Content-Type, X-Requested-With");
+                response.AddHeader("Access-Control-Allow-Credentials", "true");
+                if (request.HttpMethod == "OPTIONS")
+                {
+                    response.End();
+                }
+            }
+        }
     }
 }

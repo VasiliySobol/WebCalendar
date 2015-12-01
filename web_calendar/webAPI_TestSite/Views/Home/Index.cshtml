@@ -9,32 +9,35 @@
 
 <script>
     function getEvents() {
-        debugger;
-        $.ajax({
+        $.ajax({            
             type: "get",
             url: "http://localhost:1697/api/events",
-            success: function (data) {
-                alert(data);
+            xhrFields: {
+                withCredentials: true
             },
-            error: function () {
-                alert("Error!");
+            success: function (data) {
+                alert(data[0].Name);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText || textStatus);
             }
         });
     }
 
     function addEventByReference() {
-        debugger;
         var eventName = document.getElementById("eventName").innerText;
         $.ajax({
             type: "post",
-            url: "http://localhost:1697/api/events",
+            url: "http://localhost:1697/api/events/",
             data: eventName,
-            contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                alert(result);
+            xhrFields: {
+                withCredentials: true
             },
-            error: function () {
-                alert("Error!");
+            success: function (jqXHR, textStatus) {
+                alert(jqXHR.responseText || textStatus);            
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText || textStatus);
             }
         });
     }
