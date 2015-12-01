@@ -3,7 +3,7 @@
 }
 
 <h2>Index</h2>
-<label id="eventName">EventName</label>
+
 <button onclick="getEvents()">Get events</button>
 <button onclick="addEventByReference()">Add event</button>
 
@@ -25,16 +25,17 @@
     }
 
     function addEventByReference() {
-        var eventName = document.getElementById("eventName").innerText;
+        var event = "{'name': 'eventbyref', 'text': 'event description', 'place': 'myplace'}";
         $.ajax({
             type: "post",
-            url: "http://localhost:1697/api/events/",
-            data: eventName,
+            url: "http://localhost:1697/api/events",
+            contentType: "application/json; charset=utf-8",
+            data: event,
             xhrFields: {
                 withCredentials: true
             },
-            success: function (jqXHR, textStatus) {
-                alert(jqXHR.responseText || textStatus);            
+            success: function () {
+                alert("Event successfully added!");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.responseText || textStatus);

@@ -34,18 +34,13 @@ namespace web_calendar.Controllers
             return list;
         }
 
-        // POST: api/Events
+        // POST: api/Events        
         [HttpPost]
-        public void Post(string value)
+        public void Post([FromBody]CreateEventViewModel CEVM)
         {            
             EventRepository eventRepository = new EventRepository();
-            CreateEventViewModel CEVM = new CreateEventViewModel();
-
-            string userId = User.Identity.GetUserId();
-            var calendars = CalendarService.GetCalendarViewModels(userId);
-            CEVM.SelectedCalendarId = calendars.ElementAt(0).id;
-            CEVM.Name = value;
-
+            var calendars = CalendarService.GetCalendarViewModels(User.Identity.GetUserId());
+            CEVM.SelectedCalendarId = calendars.ElementAt(0).id;                        
             var CE = Mapper.MapToEvent(CEVM);
             eventRepository.Add(CE);
             eventRepository.SaveChanges();

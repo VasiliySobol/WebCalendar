@@ -123,6 +123,7 @@ namespace web_calendar.BL.Mappers
 
         public static void MapToEvent(ref CalendarEvent calendarEvent, CreateEventViewModel eventVM)
         {
+            calendarEvent.CalendarId = eventVM.SelectedCalendarId;
             calendarEvent.Name = eventVM.Name;
             calendarEvent.Text = eventVM.Text;
             calendarEvent.Place = eventVM.Place;
