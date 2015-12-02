@@ -12,8 +12,7 @@ function Add(data) {
     arrayOfCalendars.push(data);
 }
 
-function SetsColor(idName) {
-    document.getElementById(idName).style.backgroundColor = "#AA0000";
+function kkk() {
     alert("fdsa");
 }
 

@@ -36,7 +36,7 @@ namespace web_calendar.BL.ViewModels
 
         public string CSSHeadColor { get; set; }
 
-        public CalendarDateTime chronometer { get; set; }
+        public CalendarDateTime calendarDateTime { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public string userId { get; set; }

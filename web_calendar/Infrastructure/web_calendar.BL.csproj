@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomClasses\CalendarDateTime.cs" />
     <Compile Include="DataTypes\Visibility.cs" />
     <Compile Include="Mappers\CalendarMapper.cs" />
     <Compile Include="ServerValidation\EventValidator.cs" />
