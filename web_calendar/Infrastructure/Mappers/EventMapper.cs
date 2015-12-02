@@ -10,7 +10,7 @@ using web_calendar.BL.Services;
 
 namespace web_calendar.BL.Mappers
 {
-    public static class Mapper
+    public static class EventMapper
     {
         // -------- Events --------
 
@@ -123,7 +123,6 @@ namespace web_calendar.BL.Mappers
 
         public static void MapToEvent(ref CalendarEvent calendarEvent, CreateEventViewModel eventVM)
         {
-            calendarEvent.CalendarId = eventVM.SelectedCalendarId;
             calendarEvent.Name = eventVM.Name;
             calendarEvent.Text = eventVM.Text;
             calendarEvent.Place = eventVM.Place;
@@ -175,16 +174,7 @@ namespace web_calendar.BL.Mappers
             notificationType.TimeBefore = notificationSettingsVM.TimeBefore;
             return notificationType;
         }
-
-        public static Repeatable MapToRepeatable(CreateEventViewModel eventVM)
-        {
-            Repeatable repeatable = new Repeatable();
-            repeatable.Period = eventVM.repeatableSettings.Period;
-            //TODO: count repetition count if end date
-            repeatable.RepeatCount = eventVM.repeatableSettings.RepeatCount;
-            return repeatable;
-        }
-
+        
         public static RepeatableSettingsViewModel MapToRepeatableViewModel(Repeatable repeatable)
         {
             RepeatableSettingsViewModel repeatableVM = new RepeatableSettingsViewModel();
@@ -211,37 +201,6 @@ namespace web_calendar.BL.Mappers
                 calendarEvent.TimeBegin.Day);
             repeatable.TimeOfDay = calendarEvent.TimeBegin.TimeOfDay;
             repeatable.DaysOfWeek = repeatableVM.DaysOfWeek;
-        }
-
-        // -------- Calendars --------
-
-        public static CalendarViewModel MapToCalendarViewModel(Calendar calendar)
-        {
-            CalendarViewModel calendarVM = new CalendarViewModel();
-            calendarVM.calendarColor = Color.FromArgb(calendar.CalendarColor.Value);
-            calendarVM.description = calendar.Text;
-            calendarVM.name = calendar.Name;
-            calendarVM.notificationSettings = new NotificationSettingsViewModel();
-            calendarVM.timeZone = CalendarService.GetTimeZoneNameById(calendar.TimeZone);
-            calendarVM.visibility = calendar.Visibility;
-            calendarVM.id = calendar.Id;
-            calendarVM.userId = calendar.UserId;
-            calendarVM.CSSMainColor = CalendarService.ColorToMainCSS(calendarVM.calendarColor);
-            calendarVM.CSSHeadColor = CalendarService.ColorToHeadCSS(calendarVM.calendarColor);
-            return calendarVM;
-        }
-
-        public static Calendar MapToCalendarFromCalendarVM(CalendarViewModel calendarVM)
-        {
-            Calendar calendar = new Calendar();
-            calendar.CalendarColor = calendarVM.calendarColor.ToArgb();
-            calendar.Text = calendarVM.description;
-            calendar.Name = calendarVM.name;
-            calendar.TimeZone = CalendarService.GetTimeZoneIdByName(calendarVM.timeZone);
-            calendar.Visibility = calendarVM.visibility;
-            calendar.Id = calendarVM.id;
-            calendar.UserId = calendarVM.userId;            
-            return calendar;
         }
     }
 }

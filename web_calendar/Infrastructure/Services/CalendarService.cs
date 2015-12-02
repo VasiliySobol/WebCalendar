@@ -99,7 +99,7 @@ namespace web_calendar.BL.Services
 
             foreach (Calendar calendar in listOfCalendars)
             {
-                listOfCalendarViews.Add(Mapper.MapToCalendarViewModel(calendar));
+                listOfCalendarViews.Add(CalendarMapper.MapToCalendarViewModel(calendar));
             }
 
             return listOfCalendarViews;
@@ -107,7 +107,7 @@ namespace web_calendar.BL.Services
 
         public static CalendarViewModel GetDetails(int _id)
         {
-            return Mapper.MapToCalendarViewModel(calendarRepository.FindById(_id));
+            return CalendarMapper.MapToCalendarViewModel(calendarRepository.FindById(_id));
         }
     }
 }

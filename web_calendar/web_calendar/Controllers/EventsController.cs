@@ -29,7 +29,7 @@ namespace web_calendar.Controllers
             List<DisplayEventViewModel> list = new List<DisplayEventViewModel>();
             foreach (CalendarEvent item in events)
             {
-                list.Add(Mapper.MapToDisplayEventVM(item));
+                list.Add(EventMapper.MapToDisplayEventVM(item));
             }            
             return list;
         }
@@ -41,7 +41,7 @@ namespace web_calendar.Controllers
             EventRepository eventRepository = new EventRepository();
             var calendars = CalendarService.GetCalendarViewModels(User.Identity.GetUserId());
             CEVM.SelectedCalendarId = calendars.ElementAt(0).id;                        
-            var CE = Mapper.MapToEvent(CEVM);
+            var CE = EventMapper.MapToEvent(CEVM);
             eventRepository.Add(CE);
             eventRepository.SaveChanges();
         }

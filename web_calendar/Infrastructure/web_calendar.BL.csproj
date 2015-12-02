@@ -73,10 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTypes\Visibility.cs" />
+    <Compile Include="Mappers\CalendarMapper.cs" />
     <Compile Include="ServerValidation\EventValidator.cs" />
     <Compile Include="Services\CalendarService.cs" />
     <Compile Include="Services\EventService.cs" />
-    <Compile Include="Mappers\Mapper.cs" />
+    <Compile Include="Mappers\EventMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\NotificationTypes.cs" />
     <Compile Include="Tools\PasswordHasher.cs" />

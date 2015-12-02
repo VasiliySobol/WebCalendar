@@ -25,7 +25,7 @@ namespace web_calendar.Controllers
             List<CalendarViewModel> list = new List<CalendarViewModel>();
             foreach (var item in allCalendars)
             {
-                list.Add(Mapper.MapToCalendarViewModel(item));
+                list.Add(CalendarMapper.MapToCalendarViewModel(item));
             }
             return PartialView(list);
         }
@@ -52,7 +52,7 @@ namespace web_calendar.Controllers
             if (ModelState.IsValid)
             {
                 calendarVM.userId = User.Identity.GetUserId();
-                Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
+                Calendar calendar = CalendarMapper.MapToCalendarFromCalendarVM(calendarVM);
                 CalendarService.calendarRepository.Add(calendar);
                 CalendarService.calendarRepository.SaveChanges();
                 return RedirectToAction("Index");
@@ -66,7 +66,7 @@ namespace web_calendar.Controllers
         public ViewResult Edit(int id)
         {
             Calendar calendar = CalendarService.calendarRepository.FindById(id);
-            return View(Mapper.MapToCalendarViewModel(calendar));
+            return View(CalendarMapper.MapToCalendarViewModel(calendar));
         }
 
         [HttpPost]
@@ -74,7 +74,7 @@ namespace web_calendar.Controllers
         {
             if (ModelState.IsValid)
             {
-                Calendar calendar = Mapper.MapToCalendarFromCalendarVM(calendarVM);
+                Calendar calendar = CalendarMapper.MapToCalendarFromCalendarVM(calendarVM);
                 calendar.UserId = User.Identity.GetUserId();
                 CalendarService.calendarRepository.Modify(calendar);
                 CalendarService.calendarRepository.SaveChanges();
@@ -89,7 +89,7 @@ namespace web_calendar.Controllers
         public ViewResult Delete(int id)
         {
             Calendar calendar = CalendarService.calendarRepository.FindById(id);
-            return View(Mapper.MapToCalendarViewModel(calendar));
+            return View(CalendarMapper.MapToCalendarViewModel(calendar));
         }
 
         [HttpPost]
@@ -115,7 +115,7 @@ namespace web_calendar.Controllers
         {
             var userCalendars = CalendarService.calendarRepository.GetUserCalendars(User.Identity.GetUserId());
 
-            CalendarViewModel activeCalendar = Mapper.MapToCalendarViewModel(CalendarService.calendarRepository.FindById(id));
+            CalendarViewModel activeCalendar = CalendarMapper.MapToCalendarViewModel(CalendarService.calendarRepository.FindById(id));
 
             return PartialView("_CalendarMonthPartial", activeCalendar);
         }
