@@ -120,8 +120,6 @@ namespace web_calendar.Controllers
             return PartialView("_CalendarMonthPartial", activeCalendar);
         }
 
-
-
         public string JSONIndex()
         {
             var data = CalendarDomainModel.calendarRepository.GetAll().ToList();

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using web_calendar.BL.CustomClasses;
 using web_calendar.BL.DomainModels;
 using web_calendar.BL.ViewModels;
 using web_calendar.DAL.Models;
@@ -28,6 +29,7 @@ namespace web_calendar.BL.Mappers
             calendarVM.userId = calendar.UserId;
             calendarVM.CSSMainColor = CalendarDomainModel.ColorToMainCSS(calendarVM.calendarColor);
             calendarVM.CSSHeadColor = CalendarDomainModel.ColorToHeadCSS(calendarVM.calendarColor);
+            calendarVM.calendarDateTime = new CalendarDateTime();
             return calendarVM;
         }
 
