@@ -29,13 +29,25 @@ namespace web_calendar.BL.Services
 
         public static string ColorToMainCSS(Color calendarColor)
         {
-            Color brightCalendarColor = Color.FromArgb(128, calendarColor);
-            return "#" + brightCalendarColor.R.ToString("X2") + brightCalendarColor.G.ToString("X2") + brightCalendarColor.B.ToString("X2");
+            float correctionFactor = 0.8f;
+            float R = (255 - calendarColor.R) * correctionFactor + calendarColor.R;
+            float G = (255 - calendarColor.G) * correctionFactor + calendarColor.G;
+            float B = (255 - calendarColor.B) * correctionFactor + calendarColor.B;
+            Color mainCalendarColor = Color.FromArgb(calendarColor.A, (int)R, (int)G, (int)B);
+
+            return "#" + mainCalendarColor.R.ToString("X2") + mainCalendarColor.G.ToString("X2") + mainCalendarColor.B.ToString("X2");
         }
 
         public static string ColorToHeadCSS(Color calendarColor)
         {
-            return "#" + calendarColor.R.ToString("X2") + calendarColor.G.ToString("X2") + calendarColor.B.ToString("X2");
+            float correctionFactor = 0.4f;
+            float R = (255 - calendarColor.R) * correctionFactor + calendarColor.R;
+            float G = (255 - calendarColor.G) * correctionFactor + calendarColor.G;
+            float B = (255 - calendarColor.B) * correctionFactor + calendarColor.B;
+            Color headCalendarColor = Color.FromArgb(calendarColor.A, (int)R, (int)G, (int)B);
+
+
+            return "#" + headCalendarColor.R.ToString("X2") + headCalendarColor.G.ToString("X2") + headCalendarColor.B.ToString("X2");
         }
 
         public static string[] GetTimeZoneNamesList()
