@@ -49,7 +49,7 @@ namespace web_calendar.Controllers
             List<DisplayEventViewModel> list = new List<DisplayEventViewModel>();
             foreach (CalendarEvent item in events)
             {
-                list.Add(Mapper.MapToDisplayEventVM(item));
+                list.Add(EventMapper.MapToDisplayEventVM(item));
             }
             return View(list);
         }
@@ -62,14 +62,14 @@ namespace web_calendar.Controllers
             {
                 return HttpNotFound();
             }
-            DetailsEventViewModel eventViewModel = Mapper.MapToDetailsEventVM(calendarEvent, 
+            DetailsEventViewModel eventViewModel = EventMapper.MapToDetailsEventVM(calendarEvent, 
                 calendarEvent.Guests.Select(x => x.Email).ToList());
             if (calendarEvent.Repeatables != null)
                 if (calendarEvent.Repeatables.Count > 0)
                     eventViewModel.repeatableSettings =
-                        Mapper.MapToRepeatableViewModel(calendarEvent.Repeatables.First());
+                        EventMapper.MapToRepeatableViewModel(calendarEvent.Repeatables.First());
             if (calendarEvent.Notifications != null)
-                eventViewModel.Notifications = Mapper.MapToNotificationListViewModel(
+                eventViewModel.Notifications = EventMapper.MapToNotificationListViewModel(
                     eventRepository.GetAllNotificationTypes(calendarEvent.Id));
             return View(eventViewModel);
         }
@@ -102,28 +102,15 @@ namespace web_calendar.Controllers
                     case 0:
                         if (eventRepository.FindOtherById<Calendar>(calendarId) != null)
                         {
-                            CalendarEvent calendarEvent = Mapper.MapToEvent(eventViewModel);
+                            CalendarEvent calendarEvent = EventMapper.MapToEvent(eventViewModel);
                             eventRepository.Add(calendarEvent);
                             eventRepository.AddCalendar(calendarEvent.Id, calendarId);
-                            eventRepository.SaveChanges();
-
-                            if (eventViewModel.repeatableSettings != null)
-                                if (eventViewModel.repeatableSettings.IfRepeatable)
-                                {
-                                    Repeatable repeatable = new Repeatable();
-                                    Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
-                                    repeatable.EventId = calendarEvent.Id;
-                                    repeatable.CalendarEvent = calendarEvent;
-                                    //add logic
-                                    eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
-                                    //TODO : add repeated events
-                                }
                             eventRepository.SaveChanges();
 
                             if (eventViewModel.Notifications != null)
                                 if (eventViewModel.Notifications.Count > 0)
                                 {
-                                    List<NotificationType> notifications = Mapper.MapToNotificationTypes(eventViewModel);
+                                    List<NotificationType> notifications = EventMapper.MapToNotificationTypes(eventViewModel);
                                     eventRepository.AddNotifications(calendarEvent.Id, notifications);
                                 }
                             eventRepository.SaveChanges();
@@ -131,6 +118,34 @@ namespace web_calendar.Controllers
                             if (eventViewModel.Guests != null)
                                 eventRepository.AddGuests(calendarEvent.Id,
                                     eventViewModel.Guests.Select(x => x.Email).ToList());
+                            eventRepository.SaveChanges();
+
+                            if (eventViewModel.repeatableSettings != null)
+                                if (eventViewModel.repeatableSettings.IfRepeatable)
+                                {
+                                    Repeatable repeatable = new Repeatable();
+                                    EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
+                                    repeatable.EventId = calendarEvent.Id;
+                                    repeatable.CalendarEvent = calendarEvent;
+                                    eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
+                                    for (int i = 0; i < repeatable.RepeatCount; i++)
+                                    {
+                                        CalendarEvent revent = new CalendarEvent();
+                                        EventMapper.MapToEvent(ref revent, eventViewModel);
+                                        revent.ParentEvent = calendarEvent.Id;
+                                        eventRepository.Add(revent);
+                                        eventRepository.AddCalendar(revent.Id, calendarId);
+                                        eventRepository.SaveChanges();
+                                        if (calendarEvent.Notifications.Count > 0)
+                                        {
+                                            List<NotificationType> notifications = EventMapper.MapToNotificationTypes(eventViewModel);
+                                            eventRepository.AddNotifications(revent.Id, notifications);
+                                        }
+                                        if (calendarEvent.Guests != null)
+                                            eventRepository.AddGuests(revent.Id,
+                                                eventViewModel.Guests.Select(x => x.Email).ToList());
+                                    }
+                                }
                             eventRepository.SaveChanges();
 
                             return RedirectToAction("Schedule");
@@ -162,13 +177,13 @@ namespace web_calendar.Controllers
             {
                 return HttpNotFound();
             }
-            CreateEventViewModel eventViewModel = Mapper.MapToEditEventVM(calendarEvent);
+            CreateEventViewModel eventViewModel = EventMapper.MapToEditEventVM(calendarEvent);
             if (calendarEvent.Repeatables != null)
                 if (calendarEvent.Repeatables.Count > 0)
-                    eventViewModel.repeatableSettings = 
-                        Mapper.MapToRepeatableViewModel(calendarEvent.Repeatables.First());
+                    eventViewModel.repeatableSettings =
+                        EventMapper.MapToRepeatableViewModel(calendarEvent.Repeatables.First());
             if (calendarEvent.Notifications != null)
-                eventViewModel.Notifications = Mapper.MapToNotificationListViewModel(
+                eventViewModel.Notifications = EventMapper.MapToNotificationListViewModel(
                     eventRepository.GetAllNotificationTypes(calendarEvent.Id));
             eventViewModel.CalendarItems = new SelectList(
                 calendarRepository.GetUserCalendars(userId).Select(
@@ -191,7 +206,7 @@ namespace web_calendar.Controllers
                 {
                     case 0:
                         CalendarEvent calendarEvent = eventRepository.FindById(id);
-                        Mapper.MapToEvent(ref calendarEvent, eventViewModel);
+                        EventMapper.MapToEvent(ref calendarEvent, eventViewModel);
                         if (calendarId != eventRepository.GetCalendar(id).Id)
                         {
                             Calendar calendar = eventRepository.FindOtherById<Calendar>(calendarId);
@@ -210,13 +225,13 @@ namespace web_calendar.Controllers
                             if (repeatable != null)
                             {
                                 eventRepository.DeleteAllChildrenEvents(id);
-                                Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);                                 
+                                EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);                                 
                                 //add logic
                             }
                             else
                             {
                                 repeatable = new Repeatable();
-                                Mapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
+                                EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
                                 repeatable.EventId = calendarEvent.Id;
                                 repeatable.CalendarEvent = calendarEvent;
                                 //add logic
@@ -251,7 +266,7 @@ namespace web_calendar.Controllers
             {
                 return HttpNotFound();
             }
-            DisplayEventViewModel eventViewModel = Mapper.MapToDisplayEventVM(calendarEvent);
+            DisplayEventViewModel eventViewModel = EventMapper.MapToDisplayEventVM(calendarEvent);
             return View(eventViewModel);
         }
 
