@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using web_calendar.BL.Mappers;
-using web_calendar.BL.Services;
+using web_calendar.BL.DomainModels;
 using web_calendar.BL.ViewModels;
 using web_calendar.DAL.Interface;
 using web_calendar.Handlers;
@@ -39,7 +39,7 @@ namespace web_calendar.Controllers
         public void Post([FromBody]CreateEventViewModel CEVM)
         {            
             EventRepository eventRepository = new EventRepository();
-            var calendars = CalendarService.GetCalendarViewModels(User.Identity.GetUserId());
+            var calendars = CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId());
             CEVM.SelectedCalendarId = calendars.ElementAt(0).id;                        
             var CE = EventMapper.MapToEvent(CEVM);
             eventRepository.Add(CE);

@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using web_calendar.Models;
 using web_calendar.DAL.Interface;
-using web_calendar.BL.Services;
+using web_calendar.BL.DomainModels;
 
 namespace web_calendar.Controllers
 {
@@ -172,7 +172,7 @@ namespace web_calendar.Controllers
                             // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                             // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                            CalendarService.CreateDefaultCalendar(user.Id);
+                            CalendarDomainModel.CreateDefaultCalendar(user.Id);
 
                             return RedirectToAction("Index", "Calendar");
                         }

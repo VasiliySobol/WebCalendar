@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using web_calendar.DAL.Interface;
 
-namespace web_calendar.BL.Services
+namespace web_calendar.BL.DomainModels
 {
-    public class EventService
+    public class EventDomainModel
     {
         
         public IEventRepository eventRepository;
         public INotificationRepository notificationRepository;
         public ICalendarRepository calendarRepository;
 
-        public EventService(IEventRepository _eventRepository, INotificationRepository _notificationRepository,
+        public EventDomainModel(IEventRepository _eventRepository, INotificationRepository _notificationRepository,
             ICalendarRepository _calendarRepository)  
         {
             this.eventRepository = _eventRepository;

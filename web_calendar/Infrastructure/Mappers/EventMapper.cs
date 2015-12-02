@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using web_calendar.DAL.Models;
 using System.Drawing;
-using web_calendar.BL.Services;
+using web_calendar.BL.DomainModels;
 
 namespace web_calendar.BL.Mappers
 {

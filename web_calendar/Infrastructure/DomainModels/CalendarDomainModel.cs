@@ -10,14 +10,14 @@ using web_calendar.BL.ViewModels;
 using web_calendar.DAL.Interface;
 using web_calendar.DAL.Models;
 
-namespace web_calendar.BL.Services
+namespace web_calendar.BL.DomainModels
 {
-    public static class CalendarService
+    public static class CalendarDomainModel
     {
         public static ICalendarRepository calendarRepository;
         public static Dictionary<int, TimeZoneInfo> timeZoneList = new Dictionary<int, TimeZoneInfo>();
 
-        static CalendarService()
+        static CalendarDomainModel()
         {
             ReadOnlyCollection<TimeZoneInfo> timeZoneInfoList = TimeZoneInfo.GetSystemTimeZones();
             

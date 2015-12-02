@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using web_calendar.BL.Services;
+using web_calendar.BL.DomainModels;
 using web_calendar.BL.ViewModels;
 using web_calendar.DAL.Models;
 
@@ -22,12 +22,12 @@ namespace web_calendar.BL.Mappers
             calendarVM.description = calendar.Text;
             calendarVM.name = calendar.Name;
             calendarVM.notificationSettings = new NotificationSettingsViewModel();
-            calendarVM.timeZone = CalendarService.GetTimeZoneNameById(calendar.TimeZone);
+            calendarVM.timeZone = CalendarDomainModel.GetTimeZoneNameById(calendar.TimeZone);
             calendarVM.visibility = calendar.Visibility;
             calendarVM.id = calendar.Id;
             calendarVM.userId = calendar.UserId;
-            calendarVM.CSSMainColor = CalendarService.ColorToMainCSS(calendarVM.calendarColor);
-            calendarVM.CSSHeadColor = CalendarService.ColorToHeadCSS(calendarVM.calendarColor);
+            calendarVM.CSSMainColor = CalendarDomainModel.ColorToMainCSS(calendarVM.calendarColor);
+            calendarVM.CSSHeadColor = CalendarDomainModel.ColorToHeadCSS(calendarVM.calendarColor);
             return calendarVM;
         }
 
@@ -37,7 +37,7 @@ namespace web_calendar.BL.Mappers
             calendar.CalendarColor = calendarVM.calendarColor.ToArgb();
             calendar.Text = calendarVM.description;
             calendar.Name = calendarVM.name;
-            calendar.TimeZone = CalendarService.GetTimeZoneIdByName(calendarVM.timeZone);
+            calendar.TimeZone = CalendarDomainModel.GetTimeZoneIdByName(calendarVM.timeZone);
             calendar.Visibility = calendarVM.visibility;
             calendar.Id = calendarVM.id;
             calendar.UserId = calendarVM.userId;
