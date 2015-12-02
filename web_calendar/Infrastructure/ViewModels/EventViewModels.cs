@@ -27,9 +27,6 @@ namespace web_calendar.BL.ViewModels
         [Display(Name = "End time")]
         public Nullable<System.DateTime> TimeEnd { get; set; }
 
-        [Display(Name = "Share")]
-        public string Visibility { get; set; }
-
         [Display(Name = "All day")]
         public string AllDay { get; set; }
 
@@ -122,11 +119,7 @@ namespace web_calendar.BL.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [DataType(DataType.Date)]
         public System.DateTime? DateEnd { get; set; }
-
-        [Required(ErrorMessage = "Share is required.")]
-        [Display(Name = "Share")]
-        public string Visibility { get; set; }
-
+        
         [Display(Name = "All day")]
         public bool AllDay { get; set; }
 

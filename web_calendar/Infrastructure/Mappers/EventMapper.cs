@@ -21,7 +21,6 @@ namespace web_calendar.BL.Mappers
             eventVM.Name = calendarEvent.Name;
             eventVM.Text = calendarEvent.Text;
             eventVM.Place = calendarEvent.Place;
-            eventVM.Visibility = calendarEvent.Visibility;
             eventVM.AllDay = calendarEvent.AllDay.Value.ToString();
             eventVM.TimeBegin = calendarEvent.TimeBegin;
             eventVM.TimeEnd = calendarEvent.TimeEnd;
@@ -63,7 +62,6 @@ namespace web_calendar.BL.Mappers
             eventVM.Name = calendarEvent.Name;
             eventVM.Text = calendarEvent.Text;
             eventVM.Place = calendarEvent.Place;
-            eventVM.Visibility = calendarEvent.Visibility;
             eventVM.TimeBegin = calendarEvent.TimeBegin;
             eventVM.AllDay = (calendarEvent.AllDay == null) ? false : calendarEvent.AllDay.GetValueOrDefault();
 
@@ -133,7 +131,6 @@ namespace web_calendar.BL.Mappers
                 DateTime end = new DateTime(eventVM.TimeEnd.Value.Year, eventVM.TimeEnd.Value.Month, eventVM.TimeEnd.Value.Day, eventVM.TimeEnd.Value.Hour, eventVM.TimeEnd.Value.Minute, eventVM.TimeEnd.Value.Second);
                 calendarEvent.TimeEnd = end;
             }
-            calendarEvent.Visibility = eventVM.Visibility;
             calendarEvent.AllDay = eventVM.AllDay;
         }
 
@@ -148,7 +145,6 @@ namespace web_calendar.BL.Mappers
             eventVM.TimeBegin = calendarEvent.TimeBegin;
             eventVM.DateEnd = calendarEvent.TimeEnd;
             eventVM.TimeEnd = calendarEvent.TimeEnd;
-            eventVM.Visibility = calendarEvent.Visibility;
             if (calendarEvent.AllDay != null)
                 eventVM.AllDay = (bool)calendarEvent.AllDay;
 
