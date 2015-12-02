@@ -14,16 +14,38 @@
     </div>
 
     <div>
-        @{int counter = 1;}
-
+        @{int counter = 1;
+          int lineStartCellNumber = 1;
+          int lineEndCellNumber = 7;
+          }
         @for (int i = 1; i <= 5; i++)
         {
             <div>
-                @for (int j = 1; j <= 7; j++)
+                @{lineStartCellNumber = 1;
+                  lineEndCellNumber = 7;}
+
+                @if (i == 1)
+                {
+                    <div>
+                        @{lineStartCellNumber = 1;
+                          lineEndCellNumber = Model.calendarDateTime.GetWeekDayNumberOfFirstMonthDay();}
+
+                        @for (int prev = lineStartCellNumber; prev <= lineEndCellNumber; prev++)
+			            {
+                            <div class="monthBodyTd">
+                                <p></p>
+                            </div>
+			            }
+
+                        @{lineStartCellNumber = lineEndCellNumber + 1;
+                        lineEndCellNumber = 7;}
+                    </div>
+                }
+                @for (int j = lineStartCellNumber; j <= lineEndCellNumber; j++)
                 {
                     <div id="cellId@(counter)" class="monthBodyTd">
-                        @(i * j)
                         @{counter++;}
+                        <p>@i @j</p>
                     </div>
                 }
             </div>
