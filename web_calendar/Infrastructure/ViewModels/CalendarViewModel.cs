@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Web.Mvc;
+using web_calendar.BL.CustomClasses;
 
 namespace web_calendar.BL.ViewModels
 {
@@ -35,7 +36,7 @@ namespace web_calendar.BL.ViewModels
 
         public string CSSHeadColor { get; set; }
 
-        public bool isActive { get; set; }
+        public CalendarDateTime chronometer { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         public string userId { get; set; }
