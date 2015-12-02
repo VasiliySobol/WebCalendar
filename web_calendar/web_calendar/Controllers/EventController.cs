@@ -18,6 +18,7 @@ using web_calendar.BL.Mappers;
 using web_calendar.BL.ViewModels;
 using web_calendar.BL.ServerValidation;
 using web_calendar.Handlers;
+using System.Transactions;
 
 namespace web_calendar.Controllers
 {
@@ -43,9 +44,11 @@ namespace web_calendar.Controllers
             string userId = User.Identity.GetUserId();
             List<CalendarEvent> events;
             if (id == null)
-                events = eventRepository.GetAllUserEvents(userId).ToList();
+                events = eventRepository.GetAllUserEvents(userId).Where(x => x.TimeBegin.CompareTo(DateTime.Now) >= 0).
+                    OrderBy(x => x.TimeBegin).ToList();
             else
-                events = eventRepository.GetAllUserEvents(userId).Where(x => x.CalendarId == id).ToList();
+                events = eventRepository.GetAllUserEvents(userId).Where(x => x.CalendarId == id && 
+                    x.TimeBegin.CompareTo(DateTime.Now) >= 0).ToList();
             List<DisplayEventViewModel> list = new List<DisplayEventViewModel>();
             foreach (CalendarEvent item in events)
             {
@@ -102,53 +105,95 @@ namespace web_calendar.Controllers
                     case 0:
                         if (eventRepository.FindOtherById<Calendar>(calendarId) != null)
                         {
-                            CalendarEvent calendarEvent = EventMapper.MapToEvent(eventViewModel);
-                            eventRepository.Add(calendarEvent);
-                            eventRepository.AddCalendar(calendarEvent.Id, calendarId);
-                            eventRepository.SaveChanges();
+                            using (TransactionScope scope = new TransactionScope())
+                            {
+                                CalendarEvent calendarEvent = EventMapper.MapToEvent(eventViewModel);
+                                eventRepository.Add(calendarEvent);
+                                eventRepository.AddCalendar(calendarEvent.Id, calendarId);
+                                eventRepository.SaveChanges();
 
-                            if (eventViewModel.Notifications != null)
-                                if (eventViewModel.Notifications.Count > 0)
+                                if (calendarEvent.Notifications != null && calendarEvent.Notifications.Count > 0)
                                 {
                                     List<NotificationType> notifications = EventMapper.MapToNotificationTypes(eventViewModel);
                                     eventRepository.AddNotifications(calendarEvent.Id, notifications);
                                 }
-                            eventRepository.SaveChanges();
+                                eventRepository.SaveChanges();
 
-                            if (eventViewModel.Guests != null)
-                                eventRepository.AddGuests(calendarEvent.Id,
-                                    eventViewModel.Guests.Select(x => x.Email).ToList());
-                            eventRepository.SaveChanges();
+                                if (calendarEvent.Guests != null && calendarEvent.Guests.Count > 0)
+                                    eventRepository.AddGuests(calendarEvent.Id,
+                                        eventViewModel.Guests.Select(x => x.Email).ToList());
+                                eventRepository.SaveChanges();
 
-                            if (eventViewModel.repeatableSettings != null)
-                                if (eventViewModel.repeatableSettings.IfRepeatable)
-                                {
-                                    Repeatable repeatable = new Repeatable();
-                                    EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
-                                    repeatable.EventId = calendarEvent.Id;
-                                    repeatable.CalendarEvent = calendarEvent;
-                                    eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
-                                    for (int i = 0; i < repeatable.RepeatCount; i++)
+                                if (eventViewModel.repeatableSettings != null)
+                                    if (eventViewModel.repeatableSettings.IfRepeatable)
                                     {
-                                        CalendarEvent revent = new CalendarEvent();
-                                        EventMapper.MapToEvent(ref revent, eventViewModel);
-                                        revent.ParentEvent = calendarEvent.Id;
-                                        eventRepository.Add(revent);
-                                        eventRepository.AddCalendar(revent.Id, calendarId);
-                                        eventRepository.SaveChanges();
-                                        if (calendarEvent.Notifications.Count > 0)
-                                        {
-                                            List<NotificationType> notifications = EventMapper.MapToNotificationTypes(eventViewModel);
-                                            eventRepository.AddNotifications(revent.Id, notifications);
-                                        }
-                                        if (calendarEvent.Guests != null)
-                                            eventRepository.AddGuests(revent.Id,
-                                                eventViewModel.Guests.Select(x => x.Email).ToList());
-                                    }
-                                }
-                            eventRepository.SaveChanges();
+                                        Repeatable repeatable = new Repeatable();
+                                        EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
+                                        repeatable.EventId = calendarEvent.Id;
+                                        repeatable.CalendarEvent = calendarEvent;
+                                        eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
 
-                            return RedirectToAction("Schedule");
+                                        int[] steps = new int[0];
+                                        int nextStep = 0;
+                                        if (repeatable.Period == "week")
+                                        {
+                                            steps = new int[repeatable.DaysOfWeek.Length];
+                                            //day = 1 if monday and so on
+                                            int day = ((int)calendarEvent.TimeBegin.DayOfWeek == 0) ? 7 : (int)calendarEvent.TimeBegin.DayOfWeek;
+                                            int stepIndex = 0, step = 1; char dayChar = (char)((int)'1' + day);
+                                            do
+                                            {
+                                                if (repeatable.DaysOfWeek.Contains(dayChar))
+                                                {
+                                                    steps[stepIndex++] = step;
+                                                    step = 1;
+                                                }
+                                                else
+                                                {
+                                                    step++;
+                                                }
+                                                dayChar++;
+                                                if (dayChar == '8') dayChar = '1';
+                                            } while (stepIndex < repeatable.DaysOfWeek.Length);
+                                        }
+                                        for (int i = 0; i < repeatable.RepeatCount; i++)
+                                        {
+                                            CalendarEvent revent = new CalendarEvent();
+                                            EventMapper.MapToEvent(ref revent, eventViewModel);
+                                            revent.ParentEvent = calendarEvent.Id;
+                                            switch (repeatable.Period)
+                                            {
+                                                case "day":
+                                                    revent.TimeBegin.AddDays(i);
+                                                    break;
+                                                case "week":
+                                                    nextStep += steps[i % steps.Length];
+                                                    revent.TimeBegin = calendarEvent.TimeBegin.AddDays(nextStep);
+                                                    break;
+                                                case "month":
+                                                    revent.TimeBegin.AddMonths(i);
+                                                    break;
+                                                case "year":
+                                                    revent.TimeBegin.AddYears(i);
+                                                    break;
+                                            }
+                                            eventRepository.Add(revent);
+                                            eventRepository.AddCalendar(revent.Id, calendarId);
+                                            eventRepository.SaveChanges();
+                                            if (calendarEvent.Notifications != null && calendarEvent.Notifications.Count > 0)
+                                            {
+                                                List<NotificationType> notifications = EventMapper.MapToNotificationTypes(eventViewModel);
+                                                eventRepository.AddNotifications(revent.Id, notifications);
+                                            }
+                                            if (calendarEvent.Guests != null && calendarEvent.Guests.Count > 0)
+                                                eventRepository.AddGuests(revent.Id,
+                                                    eventViewModel.Guests.Select(x => x.Email).ToList());
+                                        }
+                                    }
+                                eventRepository.SaveChanges();
+                                scope.Complete();
+                                return RedirectToAction("Schedule");
+                            }
                         }
                         break;
                     case 1:
