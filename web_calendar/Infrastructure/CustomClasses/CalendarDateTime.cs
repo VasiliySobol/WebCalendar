@@ -9,23 +9,21 @@ namespace web_calendar.BL.CustomClasses
     public class CalendarDateTime
     {
         DateTime dateTime { get; set; }
-        int weekDayNumberOfFirstMonthDay { get; set; }
 
         public int GetWeekDayNumberOfFirstMonthDay()
         {
             DateTime currentMonthDateTime = new DateTime(dateTime.Year, dateTime.Month, 1);
-            return (int)currentMonthDateTime.DayOfWeek;
+             return (int)currentMonthDateTime.DayOfWeek;
         }
 
-        public int GetFirstDayNumberAtLineFromPrevMonth()
+        public int GetAmountOfDays()
         {
-            return (DateTime.DaysInMonth(dateTime.Year, dateTime.Month - 1) - GetWeekDayNumberOfFirstMonthDay());
+            return DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
         }
 
         public CalendarDateTime()
         {
             dateTime = DateTime.Now;
         }
-            //firstDayNumberAtLineFromPrevMonth
     }
 }
