@@ -41,9 +41,9 @@ namespace web_calendar.Controllers
             return View(CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId()));
         }
 
-        public ViewResult Create()
+        public PartialViewResult Create()
         {
-            return View();
+            return PartialView("Create");
         }
 
         [HttpPost]
@@ -63,10 +63,10 @@ namespace web_calendar.Controllers
             }
         }
 
-        public ViewResult Edit(int id)
+        public PartialViewResult Edit(int id)
         {
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id);
-            return View(CalendarMapper.ToCalendarViewModel(calendar));
+            return PartialView("Edit", CalendarMapper.ToCalendarViewModel(calendar));
         }
 
         [HttpPost]
@@ -86,19 +86,26 @@ namespace web_calendar.Controllers
             }
         }
 
-        public ViewResult Delete(int id)
+        /*
+        public PartialViewResult Delete(int id)
         {
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id);
-            return View(CalendarMapper.ToCalendarViewModel(calendar));
-        }
+            return PartialView("Delete", CalendarMapper.ToCalendarViewModel(calendar));
+        }*/
 
-        [HttpPost]
-        public ActionResult Delete(CalendarViewModel calendarViewModel)
+        //[HttpPost]
+        public ActionResult Delete(int id)//CalendarViewModel calendarViewModel)
         {
-            Calendar calendar = CalendarDomainModel.calendarRepository.FindById(calendarViewModel.id);
+            Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id);
             CalendarDomainModel.calendarRepository.Delete(calendar);
             CalendarDomainModel.calendarRepository.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public PartialViewResult MainPage(bool toCalendar = false)
+        {
+            if (toCalendar) return PartialView("MainPage", CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId()));
+            else return PartialView("MainPage");
         }
 
         public PartialViewResult CalendarDayPartial()

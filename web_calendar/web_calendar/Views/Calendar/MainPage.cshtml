@@ -1,0 +1,40 @@
+﻿@model IEnumerable<web_calendar.BL.ViewModels.CalendarViewModel>
+
+@{
+    ViewBag.Title = "Calendar";
+}
+
+<div class="navigationCalendarContainer">
+    <div class="rightNav">
+        <button type="button" class="btn btn-default btn-xs"> < </button>
+        <button type="button" class="btn btn-default btn-xs"> > </button>
+        Day/Week/Month
+    </div>
+
+    <div class="leftNav">
+        @Ajax.ActionLink("Day", "CalendarDayPartial", new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Ajax.ActionLink("Week", "CalendarWeekPartial", new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Ajax.ActionLink("Schedule", "Schedule", "Event", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "mainWindow" })
+    </div>
+
+</div>
+
+<div class="calendarWrapper">
+    <div class="miniCalendarContainer">
+        <div id="datetimepicker"></div>
+        <script type="text/javascript">
+            $('#datetimepicker').datepicker(
+                {
+                    inline: true
+                }
+            );
+        </script>
+
+        @Html.Partial("CalendarList")
+    </div>
+
+    <div class="calendarContainer" id="calendarContainer">
+        @Html.Action("CalendarMonthPartial", new { id = Model.FirstOrDefault().id })
+    </div>
+</div>

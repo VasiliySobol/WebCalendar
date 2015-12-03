@@ -21,18 +21,15 @@
                         @Ajax.ActionLink(calendar.name, "CalendarMonthPartial", new { id = calendar.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
                     </td>
                     <td>
-                        <a href="@Url.Action("Edit", "Calendar", new { id = calendar.id })">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                            <span class="sr-only">Edit</span>
-                        </a>
-                        <a href="@Url.Action("Delete", "Calendar", new { id = calendar.id })">
-                            <i class="glyphicon glyphicon-remove"></i>
-                            <span class="sr-only">Delete</span>
-                        </a>
-                        <a href="@Url.Action("Schedule", "Event", new { id = calendar.id })">
-                            <i class="glyphicon glyphicon-list-alt"></i>
-                            <span class="sr-only">Schedule</span>
-                        </a>
+                        @Ajax.ActionLink(" ", "Edit", new { id = calendar.id }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "glyphicon glyphicon-edit" })
+                        
+                        @Ajax.ActionLink(" ", "Delete", new { id = calendar.id }, new AjaxOptions
+                                        {
+                                            Confirm = "Are you sure you wish to delete calendar '" + calendar.name + "'?",
+                                            UpdateTargetId = "mainWindow",
+                                        }, new { @class = "glyphicon glyphicon-remove" })
+
+                        @Ajax.ActionLink(" ", "Schedule", "Event", new { id = calendar.id }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "glyphicon glyphicon-list-alt" })
                     </td>
                 </tr>
             }

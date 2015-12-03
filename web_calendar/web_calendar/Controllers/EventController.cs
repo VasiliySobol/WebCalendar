@@ -42,10 +42,10 @@ namespace web_calendar.Controllers
         }
 
         // GET: Event/Schedule/2
-        public ActionResult Schedule(int? id)
+        public PartialViewResult Schedule(int? id)
         {
             string userId = User.Identity.GetUserId();
-            return View(eventDomainModel.GetFollowingEvents(id, userId));
+            return PartialView("Schedule", eventDomainModel.GetFollowingEvents(id, userId));
         }
 
         // GET: Event/Details/5
@@ -60,12 +60,12 @@ namespace web_calendar.Controllers
         }
 
         // GET: Event/Create
-        public ActionResult Create()
+        public PartialViewResult Create()
         {
             string userId = User.Identity.GetUserId();
             CreateEventViewModel eventViewModel = new CreateEventViewModel();
             eventDomainModel.PopulateCalendarSelectList(ref eventViewModel, userId);
-            return View(eventViewModel);
+            return PartialView("Create", eventViewModel);
         }
 
         // POST: Event/Create
