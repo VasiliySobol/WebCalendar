@@ -355,7 +355,7 @@
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\_EditNotification.cshtml" />
-    <Content Include="Views\Event\_ListNotificationType.cshtml" />
+    <Content Include="Views\Event\_NotificationsList.cshtml" />
     <Content Include="Views\Event\Schedule.cshtml" />
     <Content Include="Views\Calendar\JSONIndex.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />

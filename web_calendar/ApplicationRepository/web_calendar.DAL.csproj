@@ -138,9 +138,6 @@
     <Compile Include="Models\Notification.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\NotificationType.cs">
-      <DependentUpon>web_calendar.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Repeatable.cs">
       <DependentUpon>web_calendar.tt</DependentUpon>
     </Compile>

@@ -27,7 +27,6 @@ namespace web_calendar.DAL.Models
         public string Place { get; set; }
         public System.DateTime TimeBegin { get; set; }
         public Nullable<System.DateTime> TimeEnd { get; set; }
-        public string Visibility { get; set; }
         public Nullable<bool> AllDay { get; set; }
         public Nullable<int> CalendarId { get; set; }
         public Nullable<int> ParentEvent { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Calendar">
           <Key>
             <PropertyRef Name="Id" />
@@ -14,9 +14,7 @@
           <Property Name="Text" Type="nvarchar(max)" />
           <Property Name="CalendarColor" Type="int" />
           <Property Name="CalendarEvents" Type="int" />
-          <Property Name="Visibility" Type="nvarchar" MaxLength="50" />
           <Property Name="TimeZone" Type="tinyint" />
-          <Property Name="NotificationTypeId" Type="int" />
           <Property Name="UserId" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="CalendarEvent">
@@ -29,7 +27,6 @@
           <Property Name="Place" Type="nvarchar" MaxLength="50" />
           <Property Name="TimeBegin" Type="datetime" Nullable="false" />
           <Property Name="TimeEnd" Type="datetime" />
-          <Property Name="Visibility" Type="nvarchar" MaxLength="50" />
           <Property Name="AllDay" Type="bit" />
           <Property Name="CalendarId" Type="int" />
           <Property Name="ParentEvent" Type="int" />
@@ -47,14 +44,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NotificationType" Type="int" />
           <Property Name="EventId" Type="int" />
-        </EntityType>
-        <EntityType Name="NotificationType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RepetitionCount" Type="int" />
           <Property Name="Interval" Type="int" />
           <Property Name="TimeBefore" Type="int" />
@@ -71,20 +61,8 @@
           <Property Name="DaysOfWeek" Type="nvarchar" MaxLength="7" />
           <Property Name="TimeOfDay" Type="time" Precision="7" />
           <Property Name="DayOfYear" Type="date" />
-          <Property Name="DayOfMonth" Type="nvarchar" MaxLength="31" />
+          <Property Name="DayOfMonth" Type="int" />
         </EntityType>
-        <Association Name="FK_Calendar_NotificationType">
-          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
-          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NotificationType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Calendar">
-              <PropertyRef Name="NotificationTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_event_calendar">
           <End Role="Calendar" Type="Self.Calendar" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -124,20 +102,6 @@
             </Principal>
             <Dependent Role="Notification">
               <PropertyRef Name="EventId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_notification_notification_type">
-          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NotificationType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="NotificationType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -160,12 +124,7 @@
           <EntitySet Name="CalendarEvent" EntityType="Self.CalendarEvent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Guest" EntityType="Self.Guest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Notification" EntityType="Self.Notification" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="NotificationType" EntityType="Self.NotificationType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Repeatable" EntityType="Self.Repeatable" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Calendar_NotificationType" Association="Self.FK_Calendar_NotificationType">
-            <End Role="NotificationType" EntitySet="NotificationType" />
-            <End Role="Calendar" EntitySet="Calendar" />
-          </AssociationSet>
           <AssociationSet Name="FK_event_calendar" Association="Self.FK_event_calendar">
             <End Role="Calendar" EntitySet="Calendar" />
             <End Role="CalendarEvent" EntitySet="CalendarEvent" />
@@ -178,16 +137,13 @@
             <End Role="CalendarEvent" EntitySet="CalendarEvent" />
             <End Role="Notification" EntitySet="Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK_notification_notification_type" Association="Self.FK_notification_notification_type">
-            <End Role="NotificationType" EntitySet="NotificationType" />
-            <End Role="Notification" EntitySet="Notification" />
-          </AssociationSet>
           <AssociationSet Name="FK_repeatable_event" Association="Self.FK_repeatable_event">
             <End Role="CalendarEvent" EntitySet="CalendarEvent" />
             <End Role="Repeatable" EntitySet="Repeatable" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="web_calendarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -200,12 +156,9 @@
           <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CalendarColor" Type="Int32" />
           <Property Name="CalendarEvents" Type="Int32" />
-          <Property Name="Visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TimeZone" Type="Byte" />
-          <Property Name="UserId" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="NotificationTypeId" Type="Int32" />
-          <NavigationProperty Name="NotificationType" Relationship="Self.FK_Calendar_NotificationType" FromRole="Calendar" ToRole="NotificationType" />
-          <NavigationProperty Name="CalendarEventsCollection" Relationship="Self.FK_event_calendar" FromRole="Calendar" ToRole="CalendarEvent" />
+          <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CalendarEvents1" Relationship="Self.FK_event_calendar" FromRole="Calendar" ToRole="CalendarEvent" />
         </EntityType>
         <EntityType Name="CalendarEvent">
           <Key>
@@ -217,14 +170,13 @@
           <Property Name="Place" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TimeBegin" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TimeEnd" Type="DateTime" Precision="3" />
-          <Property Name="Visibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AllDay" Type="Boolean" />
           <Property Name="CalendarId" Type="Int32" />
+          <Property Name="ParentEvent" Type="Int32" />
           <NavigationProperty Name="Calendar" Relationship="Self.FK_event_calendar" FromRole="CalendarEvent" ToRole="Calendar" />
           <NavigationProperty Name="Guests" Relationship="Self.FK_guest_event" FromRole="CalendarEvent" ToRole="Guest" />
           <NavigationProperty Name="Notifications" Relationship="Self.FK_notification_event" FromRole="CalendarEvent" ToRole="Notification" />
           <NavigationProperty Name="Repeatables" Relationship="Self.FK_repeatable_event" FromRole="CalendarEvent" ToRole="Repeatable" />
-          <Property Name="ParentEvent" Type="Int32" />
         </EntityType>
         <EntityType Name="Guest">
           <Key>
@@ -240,22 +192,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NotificationType" Type="Int32" />
           <Property Name="EventId" Type="Int32" />
-          <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_notification_event" FromRole="Notification" ToRole="CalendarEvent" />
-          <NavigationProperty Name="NotificationTypeReference" Relationship="Self.FK_notification_notification_type" FromRole="Notification" ToRole="NotificationType" />
-        </EntityType>
-        <EntityType Name="NotificationType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RepetitionCount" Type="Int32" />
           <Property Name="Interval" Type="Int32" />
           <Property Name="TimeBefore" Type="Int32" />
           <Property Name="KindOfNotification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Calendars" Relationship="Self.FK_Calendar_NotificationType" FromRole="NotificationType" ToRole="Calendar" />
-          <NavigationProperty Name="Notifications" Relationship="Self.FK_notification_notification_type" FromRole="NotificationType" ToRole="Notification" />
+          <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_notification_event" FromRole="Notification" ToRole="CalendarEvent" />
         </EntityType>
         <EntityType Name="Repeatable">
           <Key>
@@ -265,24 +207,12 @@
           <Property Name="Period" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RepeatCount" Type="Int32" />
           <Property Name="EventId" Type="Int32" />
-          <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_repeatable_event" FromRole="Repeatable" ToRole="CalendarEvent" />
           <Property Name="DaysOfWeek" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
           <Property Name="TimeOfDay" Type="Time" Precision="7" />
           <Property Name="DayOfYear" Type="DateTime" Precision="0" />
-          <Property Name="DayOfMonth" Type="String" MaxLength="31" FixedLength="false" Unicode="true" />
+          <Property Name="DayOfMonth" Type="Int32" />
+          <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_repeatable_event" FromRole="Repeatable" ToRole="CalendarEvent" />
         </EntityType>
-        <Association Name="FK_Calendar_NotificationType">
-          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1" />
-          <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NotificationType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Calendar">
-              <PropertyRef Name="NotificationTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_event_calendar">
           <End Role="Calendar" Type="Self.Calendar" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -339,31 +269,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_notification_notification_type">
-          <End Role="NotificationType" Type="Self.NotificationType" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Notification" Type="Self.Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NotificationType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Notification">
-              <PropertyRef Name="NotificationType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="web_calendarEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Calendars" EntityType="Self.Calendar" />
           <EntitySet Name="CalendarEvents" EntityType="Self.CalendarEvent" />
           <EntitySet Name="Guests" EntityType="Self.Guest" />
           <EntitySet Name="Notifications" EntityType="Self.Notification" />
-          <EntitySet Name="NotificationTypes" EntityType="Self.NotificationType" />
           <EntitySet Name="Repeatables" EntityType="Self.Repeatable" />
-          <AssociationSet Name="FK_Calendar_NotificationType" Association="Self.FK_Calendar_NotificationType">
-            <End Role="NotificationType" EntitySet="NotificationTypes" />
-            <End Role="Calendar" EntitySet="Calendars" />
-          </AssociationSet>
           <AssociationSet Name="FK_event_calendar" Association="Self.FK_event_calendar">
             <End Role="Calendar" EntitySet="Calendars" />
             <End Role="CalendarEvent" EntitySet="CalendarEvents" />
@@ -380,17 +291,13 @@
             <End Role="CalendarEvent" EntitySet="CalendarEvents" />
             <End Role="Repeatable" EntitySet="Repeatables" />
           </AssociationSet>
-          <AssociationSet Name="FK_notification_notification_type" Association="Self.FK_notification_notification_type">
-            <End Role="NotificationType" EntitySet="NotificationTypes" />
-            <End Role="Notification" EntitySet="Notifications" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="web_calendarModelStoreContainer" CdmEntityContainer="web_calendarEntities">
+        <EntityContainerMapping StorageEntityContainer="web_calendarModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Calendars">
             <EntityTypeMapping TypeName="web_calendarModel.Calendar">
               <MappingFragment StoreEntitySet="Calendar">
@@ -399,26 +306,23 @@
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="CalendarColor" ColumnName="CalendarColor" />
                 <ScalarProperty Name="CalendarEvents" ColumnName="CalendarEvents" />
-                <ScalarProperty Name="Visibility" ColumnName="Visibility" />
                 <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="NotificationTypeId" ColumnName="NotificationTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CalendarEvents">
             <EntityTypeMapping TypeName="web_calendarModel.CalendarEvent">
               <MappingFragment StoreEntitySet="CalendarEvent">
-                <ScalarProperty Name="ParentEvent" ColumnName="ParentEvent" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Place" ColumnName="Place" />
                 <ScalarProperty Name="TimeBegin" ColumnName="TimeBegin" />
                 <ScalarProperty Name="TimeEnd" ColumnName="TimeEnd" />
-                <ScalarProperty Name="Visibility" ColumnName="Visibility" />
                 <ScalarProperty Name="AllDay" ColumnName="AllDay" />
                 <ScalarProperty Name="CalendarId" ColumnName="CalendarId" />
+                <ScalarProperty Name="ParentEvent" ColumnName="ParentEvent" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -435,15 +339,7 @@
             <EntityTypeMapping TypeName="web_calendarModel.Notification">
               <MappingFragment StoreEntitySet="Notification">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NotificationTypes">
-            <EntityTypeMapping TypeName="web_calendarModel.NotificationType">
-              <MappingFragment StoreEntitySet="NotificationType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="RepetitionCount" ColumnName="RepetitionCount" />
                 <ScalarProperty Name="Interval" ColumnName="Interval" />
                 <ScalarProperty Name="TimeBefore" ColumnName="TimeBefore" />
@@ -454,18 +350,18 @@
           <EntitySetMapping Name="Repeatables">
             <EntityTypeMapping TypeName="web_calendarModel.Repeatable">
               <MappingFragment StoreEntitySet="Repeatable">
-                <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
-                <ScalarProperty Name="DayOfYear" ColumnName="DayOfYear" />
-                <ScalarProperty Name="TimeOfDay" ColumnName="TimeOfDay" />
-                <ScalarProperty Name="DaysOfWeek" ColumnName="DaysOfWeek" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Period" ColumnName="Period" />
                 <ScalarProperty Name="RepeatCount" ColumnName="RepeatCount" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="DaysOfWeek" ColumnName="DaysOfWeek" />
+                <ScalarProperty Name="TimeOfDay" ColumnName="TimeOfDay" />
+                <ScalarProperty Name="DayOfYear" ColumnName="DayOfYear" />
+                <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          </EntityContainerMapping>
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

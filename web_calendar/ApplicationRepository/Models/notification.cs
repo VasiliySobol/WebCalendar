@@ -15,10 +15,12 @@ namespace web_calendar.DAL.Models
     public partial class Notification
     {
         public int Id { get; set; }
-        public Nullable<int> NotificationType { get; set; }
         public Nullable<int> EventId { get; set; }
+        public Nullable<int> RepetitionCount { get; set; }
+        public Nullable<int> Interval { get; set; }
+        public Nullable<int> TimeBefore { get; set; }
+        public string KindOfNotification { get; set; }
     
         public virtual CalendarEvent CalendarEvent { get; set; }
-        public virtual NotificationType NotificationTypeReference { get; set; }
     }
 }

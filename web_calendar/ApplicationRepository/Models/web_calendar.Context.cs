@@ -29,7 +29,6 @@ namespace web_calendar.DAL.Models
         public virtual DbSet<CalendarEvent> CalendarEvents { get; set; }
         public virtual DbSet<Guest> Guests { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
-        public virtual DbSet<NotificationType> NotificationTypes { get; set; }
         public virtual DbSet<Repeatable> Repeatables { get; set; }
     }
 }
