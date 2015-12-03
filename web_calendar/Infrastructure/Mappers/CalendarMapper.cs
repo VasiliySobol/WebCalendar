@@ -20,9 +20,7 @@ namespace web_calendar.BL.Mappers
                 calendarColor = Color.FromArgb(calendar.CalendarColor.Value),
                 description = calendar.Text,
                 name = calendar.Name,
-                notificationSettings = new NotificationSettingsViewModel(),
                 timeZone = CalendarDomainModel.GetTimeZoneNameById(calendar.TimeZone),
-                visibility = calendar.Visibility,
                 id = calendar.Id,
                 userId = calendar.UserId,
                 CSSMainColor = CalendarDomainModel.ColorToMainCSS(Color.FromArgb(calendar.CalendarColor.Value)),
@@ -39,7 +37,6 @@ namespace web_calendar.BL.Mappers
                 Text = calendarViewModel.description,
                 Name = calendarViewModel.name,
                 TimeZone = CalendarDomainModel.GetTimeZoneIdByName(calendarViewModel.timeZone),
-                Visibility = calendarViewModel.visibility,
                 Id = calendarViewModel.id,
                 UserId = calendarViewModel.userId,
             };

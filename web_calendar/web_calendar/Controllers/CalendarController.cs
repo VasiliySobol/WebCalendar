@@ -26,9 +26,9 @@ namespace web_calendar.Controllers
         [HttpPost]
         public ActionResult CalendarList()
         {
-            var allCalendars = CalendarDomainModel.calendarRepository.GetAll();
+            List<Calendar> allCalendars = CalendarDomainModel.calendarRepository.GetAll().ToList();
             List<CalendarViewModel> list = new List<CalendarViewModel>();
-            foreach (var item in allCalendars)
+            foreach (Calendar item in allCalendars)
             {
                 list.Add(CalendarMapper.ToCalendarViewModel(item));
             }
@@ -104,7 +104,8 @@ namespace web_calendar.Controllers
 
         public PartialViewResult MainPage(bool toCalendar = false)
         {
-            if (toCalendar) return PartialView("MainPage", CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId()));
+            if (toCalendar) return PartialView("MainPage", 
+                CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId()));
             else return PartialView("MainPage");
         }
 
@@ -120,16 +121,18 @@ namespace web_calendar.Controllers
 
         public ActionResult CalendarMonthPartial(int id)
         {
-            var userCalendars = CalendarDomainModel.calendarRepository.GetUserCalendars(User.Identity.GetUserId());
+            List<Calendar> userCalendars = CalendarDomainModel.calendarRepository.
+                GetUserCalendars(User.Identity.GetUserId()).ToList();
 
-            CalendarViewModel activeCalendar = CalendarMapper.ToCalendarViewModel(CalendarDomainModel.calendarRepository.FindById(id));
+            CalendarViewModel activeCalendar = CalendarMapper.
+                ToCalendarViewModel(CalendarDomainModel.calendarRepository.FindById(id));
 
             return PartialView("_CalendarMonthPartial", activeCalendar);
         }
 
         public string JSONIndex()
         {
-            var data = CalendarDomainModel.calendarRepository.GetAll().ToList();
+            List<Calendar> data = CalendarDomainModel.calendarRepository.GetAll().ToList();
             return JsonConvert.SerializeObject(data);
         }
 
