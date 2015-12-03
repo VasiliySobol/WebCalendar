@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace web_calendar.BL.ViewModels
 {
-    public class NotificationSettingsViewModel
+    public class NotificationViewModel
     {
         public int Id { get; set; }
 

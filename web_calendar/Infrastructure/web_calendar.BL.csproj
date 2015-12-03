@@ -88,7 +88,7 @@
     <Compile Include="Tools\PasswordHasher.cs" />
     <Compile Include="ViewModels\CalendarViewModel.cs" />
     <Compile Include="ViewModels\EventViewModels.cs" />
-    <Compile Include="ViewModels\NotificationSettingsViewModel.cs" />
+    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\RepeatableSettingsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -36,7 +36,7 @@ namespace web_calendar.BL.ViewModels
 
         // Notification Settings
         [Display(Name = "Notification settings")]
-        public List<NotificationSettingsViewModel> Notifications { get; set; }
+        public List<NotificationViewModel> Notifications { get; set; }
 
         // Repeatable Settings
         [Display(Name = "Make repeatable")]
@@ -82,7 +82,7 @@ namespace web_calendar.BL.ViewModels
             TimeBegin = DateTime.Now;
             DateBegin = DateTime.Now;
             repeatableSettings = new RepeatableSettingsViewModel();
-            Notifications = new List<NotificationSettingsViewModel>();
+            Notifications = new List<NotificationViewModel>();
             Guests = new List<GuestsEmail>();
         }
 
@@ -129,7 +129,7 @@ namespace web_calendar.BL.ViewModels
 
         // Notification Settings
         [Display(Name = "Notification settings")]
-        public List<NotificationSettingsViewModel> Notifications { get; set; }
+        public List<NotificationViewModel> Notifications { get; set; }
 
         // Repeatable Settings
         [Display(Name = "Make repeatable")]
@@ -141,26 +141,6 @@ namespace web_calendar.BL.ViewModels
 
         public SelectList CalendarItems { get; set; }
     }
-    //public class NotificationsGroupViewModel
-    //{
-    //    public IList<NotificationSettingsViewModel> Notifications { get; set; }
-
-    //    public IList<NotificationSettingsViewModel> Template
-    //    {
-    //        get
-    //        {
-    //            return new List<NotificationSettingsViewModel>
-    //                   {
-    //                       new NotificationSettingsViewModel {}
-    //                   };
-    //        }
-    //    }
-
-    //    public NotificationsGroupViewModel()
-    //    {
-    //        Notifications = new List<NotificationSettingsViewModel>();
-    //    }
-    //}
 
     public class GuestsEmail
     {

@@ -23,14 +23,8 @@ namespace web_calendar.BL.ViewModels
         [Display(Name = "Color")]
         public Color calendarColor { get; set; }
 
-        [Display(Name = "Share")]
-        public string visibility { get; set; }
-
         [Display(Name = "Time zone")]
         public string timeZone { get; set; }
-
-        // Notification Settings
-        public NotificationSettingsViewModel notificationSettings { get; set; }
 
         public string CSSMainColor { get; set; }
 
