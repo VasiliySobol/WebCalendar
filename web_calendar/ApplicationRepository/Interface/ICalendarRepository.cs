@@ -11,7 +11,6 @@ namespace web_calendar.DAL.Interface
     {
         IEnumerable<Calendar> GetUserCalendars(string UserId);
         string GetUserId(int Id);
-        NotificationType GetStandartNotificationType(int Id);
         CalendarEvent FindFirstEvent(int Id, Func<CalendarEvent, bool> filter);
         IEnumerable<CalendarEvent> FindAllEvents(int Id, Func<CalendarEvent, bool> filter);
     }

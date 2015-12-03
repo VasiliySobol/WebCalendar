@@ -10,22 +10,14 @@ namespace web_calendar.DAL.Concrete
 {
     public sealed class NotificationRepository: GenericRepository<web_calendarEntities, Notification>, INotificationRepository
     {
-        public NotificationType GetNotificationType(int id)
+        public Notification GetNotification(int eventId)
         {
-            Notification notification = FindFirst(x => x.Id == id);
-            if (notification != null)
-            {
-                return (notification.NotificationTypeReference);
-            }
-            return null;
+            return FindFirst(x => x.Id == eventId);
         }
 
-        public List<NotificationType> GetAllEventNotificationTypes(int eventId)
+        public List<Notification> GetAllEventNotifications(int eventId)
         {
-            List<Notification> notifications = FindAll(x => x.EventId == eventId).ToList();
-            if (notifications != null)
-                return notifications.Select(x => x.NotificationTypeReference).ToList();
-            return null;
+            return FindAll(x => x.EventId == eventId).ToList();
         }
     }
 }

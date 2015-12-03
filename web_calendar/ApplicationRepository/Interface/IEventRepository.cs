@@ -12,10 +12,8 @@ namespace web_calendar.DAL.Interface
         IEnumerable<CalendarEvent> GetAllUserEvents(string userId);
         Notification FindFirstNotification(int id, Func<Notification, bool> filter);
         IEnumerable<Notification> FindAllNotifications(int id, Func<Notification, bool> filter);
-        IEnumerable<NotificationType> FindAllNotifications(int id, Func<NotificationType, bool> filter);
         IEnumerable<Notification> GetAllNotifications(int eventId);
-        IEnumerable<NotificationType> GetAllNotificationTypes(int eventId);
-        void AddNotifications(int eventId, IEnumerable<NotificationType> notifications);
+        void AddNotifications(int eventId, IEnumerable<Notification> notifications);
         bool IsRepeatable(CalendarEvent calendarEvent);
         Repeatable GetRepeatableSettings(int id);
         void AddRepeatableSettings(int eventId, Repeatable repeatable);

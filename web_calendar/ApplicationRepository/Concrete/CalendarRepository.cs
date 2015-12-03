@@ -25,19 +25,11 @@ namespace web_calendar.DAL.Concrete
             return null;
         }
 
-        public NotificationType GetStandartNotificationType(int Id)
-        {
-            Calendar calendar = FindFirst(x => x.Id == Id);
-            if ((calendar != null) && (calendar.NotificationTypeId != null))
-                return calendar.NotificationType;
-            return null;
-        }
-
         public CalendarEvent FindFirstEvent(int Id, Func<CalendarEvent, bool> filter)
         {
             Calendar calendar = FindFirst(x => x.Id == Id);
             if ((calendar != null) && (calendar.CalendarEvents != null))
-                return calendar.CalendarEventsCollection.FirstOrDefault(filter);
+                return calendar.CalendarEvents1.FirstOrDefault(filter);
             return null;
         }
 
@@ -45,7 +37,7 @@ namespace web_calendar.DAL.Concrete
         {
             Calendar calendar = FindFirst(x => x.Id == Id);
             if ((calendar != null) && (calendar.CalendarEvents != null))
-                return calendar.CalendarEventsCollection.Where(filter).ToList();
+                return calendar.CalendarEvents1.Where(filter).ToList();
             return null; 
         }
 
@@ -53,7 +45,7 @@ namespace web_calendar.DAL.Concrete
         {
             Calendar calendar = FindFirst(x => x.Id == Id);
             if ((calendar != null) && (calendar.CalendarEvents != null))
-                return calendar.CalendarEventsCollection.ToList();
+                return calendar.CalendarEvents1.ToList();
             return null;
         }
     }
