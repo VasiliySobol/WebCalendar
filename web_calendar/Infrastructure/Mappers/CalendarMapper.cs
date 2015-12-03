@@ -13,37 +13,36 @@ namespace web_calendar.BL.Mappers
 {
     public static class CalendarMapper
     {
-
-        // -------- Calendars --------
-
-        public static CalendarViewModel MapToCalendarViewModel(Calendar calendar)
+        public static CalendarViewModel ToCalendarViewModel(Calendar calendar)
         {
-            CalendarViewModel calendarVM = new CalendarViewModel();
-            calendarVM.calendarColor = Color.FromArgb(calendar.CalendarColor.Value);
-            calendarVM.description = calendar.Text;
-            calendarVM.name = calendar.Name;
-            calendarVM.notificationSettings = new NotificationSettingsViewModel();
-            calendarVM.timeZone = CalendarDomainModel.GetTimeZoneNameById(calendar.TimeZone);
-            calendarVM.visibility = calendar.Visibility;
-            calendarVM.id = calendar.Id;
-            calendarVM.userId = calendar.UserId;
-            calendarVM.CSSMainColor = CalendarDomainModel.ColorToMainCSS(calendarVM.calendarColor);
-            calendarVM.CSSHeadColor = CalendarDomainModel.ColorToHeadCSS(calendarVM.calendarColor);
-            calendarVM.calendarDateTime = new CalendarDateTime();
-            return calendarVM;
+            return new CalendarViewModel()
+            {
+                calendarColor = Color.FromArgb(calendar.CalendarColor.Value),
+                description = calendar.Text,
+                name = calendar.Name,
+                notificationSettings = new NotificationSettingsViewModel(),
+                timeZone = CalendarDomainModel.GetTimeZoneNameById(calendar.TimeZone),
+                visibility = calendar.Visibility,
+                id = calendar.Id,
+                userId = calendar.UserId,
+                CSSMainColor = CalendarDomainModel.ColorToMainCSS(Color.FromArgb(calendar.CalendarColor.Value)),
+                CSSHeadColor = CalendarDomainModel.ColorToHeadCSS(Color.FromArgb(calendar.CalendarColor.Value)),
+                calendarDateTime = new CalendarDateTime(),
+            };
         }
 
-        public static Calendar MapToCalendarFromCalendarVM(CalendarViewModel calendarVM)
+        public static Calendar ToCalendar(CalendarViewModel calendarViewModel)
         {
-            Calendar calendar = new Calendar();
-            calendar.CalendarColor = calendarVM.calendarColor.ToArgb();
-            calendar.Text = calendarVM.description;
-            calendar.Name = calendarVM.name;
-            calendar.TimeZone = CalendarDomainModel.GetTimeZoneIdByName(calendarVM.timeZone);
-            calendar.Visibility = calendarVM.visibility;
-            calendar.Id = calendarVM.id;
-            calendar.UserId = calendarVM.userId;
-            return calendar;
+            return new Calendar()
+            {
+                CalendarColor = calendarViewModel.calendarColor.ToArgb(),
+                Text = calendarViewModel.description,
+                Name = calendarViewModel.name,
+                TimeZone = CalendarDomainModel.GetTimeZoneIdByName(calendarViewModel.timeZone),
+                Visibility = calendarViewModel.visibility,
+                Id = calendarViewModel.id,
+                UserId = calendarViewModel.userId,
+            };
         }
     }
 }
