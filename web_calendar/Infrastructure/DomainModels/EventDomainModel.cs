@@ -54,7 +54,7 @@ namespace web_calendar.BL.DomainModels
                         EventMapper.MapToRepeatableViewModel(calendarEvent.Repeatables.First());
             if (calendarEvent.Notifications != null)
                 eventViewModel.Notifications = EventMapper.MapToNotificationListViewModel(
-                    eventRepository.GetAllNotificationTypes(calendarEvent.Id));
+                    eventRepository.GetAllNotifications(calendarEvent.Id));
             return eventViewModel;
         }
 
@@ -87,7 +87,7 @@ namespace web_calendar.BL.DomainModels
                         EventMapper.MapToRepeatableViewModel(calendarEvent.Repeatables.First());
             if (calendarEvent.Notifications != null)
                 eventViewModel.Notifications = EventMapper.MapToNotificationListViewModel(
-                    eventRepository.GetAllNotificationTypes(calendarEvent.Id));
+                    eventRepository.GetAllNotifications(calendarEvent.Id));
             return eventViewModel;
         }
 
@@ -109,7 +109,8 @@ namespace web_calendar.BL.DomainModels
 
                 if (eventViewModel.Notifications != null && eventViewModel.Notifications.Count > 0)
                 {
-                    List<NotificationType> notifications = EventMapper.MapToNotificationTypes(eventViewModel);
+                    List<Notification> notifications = 
+                        EventMapper.MapToNotifications(eventViewModel.Notifications);
                     eventRepository.AddNotifications(calendarEvent.Id, notifications);
                 }
                 eventRepository.SaveChanges();
@@ -177,7 +178,8 @@ namespace web_calendar.BL.DomainModels
                             eventRepository.SaveChanges();
                             if (calendarEvent.Notifications != null && calendarEvent.Notifications.Count > 0)
                             {
-                                List<NotificationType> notifications = EventMapper.MapToNotificationTypes(eventViewModel);
+                                List<Notification> notifications = 
+                                    EventMapper.MapToNotifications(eventViewModel.Notifications);
                                 eventRepository.AddNotifications(revent.Id, notifications);
                             }
                             if (calendarEvent.Guests != null && calendarEvent.Guests.Count > 0)
@@ -199,7 +201,7 @@ namespace web_calendar.BL.DomainModels
                 Calendar calendar = eventRepository.FindOtherById<Calendar>(calendarId);
                 if (calendar != null)
                 {
-                    calendarEvent.Calendar.CalendarEventsCollection.Remove(calendarEvent);
+                    calendarEvent.Calendar.CalendarEvents1.Remove(calendarEvent);
                     calendarEvent.CalendarId = calendarId;
                     calendarEvent.Calendar = calendar;
                 }

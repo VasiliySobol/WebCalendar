@@ -12,8 +12,34 @@ namespace web_calendar.BL.Mappers
 {
     public static class EventMapper
     {
-        // -------- Events --------
+        // ------------ Events ------------
 
+        //map to Event from view model
+        public static CalendarEvent MapToEvent(CreateEventViewModel eventVM)
+        {
+            CalendarEvent calendarEvent = new CalendarEvent();
+
+            calendarEvent.Id = eventVM.Id;
+            MapToEvent(ref calendarEvent, eventVM);
+
+            return calendarEvent;
+        }
+        public static void MapToEvent(ref CalendarEvent calendarEvent, CreateEventViewModel eventVM)
+        {
+            calendarEvent.Name = eventVM.Name;
+            calendarEvent.Text = eventVM.Text;
+            calendarEvent.Place = eventVM.Place;
+            DateTime begin = new DateTime(eventVM.DateBegin.Year, eventVM.DateBegin.Month, eventVM.DateBegin.Day, eventVM.TimeBegin.Hour, eventVM.TimeBegin.Minute, eventVM.TimeBegin.Second);
+            calendarEvent.TimeBegin = begin;
+            if (eventVM.TimeEnd.HasValue)
+            {
+                DateTime end = new DateTime(eventVM.TimeEnd.Value.Year, eventVM.TimeEnd.Value.Month, eventVM.TimeEnd.Value.Day, eventVM.TimeEnd.Value.Hour, eventVM.TimeEnd.Value.Minute, eventVM.TimeEnd.Value.Second);
+                calendarEvent.TimeEnd = end;
+            }
+            calendarEvent.AllDay = eventVM.AllDay;
+        }
+
+        //map to view models for view details
         public static DetailsEventViewModel MapToDetailsEventVM(CalendarEvent calendarEvent, List<string> guests)
         {
             DetailsEventViewModel eventVM = new DetailsEventViewModel();
@@ -34,7 +60,6 @@ namespace web_calendar.BL.Mappers
                 eventVM.Guests.AddRange(guests);
             return eventVM;
         }
-
         public static DisplayEventViewModel MapToDisplayEventVM(CalendarEvent calendarEvent)
         {
             DisplayEventViewModel eventVM = new DisplayEventViewModel();
@@ -52,88 +77,7 @@ namespace web_calendar.BL.Mappers
             return eventVM;
         }
 
-        public static CreateEventViewModel MapToCreateEventVM(CalendarEvent calendarEvent,
-            ICollection<NotificationType> notificationType,
-            ICollection<Repeatable> repeatable, List<string> emails)
-        {
-            CreateEventViewModel eventVM = new CreateEventViewModel();
-
-            eventVM.Id = calendarEvent.Id;
-            eventVM.Name = calendarEvent.Name;
-            eventVM.Text = calendarEvent.Text;
-            eventVM.Place = calendarEvent.Place;
-            eventVM.TimeBegin = calendarEvent.TimeBegin;
-            eventVM.AllDay = (calendarEvent.AllDay == null) ? false : calendarEvent.AllDay.GetValueOrDefault();
-
-            // Notification Settings
-            List<NotificationSettingsViewModel> list = new List<NotificationSettingsViewModel>();
-            foreach (NotificationType item in notificationType)
-            {
-                list.Add(MapToNotificationSettingsViewModel(item));
-            }
-            eventVM.Notifications = list;
-
-            // Repeatable Settings
-            List<RepeatableSettingsViewModel> listr = new List<RepeatableSettingsViewModel>();
-            foreach (Repeatable item in repeatable)
-            {
-                listr.Add(MapToRepeatableViewModel(item));
-            }
-            eventVM.Notifications = list;
-
-            //eventVM.Guests = emails;
-
-            return eventVM;
-        }
-
-        public static NotificationSettingsViewModel MapToNotificationSettingsViewModel(
-            NotificationType notificationType)
-        {
-            NotificationSettingsViewModel notificationSettingsVM = new NotificationSettingsViewModel();
-            notificationSettingsVM.Id = notificationType.Id;
-            notificationSettingsVM.Interval = notificationType.Interval;
-            notificationSettingsVM.KindOfNotification = notificationType.KindOfNotification;
-            notificationSettingsVM.RepetitionCount = notificationType.RepetitionCount;
-            notificationSettingsVM.TimeBefore = notificationType.TimeBefore;
-            return notificationSettingsVM;
-        }
-
-        public static List<NotificationSettingsViewModel> MapToNotificationListViewModel(
-            IEnumerable<NotificationType> notifications)
-        {
-            List<NotificationSettingsViewModel> list = new List<NotificationSettingsViewModel>();
-            foreach (NotificationType item in notifications)
-            {
-                list.Add(MapToNotificationSettingsViewModel(item));
-            }
-            return list;
-        }
-
-        public static CalendarEvent MapToEvent(CreateEventViewModel eventVM)
-        {
-            CalendarEvent calendarEvent = new CalendarEvent();
-
-            calendarEvent.Id = eventVM.Id;
-            MapToEvent(ref calendarEvent, eventVM);
-
-            return calendarEvent;
-        }
-
-        public static void MapToEvent(ref CalendarEvent calendarEvent, CreateEventViewModel eventVM)
-        {
-            calendarEvent.Name = eventVM.Name;
-            calendarEvent.Text = eventVM.Text;
-            calendarEvent.Place = eventVM.Place;
-            DateTime begin = new DateTime(eventVM.DateBegin.Year, eventVM.DateBegin.Month, eventVM.DateBegin.Day, eventVM.TimeBegin.Hour, eventVM.TimeBegin.Minute, eventVM.TimeBegin.Second);
-            calendarEvent.TimeBegin = begin;
-            if (eventVM.TimeEnd.HasValue)
-            {
-                DateTime end = new DateTime(eventVM.TimeEnd.Value.Year, eventVM.TimeEnd.Value.Month, eventVM.TimeEnd.Value.Day, eventVM.TimeEnd.Value.Hour, eventVM.TimeEnd.Value.Minute, eventVM.TimeEnd.Value.Second);
-                calendarEvent.TimeEnd = end;
-            }
-            calendarEvent.AllDay = eventVM.AllDay;
-        }
-
+        //map to view models for editing
         public static CreateEventViewModel MapToEditEventVM(CalendarEvent calendarEvent)
         {
             CreateEventViewModel eventVM = new CreateEventViewModel();
@@ -150,35 +94,116 @@ namespace web_calendar.BL.Mappers
 
             return eventVM;
         }
-
-        public static List<NotificationType> MapToNotificationTypes(CreateEventViewModel eventVM)
+        public static CreateEventViewModel MapToEditEventVM(CalendarEvent calendarEvent,
+            ICollection<Notification> notifications,
+            ICollection<Repeatable> repeatable, List<string> emails)
         {
-            List<NotificationType> list = new List<NotificationType>();
-            foreach (NotificationSettingsViewModel item in eventVM.Notifications)
+            CreateEventViewModel eventVM = new CreateEventViewModel();
+
+            eventVM.Id = calendarEvent.Id;
+            eventVM.Name = calendarEvent.Name;
+            eventVM.Text = calendarEvent.Text;
+            eventVM.Place = calendarEvent.Place;
+            eventVM.TimeBegin = calendarEvent.TimeBegin;
+            eventVM.AllDay = (calendarEvent.AllDay == null) ? false : calendarEvent.AllDay.GetValueOrDefault();
+
+            // Notification Settings
+            List<NotificationViewModel> list = new List<NotificationViewModel>();
+            foreach (Notification item in notifications)
             {
-                list.Add(MapToNotificationType(item));
+                list.Add(MapToNotificationViewModel(item));
+            }
+            eventVM.Notifications = list;
+
+            // Repeatable Settings
+            List<RepeatableSettingsViewModel> listr = new List<RepeatableSettingsViewModel>();
+            foreach (Repeatable item in repeatable)
+            {
+                listr.Add(MapToRepeatableViewModel(item));
+            }
+            eventVM.Notifications = list;
+
+            // Guests
+            eventVM.Guests = new List<GuestsEmail>();
+            for (int i = 0; i < emails.Count; i++)
+            {
+                eventVM.Guests.Add(new GuestsEmail() { Id = i, Email = emails[i] });
+            }
+
+            return eventVM;
+        }
+
+        // ------------ End of Events ------------
+
+
+        // ------------ Notifications ------------
+
+        //map to Notification
+        public static Notification MapToNotification(NotificationViewModel notificationVM)
+        {
+            Notification notification = new Notification();
+            notification.Interval = notificationVM.Interval;
+            notification.KindOfNotification = notificationVM.KindOfNotification;
+            notification.RepetitionCount = notificationVM.RepetitionCount;
+            notification.TimeBefore = notificationVM.TimeBefore;
+            return notification;
+        }
+        public static List<Notification> MapToNotifications(List<NotificationViewModel> notificationsVM)
+        {
+            List<Notification> notifications = new List<Notification>();
+            foreach (NotificationViewModel item in notificationsVM)
+            {
+                notifications.Add(MapToNotification(item));
+            }
+            return notifications;
+        }
+        //map to view models
+        public static List<NotificationViewModel> MapToNotificationListViewModel(
+            IEnumerable<Notification> notifications)
+        {
+            List<NotificationViewModel> list = new List<NotificationViewModel>();
+            foreach (Notification item in notifications)
+            {
+                list.Add(MapToNotificationViewModel(item));
             }
             return list;
         }
-
-        public static NotificationType MapToNotificationType(NotificationSettingsViewModel notificationSettingsVM)
+        public static NotificationViewModel MapToNotificationViewModel(Notification notification)
         {
-            NotificationType notificationType = new NotificationType();
-            notificationType.Interval = notificationSettingsVM.Interval;
-            notificationType.KindOfNotification = notificationSettingsVM.KindOfNotification;
-            notificationType.RepetitionCount = notificationSettingsVM.RepetitionCount;
-            notificationType.TimeBefore = notificationSettingsVM.TimeBefore;
-            return notificationType;
+            NotificationViewModel notificationVM = new NotificationViewModel();
+            notificationVM.Id = notification.Id;
+            notificationVM.Interval = notification.Interval;
+            notificationVM.KindOfNotification = notification.KindOfNotification;
+            notificationVM.RepetitionCount = notification.RepetitionCount;
+            notificationVM.TimeBefore = notification.TimeBefore;
+            return notificationVM;
         }
-        
+
+        // ------------ End of Notifications ------------
+
+        // ------------ Repeatable Settings ------------
+
+        //map to Repeatable
+        public static void MapToRepeatable(RepeatableSettingsViewModel repeatableVM, ref Repeatable repeatable,
+            CalendarEvent calendarEvent)
+        {
+            repeatable.Period = repeatableVM.Period;
+            repeatable.RepeatCount = repeatableVM.RepeatCount;
+            repeatable.DayOfMonth = calendarEvent.TimeBegin.Day;
+            repeatable.DayOfYear = new DateTime(calendarEvent.TimeBegin.Year, calendarEvent.TimeBegin.Month,
+                calendarEvent.TimeBegin.Day);
+            repeatable.TimeOfDay = calendarEvent.TimeBegin.TimeOfDay;
+            repeatable.DaysOfWeek = repeatableVM.DaysOfWeek;
+        }
+        //map to view model
         public static RepeatableSettingsViewModel MapToRepeatableViewModel(Repeatable repeatable)
         {
             RepeatableSettingsViewModel repeatableVM = new RepeatableSettingsViewModel();
             repeatableVM.Period = repeatable.Period;
             repeatableVM.IfRepeatable = true;
             repeatableVM.RepeatCount = repeatable.RepeatCount;
-            if (repeatable.MonthDay.HasValue)
-                repeatableVM.DayOfMonth = repeatable.MonthDay.Value.ToString();
+            if (repeatable.DayOfMonth.HasValue)
+                repeatableVM.DayOfMonth = repeatable.DayOfMonth.Value.ToString();
             if (repeatable.DayOfYear.HasValue)
                 repeatableVM.DayOfYear = repeatable.DayOfYear.Value.Month + "/" + repeatable.DayOfYear.Value.Day;
             repeatableVM.DaysOfWeek = repeatable.DaysOfWeek;
@@ -187,16 +212,6 @@ namespace web_calendar.BL.Mappers
             return repeatableVM;
         }
 
-        public static void MapToRepeatable(RepeatableSettingsViewModel repeatableVM, ref Repeatable repeatable, 
-            CalendarEvent calendarEvent)
-        {
-            repeatable.Period = repeatableVM.Period;
-            repeatable.RepeatCount = repeatableVM.RepeatCount;
-            repeatable.MonthDay = calendarEvent.TimeBegin.Day;
-            repeatable.DayOfYear = new DateTime(calendarEvent.TimeBegin.Year, calendarEvent.TimeBegin.Month, 
-                calendarEvent.TimeBegin.Day);
-            repeatable.TimeOfDay = calendarEvent.TimeBegin.TimeOfDay;
-            repeatable.DaysOfWeek = repeatableVM.DaysOfWeek;
-        }
+        // ------------ End of Repeatable Settings ------------
     }
 }
