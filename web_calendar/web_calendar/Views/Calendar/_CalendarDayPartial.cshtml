@@ -5,15 +5,17 @@
     <div class="fixedHeader">
         <div class="dayHeadRow">
             <div class="timeColTd"></div>
-            @foreach (CalendarEvent calendarEvent in Model)
-            {
-                if (calendarEvent.AllDay.HasValue && calendarEvent.AllDay.Value)
+            <div class="dayBodyTd">
+                @foreach (CalendarEvent calendarEvent in Model)
                 {
-                    <div class="dayBodyTd">@calendarEvent.Text</div>
-                    break;
+                    if (calendarEvent.AllDay.HasValue && calendarEvent.AllDay.Value)
+                    {
+                        @calendarEvent.Text;
+                        break;
+                    }
                 }
-            }
-        </div>
+            </div>
+            </div>
     </div>
 
     <div class="scrollCalendar">
@@ -23,25 +25,28 @@
                 <div class="timeColTd">@String.Format("{0:D2}:00", i)</div>
                 <div class="dayBodyTd">
                     @{
-            bool flag = false;
-            foreach (CalendarEvent calendarEvent in Model)
-            {
-                if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
-                {
-                    <div class="calendarEvent">@calendarEvent.Name;</div>
-                    flag = true;
-                }
-            }
-            if (!flag)
-            {
-                <div class="calendarEvent">@string.Empty</div>
-            }
+                        bool flag = false;
+                        foreach (CalendarEvent calendarEvent in Model)
+                        {
+                            if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
+                            {
+                                <div class="calendarEvent">@calendarEvent.Name;</div>
+                                flag = true;
+                            }
+                        }
+                        if (!flag)
+                        {
+                            <div class="calendarEvent">@string.Empty</div>
+                        }
                     }
                 </div>
             </div>
         }
     </div>
+    <script type="text/javascript">        
+        $(document).ready(setActiveNavigator("day"));
+        setColor(document.querySelectorAll(".calendarEvent"), "#333333");
+        setColor(document.querySelectorAll(".dayBodyTd"), "#CCCCCC");
+        setColor(document.querySelectorAll(".timeColTd"), "#666666");
+    </script>
 </div>
-<script>
-    $(document).ready(setActiveNavigator("day"));
-</script>

@@ -102,7 +102,10 @@ textarea {
 
 .timeColTd, .weekBodyTd, .dayBodyTd {
     height: 40px;
+    border: 1px solid white;
 }
+
+
 
 .monthHeadTh, .timeColTh, .weekHeadTh {
     font-weight: bold;

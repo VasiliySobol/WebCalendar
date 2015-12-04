@@ -1,13 +1,13 @@
 ﻿function SetHeadColor(color) {
     for (var i = 1; i <= 7; i++) {
-        document.getElementById("day" + i).style.backgroundColor = color;
-    }
+        document.getElementById("day" + i).style.backgroundColor = color;             
+    }   
 }
 
 function SetMainColor(color) {
     for (var i = 1; i <= 31; i++) {
         document.getElementById("cellId" + i).style.backgroundColor = color;
-    }
+    }  
 }
 
 function setActiveNavigator(title) {
@@ -32,3 +32,9 @@ function setActiveNavigator(title) {
         };
     };
 };
+
+function setColor(items, color) {
+    for (var i = 0; i < items.length; i++) {
+        items[i].style.backgroundColor = color;
+    }
+}
