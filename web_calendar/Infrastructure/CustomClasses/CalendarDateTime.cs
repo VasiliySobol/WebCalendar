@@ -16,9 +16,20 @@ namespace web_calendar.BL.CustomClasses
              return (int)currentMonthDateTime.DayOfWeek;
         }
 
+        public int GetWeekDayNumberOfLastMonthDay()
+        {
+            DateTime currentMonthDateTime = new DateTime(dateTime.Year, dateTime.Month, DateTime.DaysInMonth(dateTime.Year, dateTime.Month));
+            return (int)currentMonthDateTime.DayOfWeek;
+        }
+
         public int GetAmountOfDays()
         {
             return DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
+        }
+
+        public void ShowNextMonth()
+        {
+            dateTime = new DateTime(dateTime.Year, dateTime.Month + 1, 1);
         }
 
         public CalendarDateTime()
