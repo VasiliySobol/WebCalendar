@@ -1,8 +1,18 @@
-﻿<div class="calendarDayTable">
+﻿@using web_calendar.DAL.Models
+@model IEnumerable<CalendarEvent>
+
+<div class="calendarDayTable">
     <div class="fixedHeader">
         <div class="dayHeadRow">
             <div class="timeColTd"></div>
-            <div class="dayBodyTd">all day event here</div>
+            @foreach (CalendarEvent calendarEvent in Model)
+            { 
+                if (calendarEvent.AllDay.HasValue && calendarEvent.AllDay.Value)
+                { 
+                    <div class="dayBodyTd">@calendarEvent.Text</div>
+                    break;
+                }
+            }
         </div>
     </div>
 
@@ -12,7 +22,21 @@
             <div>
                 <div class="timeColTd">@String.Format("{0:D2}:00", i)</div>
                 <div class="dayBodyTd">
-                    <div class="calendarEvent">event</div>
+                    @{
+                        bool flag = false;
+                        foreach (CalendarEvent calendarEvent in Model)
+                        {
+                            if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
+                            {
+                                <div class="calendarEvent">@calendarEvent.Name;</div>
+                                flag = true;
+                            }
+                        }
+                        if (!flag)
+                        {
+                            <div class="calendarEvent">@string.Empty</div>
+                        }
+                     }
                 </div>
             </div>
         }

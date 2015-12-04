@@ -6,7 +6,7 @@
 <h2>My events</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Ajax.ActionLink("Create new", "Create", "Event", new AjaxOptions { UpdateTargetId = "mainWindow" })
 </p>
 <table class="table">
     <tr>

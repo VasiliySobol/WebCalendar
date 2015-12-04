@@ -18,7 +18,7 @@ namespace web_calendar.Controllers
     [Authorize]
     public class CalendarController : Controller
     {
-        public CalendarController(ICalendarRepository _calendarRepository)
+        public CalendarController(ICalendarRepository _calendarRepository, IEventRepository _eventRepository)
         {
             CalendarDomainModel.calendarRepository = _calendarRepository;
         }
@@ -34,12 +34,6 @@ namespace web_calendar.Controllers
             }
             return PartialView(list);
         }        
-
-        public ActionResult Index(string RenderPart = "_CalendarMonthPartial")
-        {         
-            ViewBag.RenderPart = RenderPart;                        
-            return View(CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId()));
-        }
 
         public PartialViewResult Create()
         {
@@ -86,15 +80,7 @@ namespace web_calendar.Controllers
             }
         }
 
-        /*
-        public PartialViewResult Delete(int id)
-        {
-            Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id);
-            return PartialView("Delete", CalendarMapper.ToCalendarViewModel(calendar));
-        }*/
-
-        //[HttpPost]
-        public ActionResult Delete(int id)//CalendarViewModel calendarViewModel)
+        public ActionResult Delete(int id)
         {
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id);
             CalendarDomainModel.calendarRepository.Delete(calendar);
@@ -102,16 +88,39 @@ namespace web_calendar.Controllers
             return RedirectToAction("Index");
         }
 
-        public PartialViewResult MainPage(bool toCalendar = false)
+        public ViewResult Index()
         {
-            if (toCalendar) return PartialView("MainPage", 
-                CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId()));
-            else return PartialView("MainPage");
+            return View(CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId()));
         }
 
-        public PartialViewResult CalendarDayPartial()
+        public PartialViewResult CalendarDayPartial(int? id, string Day)
         {
-            return PartialView("_CalendarDayPartial");
+            DateTime currentDay = DateTime.Now;
+            if (!string.IsNullOrEmpty(Day))
+            {
+                currentDay = Convert.ToDateTime(Day);
+            }
+
+            Calendar activeCalendar;
+            if (id.HasValue)
+            {
+                activeCalendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
+            }
+            else
+            {
+                activeCalendar = CalendarDomainModel.calendarRepository.
+                    GetUserCalendars(User.Identity.GetUserId()).ToList().FirstOrDefault();
+            }
+
+            List<CalendarEvent> dayEventList = new List<CalendarEvent>();
+            foreach(CalendarEvent calendarEvent in activeCalendar.CalendarEvents1)
+            {
+                if (calendarEvent.TimeBegin.DayOfYear == currentDay.DayOfYear)
+                {
+                    dayEventList.Add(calendarEvent);
+                }
+            }
+            return PartialView("_CalendarDayPartial", dayEventList);
         }
 
         public PartialViewResult CalendarWeekPartial()
@@ -119,14 +128,19 @@ namespace web_calendar.Controllers
             return PartialView("_CalendarWeekPartial");
         }
 
-        public ActionResult CalendarMonthPartial(int id)
+        public ActionResult CalendarMonthPartial(int? id)
         {
-            List<Calendar> userCalendars = CalendarDomainModel.calendarRepository.
-                GetUserCalendars(User.Identity.GetUserId()).ToList();
-
-            CalendarViewModel activeCalendar = CalendarMapper.
-                ToCalendarViewModel(CalendarDomainModel.calendarRepository.FindById(id));
-
+            CalendarViewModel activeCalendar;
+            if (id.HasValue)
+            {
+                activeCalendar = CalendarMapper.
+                    ToCalendarViewModel(CalendarDomainModel.calendarRepository.FindById(id.Value));
+            }
+            else
+            {
+                activeCalendar = CalendarMapper.ToCalendarViewModel(CalendarDomainModel.calendarRepository.
+                    GetUserCalendars(User.Identity.GetUserId()).ToList().FirstOrDefault());
+            }
             return PartialView("_CalendarMonthPartial", activeCalendar);
         }
 

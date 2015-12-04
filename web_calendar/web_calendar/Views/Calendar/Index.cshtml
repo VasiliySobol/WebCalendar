@@ -5,5 +5,53 @@
 }
 
 <div id="mainWindow">
-    @Html.Partial("MainPage")
+    <div class="navigationCalendarContainer">
+        <div class="rightNav">
+            <button type="button" class="btn btn-default btn-xs"> < </button>
+            <button type="button" class="btn btn-default btn-xs"> > </button>
+            Day/Week/Month
+        </div>
+
+        <div class="leftNav">
+            @Ajax.ActionLink("Day", "CalendarDayPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+            @Ajax.ActionLink("Week", "CalendarWeekPartial", new AjaxOptions { UpdateTargetId = "calendarContainer" })
+            @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+            @Ajax.ActionLink("Schedule", "Schedule", "Event", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "mainWindow" })
+        </div>
+
+    </div>
+
+    <div class="calendarWrapper">
+        <div class="miniCalendarContainer">
+            <div id="datetimepicker"></div>
+            <script type="text/javascript">
+            $("#datetimepicker").datepicker(
+                {
+                    inline: true,
+                    dateFormat: "dd/mm/yyyy"
+                }
+            ).on("changeDate", function () {
+                debugger;
+                var dateObject = $("#datetimepicker").datepicker("getDate");
+                var dateString = dateObject.getDate() + "-" + (dateObject.getMonth() + 1) + "-" + dateObject.getFullYear();
+                var model = @Html.Raw(Json.Encode(Model));
+                $.ajax({
+                    url: '@Url.Action("CalendarDayPartial", "Calendar")',
+                    type: "get",
+                    dataType: "html",
+                    data: {id : model[0].id, Day: dateString},
+                    success: function(data) {
+                       document.getElementById("calendarContainer").innerHTML = data;
+                    }
+                });
+            });
+            </script>
+
+            @Html.Partial("CalendarList")
+        </div>
+
+        <div class="calendarContainer" id="calendarContainer">
+            @Html.Action("CalendarMonthPartial", new { id = Model.FirstOrDefault().id })
+        </div>
+    </div>
 </div>
