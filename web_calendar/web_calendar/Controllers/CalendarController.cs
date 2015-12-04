@@ -17,7 +17,11 @@ namespace web_calendar.Controllers
 {
     [Authorize]
     public class CalendarController : Controller
-    {
+    {        
+        private static DateTime currentDate = DateTime.Now;
+        private static string[] monthNames = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+        public static string currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();
+
         public CalendarController(ICalendarRepository _calendarRepository, IEventRepository _eventRepository)
         {
             CalendarDomainModel.calendarRepository = _calendarRepository;
@@ -93,13 +97,14 @@ namespace web_calendar.Controllers
             return View(CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId()));
         }
 
-        public PartialViewResult CalendarDayPartial(int? id, string Day)
+        public PartialViewResult CalendarDayPartial(int? id, string Day, int offset = 0)
         {
-            DateTime currentDay = DateTime.Now;
             if (!string.IsNullOrEmpty(Day))
             {
-                currentDay = Convert.ToDateTime(Day);
+                currentDate = Convert.ToDateTime(Day);                
             }
+            if (offset != 0) currentDate = currentDate.AddDays(offset);
+            currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();
 
             Calendar activeCalendar;
             if (id.HasValue)
@@ -115,7 +120,7 @@ namespace web_calendar.Controllers
             List<CalendarEvent> dayEventList = new List<CalendarEvent>();
             foreach(CalendarEvent calendarEvent in activeCalendar.CalendarEvents1)
             {
-                if (calendarEvent.TimeBegin.DayOfYear == currentDay.DayOfYear)
+                if (calendarEvent.TimeBegin.DayOfYear == currentDate.DayOfYear)
                 {
                     dayEventList.Add(calendarEvent);
                 }

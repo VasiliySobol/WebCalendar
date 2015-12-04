@@ -10,6 +10,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.js")
+    <script src="~/Scripts/customScripts.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
@@ -21,7 +22,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Ajax.ActionLink("Calendar", "Index", "Calendar", new { toCalendar = true }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "navbar-brand" })                
+                @Html.ActionLink("Calendar", "Index", "Calendar", new { @class = "navbar-brand" })                
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

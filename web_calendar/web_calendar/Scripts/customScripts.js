@@ -9,3 +9,26 @@ function SetMainColor(color) {
         document.getElementById("cellId" + i).style.backgroundColor = color;
     }
 }
+
+function setActiveNavigator(title) {
+    switch (title) {
+        case "day": {
+            document.getElementById("navDay").style.display = "block";
+            document.getElementById("navWeek").style.display = "none";
+            document.getElementById("navMonth").style.display = "none";
+            break;
+        };
+        case "week": {
+            document.getElementById("navDay").style.display = "none";
+            document.getElementById("navWeek").style.display = "block";
+            document.getElementById("navMonth").style.display = "none";
+            break;
+        };
+        case "month": {
+            document.getElementById("navDay").style.display = "none";
+            document.getElementById("navWeek").style.display = "none";
+            document.getElementById("navMonth").style.display = "block";
+            break;
+        };
+    };
+};

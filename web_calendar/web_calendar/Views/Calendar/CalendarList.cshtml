@@ -16,7 +16,7 @@
                     <td>
                         <script type="text/javascript">
                             var data = @Html.Raw(JsonConvert.SerializeObject(calendar));
-                            Add(data);
+                            
                         </script>
                         @Ajax.ActionLink(calendar.name, "CalendarMonthPartial", new { id = calendar.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
                     </td>

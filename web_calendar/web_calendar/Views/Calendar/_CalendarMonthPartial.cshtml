@@ -1,7 +1,5 @@
 ﻿@model web_calendar.BL.ViewModels.CalendarViewModel
 
-<script src="~/Scripts/customScripts.js"></script>
-
 <div class="calendarMonthTable">
     <div class="monthHead">
         <div class="monthHeadTh" id="day1">Sunday</div>
@@ -15,42 +13,42 @@
 
     <div>
         @{int counter = 1;
-          int dayNumber = 1;
-          
-          int lineStartCellNumber = 1;
-          int lineEndCellNumber = 7;
+        int dayNumber = 1;
 
-          int amountOfLines = 5;
-          
-          if (Model.calendarDateTime.GetAmountOfDays() == 28)
-          {
-              amountOfLines = 4;
-          }}
+        int lineStartCellNumber = 1;
+        int lineEndCellNumber = 7;
+
+        int amountOfLines = 5;
+
+        if (Model.calendarDateTime.GetAmountOfDays() == 28)
+        {
+            amountOfLines = 4;
+        }}
 
         @for (int i = 1; i <= amountOfLines; i++)
         {
             <div>
                 @{lineStartCellNumber = 1;
-                  lineEndCellNumber = 7;}
+                lineEndCellNumber = 7;}
 
                 @if (i == 1)
                 {
                     <div>
                         @{lineStartCellNumber = 1;
-                          lineEndCellNumber = Model.calendarDateTime.GetWeekDayNumberOfFirstMonthDay();}
+                        lineEndCellNumber = Model.calendarDateTime.GetWeekDayNumberOfFirstMonthDay();}
 
                         @for (int prev = lineStartCellNumber; prev <= lineEndCellNumber; prev++)
-			            {
+                        {
                             <div class="monthBodyTd">
                                 <p></p>
                             </div>
-			            }
+                        }
 
                         @{lineStartCellNumber = lineEndCellNumber + 1;
                         lineEndCellNumber = 7;}
                     </div>
                 }
-                
+
                 @if (i == amountOfLines)
                 {
                     <div>
@@ -64,8 +62,8 @@
                     <div id="cellId@(counter)" class="monthBodyTd">
                         <p>@dayNumber</p>
                         @{counter++;
-                          dayNumber++;
-                          }
+                        dayNumber++;
+                        }
                     </div>
                 }
             </div>
@@ -78,3 +76,6 @@
         SetHeadColor(model.CSSHeadColor);
     </script>
 </div>
+<script>
+    $(document).ready(setActiveNavigator("month"));
+</script>

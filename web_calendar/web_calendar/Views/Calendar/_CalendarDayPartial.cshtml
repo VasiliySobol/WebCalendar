@@ -6,9 +6,9 @@
         <div class="dayHeadRow">
             <div class="timeColTd"></div>
             @foreach (CalendarEvent calendarEvent in Model)
-            { 
+            {
                 if (calendarEvent.AllDay.HasValue && calendarEvent.AllDay.Value)
-                { 
+                {
                     <div class="dayBodyTd">@calendarEvent.Text</div>
                     break;
                 }
@@ -23,22 +23,25 @@
                 <div class="timeColTd">@String.Format("{0:D2}:00", i)</div>
                 <div class="dayBodyTd">
                     @{
-                        bool flag = false;
-                        foreach (CalendarEvent calendarEvent in Model)
-                        {
-                            if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
-                            {
-                                <div class="calendarEvent">@calendarEvent.Name;</div>
-                                flag = true;
-                            }
-                        }
-                        if (!flag)
-                        {
-                            <div class="calendarEvent">@string.Empty</div>
-                        }
-                     }
+            bool flag = false;
+            foreach (CalendarEvent calendarEvent in Model)
+            {
+                if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
+                {
+                    <div class="calendarEvent">@calendarEvent.Name;</div>
+                    flag = true;
+                }
+            }
+            if (!flag)
+            {
+                <div class="calendarEvent">@string.Empty</div>
+            }
+                    }
                 </div>
             </div>
         }
     </div>
 </div>
+<script>
+    $(document).ready(setActiveNavigator("day"));
+</script>

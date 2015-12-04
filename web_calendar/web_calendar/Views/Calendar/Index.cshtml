@@ -6,10 +6,22 @@
 
 <div id="mainWindow">
     <div class="navigationCalendarContainer">
-        <div class="rightNav">
-            <button type="button" class="btn btn-default btn-xs"> < </button>
-            <button type="button" class="btn btn-default btn-xs"> > </button>
-            Day/Week/Month
+        <div class="rightNav">    
+            <div id="navDay" style="display: none;">
+                @Ajax.ActionLink("<", "CalendarDayPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                @Ajax.ActionLink(">", "CalendarDayPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                <text id="dayTitle">@web_calendar.Controllers.CalendarController.currentDay</text>
+            </div>   
+            <div id="navWeek" style="display: none;">
+                @Ajax.ActionLink("<", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                @Ajax.ActionLink(">", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                <text id="weekTitle">Week</text>
+            </div> 
+            <div id="navMonth" style="display: block;">
+                @Ajax.ActionLink("<", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                @Ajax.ActionLink(">", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                <text id="monthTitle">Month</text>
+            </div> 
         </div>
 
         <div class="leftNav">
@@ -18,33 +30,34 @@
             @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
             @Ajax.ActionLink("Schedule", "Schedule", "Event", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "mainWindow" })
         </div>
-
     </div>
 
     <div class="calendarWrapper">
         <div class="miniCalendarContainer">
             <div id="datetimepicker"></div>
             <script type="text/javascript">
-            $("#datetimepicker").datepicker(
-                {
-                    inline: true,
-                    dateFormat: "dd/mm/yyyy"
-                }
-            ).on("changeDate", function () {
-                debugger;
-                var dateObject = $("#datetimepicker").datepicker("getDate");
-                var dateString = dateObject.getDate() + "-" + (dateObject.getMonth() + 1) + "-" + dateObject.getFullYear();
-                var model = @Html.Raw(Json.Encode(Model));
-                $.ajax({
-                    url: '@Url.Action("CalendarDayPartial", "Calendar")',
-                    type: "get",
-                    dataType: "html",
-                    data: {id : model[0].id, Day: dateString},
-                    success: function(data) {
-                       document.getElementById("calendarContainer").innerHTML = data;
+                var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+                var dateObject;
+                $("#datetimepicker").datepicker(
+                    {
+                        inline: true
                     }
+                ).on("changeDate", function () {                 
+                    dateObject = $("#datetimepicker").datepicker("getDate");
+                    var dateString = dateObject.getDate() + "-" + (dateObject.getMonth() + 1) + "-" + dateObject.getFullYear();
+                    document.getElementById("dayTitle").innerText = monthNames[dateObject.getMonth()] + " " +dateObject.getDate();
+                    var model = @Html.Raw(Json.Encode(Model));
+                    $.ajax({
+                        url: '@Url.Action("CalendarDayPartial", "Calendar")',
+                        type: "get",
+                        dataType: "html",
+                        data: {id : model[0].id, Day: dateString},
+                        success: function(data) {
+                            document.getElementById("calendarContainer").innerHTML = data;
+                            $(document).ready(setActiveNavigator("day"));
+                        }
+                    });
                 });
-            });
             </script>
 
             @Html.Partial("CalendarList")
