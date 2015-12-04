@@ -12,11 +12,12 @@
         $.ajax({            
             type: "get",
             url: "http://localhost:1697/api/events",
+            contentType: "application/json; charset=utf-8",
             xhrFields: {
                 withCredentials: true
             },
             success: function (data) {
-                alert(data[0].Name);
+                alert(JSON.stringify(data));
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.responseText || textStatus);
@@ -40,6 +41,6 @@
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.responseText || textStatus);
             }
-        });
+        });       
     }
 </script>
