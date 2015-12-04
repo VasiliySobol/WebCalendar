@@ -20,6 +20,7 @@ namespace web_calendar.BL.Mappers
             CalendarEvent calendarEvent = new CalendarEvent();
 
             calendarEvent.Id = eventVM.Id;
+            calendarEvent.CalendarId = eventVM.SelectedCalendarId;
             MapToEvent(ref calendarEvent, eventVM);
 
             return calendarEvent;
