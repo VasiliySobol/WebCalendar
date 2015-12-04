@@ -15,10 +15,19 @@
 
     <div>
         @{int counter = 1;
+          int dayNumber = 1;
+          
           int lineStartCellNumber = 1;
           int lineEndCellNumber = 7;
-          }
-        @for (int i = 1; i <= 5; i++)
+
+          int amountOfLines = 5;
+          
+          if (Model.calendarDateTime.GetAmountOfDays() == 28)
+          {
+              amountOfLines = 4;
+          }}
+
+        @for (int i = 1; i <= amountOfLines; i++)
         {
             <div>
                 @{lineStartCellNumber = 1;
@@ -41,11 +50,22 @@
                         lineEndCellNumber = 7;}
                     </div>
                 }
+                
+                @if (i == amountOfLines)
+                {
+                    <div>
+                        @{lineStartCellNumber = 1;
+                        lineEndCellNumber = Model.calendarDateTime.GetWeekDayNumberOfLastMonthDay() + 1;}
+                    </div>
+                }
+
                 @for (int j = lineStartCellNumber; j <= lineEndCellNumber; j++)
                 {
                     <div id="cellId@(counter)" class="monthBodyTd">
-                        @{counter++;}
-                        <p>@i @j</p>
+                        <p>@dayNumber</p>
+                        @{counter++;
+                          dayNumber++;
+                          }
                     </div>
                 }
             </div>
@@ -54,7 +74,7 @@
 
     <script type="text/javascript">
         var model = @Html.Raw(Json.Encode(Model));
-        SetMainColor(model.CSSMainColor, 35);
+        SetMainColor(model.CSSMainColor);
         SetHeadColor(model.CSSHeadColor);
     </script>
 </div>
