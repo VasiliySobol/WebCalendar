@@ -13,6 +13,8 @@
         <div class="monthHeadTh" id="day5">Thursday</div>
         <div class="monthHeadTh" id="day6">Friday</div>
         <div class="monthHeadTh" id="day7">Saturday</div>
+
+        <script type="text/javascript">SetHeadColor(model.CSSHeadColor);</script>
     </div>
 
     <div>
@@ -73,13 +75,9 @@
             </div>
         }
     </div>
-
-    <script type="text/javascript">
+</div>
+<script type="text/javascript">
         var model = @Html.Raw(Json.Encode(Model));
         SetMainColor(model.CSSMainColor);
         SetHeadColor(model.CSSHeadColor);
-    </script>
-</div>
-<script>
-    $(document).ready(setActiveNavigator("month"));
 </script>
