@@ -66,8 +66,6 @@ namespace web_calendar.BL.Mappers
             DisplayEventViewModel eventVM = new DisplayEventViewModel();
             eventVM.Id = calendarEvent.Id;
             eventVM.Name = calendarEvent.Name;
-            eventVM.Text = calendarEvent.Text;
-            eventVM.Place = calendarEvent.Place;
             eventVM.TimeBegin = calendarEvent.TimeBegin;
             eventVM.NotificationCount = calendarEvent.Notifications.Count;
             if (calendarEvent.CalendarId != null)
@@ -191,6 +189,18 @@ namespace web_calendar.BL.Mappers
                 calendarEvent.TimeBegin.Day);
             repeatable.TimeOfDay = calendarEvent.TimeBegin.TimeOfDay;
             repeatable.DaysOfWeek = repeatableVM.DaysOfWeek;
+        }
+        public static Repeatable MapToRepeatable(RepeatableSettingsViewModel repeatableVM, CalendarEvent calendarEvent)
+        {
+            Repeatable repeatable = new Repeatable();
+            repeatable.Period = repeatableVM.Period;
+            repeatable.RepeatCount = repeatableVM.RepeatCount;
+            repeatable.DayOfMonth = calendarEvent.TimeBegin.Day;
+            repeatable.DayOfYear = new DateTime(calendarEvent.TimeBegin.Year, calendarEvent.TimeBegin.Month,
+                calendarEvent.TimeBegin.Day);
+            repeatable.TimeOfDay = calendarEvent.TimeBegin.TimeOfDay;
+            repeatable.DaysOfWeek = repeatableVM.DaysOfWeek;
+            return repeatable;
         }
         //map to view model
         public static RepeatableSettingsViewModel MapToRepeatableViewModel(Repeatable repeatable)
