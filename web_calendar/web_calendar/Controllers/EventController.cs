@@ -165,7 +165,7 @@ namespace web_calendar.Controllers
         {
             GuestsEmail guestVM = new GuestsEmail();
             guestVM.Id = id;
-            guestVM.MyPrefix = "Guests_" + id;
+            guestVM.MyPrefix = "Guests[" + id + "]";
             return PartialView("_EditGuest", guestVM);
         }
 
