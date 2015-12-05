@@ -11,65 +11,80 @@
         @Ajax.ActionLink("Edit", "Edit", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "mainWindow" })
     </p>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Text)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Text)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Text)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Place)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Place)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Place)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Place)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeBegin)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeBegin)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TimeBegin)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.TimeBegin)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeEnd)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.TimeEnd)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TimeEnd)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.TimeEnd)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AllDay)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.AllDay)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.AllDay)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.AllDay)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CalendarName)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.CalendarName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CalendarName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.CalendarName)
+            </dd>
 
-    </dl>
-    <div class="row">
+            <dt>Guests</dt>
+
+            <dd>
+                @if (Model.Guests != null)
+                {
+                    foreach (var item in Model.Guests)
+                    {
+                        @item
+                        <br />
+                    }
+                }
+            </dd>
+
+        </dl>
+    </div>
+    <div class="row col-md-6">
         @if (Model.repeatableSettings != null)
         {
             if (Model.repeatableSettings.IfRepeatable)
@@ -79,25 +94,11 @@
             }
         }
     </div>
-    <div class="row">
+    <div class="row col-md-6">
         @if (Model.Notifications != null)
         {
             <h4>Notifications</h4>
             @Html.Partial("_NotificationsList", Model.Notifications)
         }
     </div>
-    <div class="row">
-        @if (Model.Guests != null)
-        {
-            <h4>Guests</h4>
-            <dl class="dl-horizontal">
-            @foreach (var item in Model.Guests)
-            {
-                <dd>
-                    @item
-                </dd>
-            }
-            </dl>
-        }
-</div>
 </div>
