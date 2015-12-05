@@ -27,9 +27,9 @@ namespace web_calendar.BL.CustomClasses
             return DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
         }
 
-        public void ShowNextMonth()
+        public void ShowPreviousMonth()
         {
-            dateTime = new DateTime(dateTime.Year, dateTime.Month + 1, 1);
+            dateTime = new DateTime(dateTime.Year, dateTime.Month - 1, 1);
         }
 
         public CalendarDateTime()
