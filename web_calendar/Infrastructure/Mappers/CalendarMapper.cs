@@ -25,7 +25,7 @@ namespace web_calendar.BL.Mappers
                 userId = calendar.UserId,
                 CSSMainColor = CalendarDomainModel.ColorToMainCSS(Color.FromArgb(calendar.CalendarColor.Value)),
                 CSSHeadColor = CalendarDomainModel.ColorToHeadCSS(Color.FromArgb(calendar.CalendarColor.Value)),
-                calendarDateTime = new CalendarDateTime(),
+                calendarDateTime = new CalendarDateTime(calendar.ShowedDateTime),
             };
         }
 

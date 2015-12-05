@@ -86,6 +86,7 @@ namespace web_calendar.BL.DomainModels
             calendar.UserId = userId;
             calendar.CalendarColor = 0;
             calendar.TimeZone = 0;
+            calendar.ShowedDateTime = DateTime.Now.ToString();
 
             calendarRepository.Add(calendar);
             calendarRepository.SaveChanges();
