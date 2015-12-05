@@ -140,6 +140,8 @@ namespace web_calendar.BL.ViewModels
         public int SelectedCalendarId { get; set; }
 
         public SelectList CalendarItems { get; set; }
+
+        public int LastNotificationIndex { get; set; }
     }
 
     public class GuestsEmail
@@ -148,5 +150,7 @@ namespace web_calendar.BL.ViewModels
 
         [EmailAddress]
         public string Email { get; set; }
+
+        public string MyPrefix { get; set; }
     }
 }

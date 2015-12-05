@@ -16,5 +16,7 @@ namespace web_calendar.BL.ViewModels
 
         [Display(Name = "Kind of notification")]
         public string KindOfNotification { get; set; }
+
+        public string MyPrefix { get; set; }
     }
 }

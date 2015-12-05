@@ -78,6 +78,15 @@ namespace web_calendar.BL.DomainModels
             eventViewModel.SelectedCalendarId = calendarId;            
         }
 
+        public int GetLastNotificationIndex(int id)
+        {
+            CalendarEvent calendarEvent = eventRepository.FindById(id);
+            if (calendarEvent != null)
+                if (calendarEvent.Notifications != null && calendarEvent.Notifications.Count > 0)
+                    return eventRepository.GetAllNotifications(id).Max(x => x.Id) + 1;
+            return 0;
+        }
+
         public CreateEventViewModel GetEditEventViewModel(CalendarEvent calendarEvent)
         {
             CreateEventViewModel eventViewModel = EventMapper.MapToEditEventVM(calendarEvent);
@@ -194,40 +203,52 @@ namespace web_calendar.BL.DomainModels
 
         public void EditEvent(int id, CreateEventViewModel eventViewModel, int calendarId)
         {
-            CalendarEvent calendarEvent = eventRepository.FindById(id);
-            EventMapper.MapToEvent(ref calendarEvent, eventViewModel);
-            if (calendarId != eventRepository.GetCalendar(id).Id)
+            using (TransactionScope scope = new TransactionScope())
             {
-                Calendar calendar = eventRepository.FindOtherById<Calendar>(calendarId);
-                if (calendar != null)
+                CalendarEvent calendarEvent = eventRepository.FindById(id);
+                EventMapper.MapToEvent(ref calendarEvent, eventViewModel);
+                if (calendarId != eventRepository.GetCalendar(id).Id)
                 {
-                    calendarEvent.Calendar.CalendarEvents1.Remove(calendarEvent);
-                    calendarEvent.CalendarId = calendarId;
-                    calendarEvent.Calendar = calendar;
+                    Calendar calendar = eventRepository.FindOtherById<Calendar>(calendarId);
+                    if (calendar != null)
+                    {
+                        calendarEvent.Calendar.CalendarEvents1.Remove(calendarEvent);
+                        calendarEvent.CalendarId = calendarId;
+                        calendarEvent.Calendar = calendar;
+                    }
                 }
+                eventRepository.Modify(calendarEvent);
+                eventRepository.SaveChanges();
+
+                // notifications
+                List<Notification> newNotifications = EventMapper.MapToNotifications(eventViewModel.Notifications);
+                List<Notification> oldNotifications = calendarEvent.Notifications.ToList();
+                eventRepository.DeleteNotifications(calendarEvent.Id, oldNotifications);
+                eventRepository.SaveChanges();
+                eventRepository.AddNotifications(calendarEvent.Id, newNotifications);
+
+                //if (eventViewModel.repeatableSettings.IfRepeatable)
+                //{
+                //    Repeatable repeatable = eventRepository.GetRepeatableSettings(id);
+                //    if (repeatable != null)
+                //    {
+                //        eventRepository.DeleteAllChildrenEvents(id);
+                //        EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
+                //        //add logic
+                //    }
+                //    else
+                //    {
+                //        repeatable = new Repeatable();
+                //        EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
+                //        repeatable.EventId = calendarEvent.Id;
+                //        repeatable.CalendarEvent = calendarEvent;
+                //        //add logic
+                //        eventRepository.AddRepeatableSettings(id, repeatable);
+                //    }
+                //}
+                eventRepository.SaveChanges();
+                scope.Complete();
             }
-            eventRepository.Modify(calendarEvent);
-            eventRepository.SaveChanges();
-            //if (eventViewModel.repeatableSettings.IfRepeatable)
-            //{
-            //    Repeatable repeatable = eventRepository.GetRepeatableSettings(id);
-            //    if (repeatable != null)
-            //    {
-            //        eventRepository.DeleteAllChildrenEvents(id);
-            //        EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);                                 
-            //        //add logic
-            //    }
-            //    else
-            //    {
-            //        repeatable = new Repeatable();
-            //        EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
-            //        repeatable.EventId = calendarEvent.Id;
-            //        repeatable.CalendarEvent = calendarEvent;
-            //        //add logic
-            //        eventRepository.AddRepeatableSettings(id, repeatable);
-            //    }
-            //}
-            eventRepository.SaveChanges();
         }
     }
 }

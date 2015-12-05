@@ -4,16 +4,16 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Event", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Event</h4>
-        <hr />
+    @Html.AntiForgeryToken()    
+    <div class="form-horizontal">        
+        <div class="form-group">
+            <br />
+            <h3 class="control-label col-md-2" style="color: gray;">Edit event</h3>
+            <br />
+            <br />
+        </div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
@@ -98,10 +98,32 @@
                    }
            })
 
-        
+        @Html.HiddenFor(model => model.LastNotificationIndex)
+        <table id="notificationsList">
+            @foreach (web_calendar.BL.ViewModels.NotificationViewModel item in Model.Notifications)
+            {
+                <tr id="@("row" + item.Id)">
+                    <td>
+                        <input name="Notifications.Index" type="hidden" value="@(item.Id)" />
+                        @Html.Partial("_EditNotification", item, new ViewDataDictionary()
+                        {
+                            TemplateInfo = new TemplateInfo()
+                            {
+                                HtmlFieldPrefix = "Notifications[" + item.Id + "]"
+                            }
+                        })
+                    </td>
+                    <td>
+                        <input id="@("removeNotification" + item.Id)" onclick="@("removeNotification(" + item.Id + ")")"
+                               class="btn btn-default" type="button" value="Remove" />
+                    </td>
+                </tr>
+            }
+        </table>
+        <input id="addNotification" type="button" class="btn btn-default" value="Add new notification"/>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" onclick="SetRepeatable();" />
             </div>
         </div>
     </div>
@@ -111,9 +133,68 @@
     @Html.ActionLink("Back to List", "Schedule")
 </div>
 
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-        $('.datepicker').datepicker();
-    </script>
+<script type="text/javascript">
+    $('.datepicker').datepicker();
+    document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
+    var arr = document.getElementById("DateBegin").value.split("/");
+    document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
+    document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
+    var index = $('#LastNotificationIndex').val();
+
+    function changeDate() {
+        var arr = document.getElementById("DateBegin").value.split("/");
+        document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
+        document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
+    }
+
+    function changeTime() {
+        document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
+    }
+
+    function SetRepeatable() {
+        document.getElementById("repeatableSettings_Period").value = document.querySelector('.nav-pills .active').id;
+        document.getElementById("repeatableSettings_DaysOfWeek").value = "";
+        if (document.getElementById("monday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '1';
+        if (document.getElementById("tuesday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '2';
+        if (document.getElementById("wednesday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '3';
+        if (document.getElementById("thursday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '4';
+        if (document.getElementById("friday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '5';
+        if (document.getElementById("saturday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '6';
+        if (document.getElementById("sunday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '7';
+    }
+
+    $('#addNotification').click(function () {
+        $.ajax({
+            async: false,
+            url: '/Event/GetNotificationView/' + index
+        }).success(function (partialView) {
+            @{
+                Model.Notifications.Add(new web_calendar.BL.ViewModels.NotificationViewModel());
+            }
+            $('#notificationsList').append('<tr id="row' + index + '">' + '<td>' +
+                '<input name="Notifications.Index" type="hidden" value="' + index + '" />' +
+                partialView + '</td><td><input id="removeNotification' + index + '" onclick="removeNotification('
+                + index + ')" type="button" class="btn btn-default" value="Remove"/></td></tr>');
+            index++;
+        });
+
+    })
+
+    function removeNotification(id) {
+        var row = $('#row' + id);
+        row.remove();
+    }
+
+</script>
+
 }

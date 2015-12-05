@@ -123,6 +123,7 @@ namespace web_calendar.Controllers
             }
             CreateEventViewModel eventViewModel = eventDomainModel.GetEditEventViewModel(calendarEvent);
             eventDomainModel.PopulateCalendarSelectList(ref eventViewModel, userId, calendarEvent.Id);
+            eventViewModel.LastNotificationIndex = eventDomainModel.GetLastNotificationIndex(calendarEvent.Id);
             return View(eventViewModel);
         }
 
