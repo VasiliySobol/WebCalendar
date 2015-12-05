@@ -74,7 +74,6 @@ namespace web_calendar.BL.DomainModels
                 calendarRepository.GetUserCalendars(userId).Select(
                 x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList(), "Value", "Text",
                 calendarId.ToString());
-            eventViewModel.CalendarItems.First().Selected = true;
             eventViewModel.SelectedCalendarId = calendarId;            
         }
 
@@ -86,17 +85,31 @@ namespace web_calendar.BL.DomainModels
                     return eventRepository.GetAllNotifications(id).Max(x => x.Id) + 1;
             return 0;
         }
+        public int GetLastGuestIndex(int id)
+        {
+            CalendarEvent calendarEvent = eventRepository.FindById(id);
+            if (calendarEvent != null)
+                if (calendarEvent.Guests != null && calendarEvent.Guests.Count > 0)
+                    return calendarEvent.Guests.Max(x => x.Id) + 1;
+            return 0;
+        }
 
         public CreateEventViewModel GetEditEventViewModel(CalendarEvent calendarEvent)
         {
             CreateEventViewModel eventViewModel = EventMapper.MapToEditEventVM(calendarEvent);
-            if (calendarEvent.Repeatables != null)
-                if (calendarEvent.Repeatables.Count > 0)
-                    eventViewModel.repeatableSettings =
-                        EventMapper.MapToRepeatableViewModel(calendarEvent.Repeatables.First());
-            if (calendarEvent.Notifications != null)
+            if (calendarEvent.Repeatables != null && calendarEvent.Repeatables.Count > 0)
+                eventViewModel.repeatableSettings = EventMapper.MapToRepeatableViewModel(calendarEvent.Repeatables.First());
+            if (calendarEvent.Notifications != null && calendarEvent.Notifications.Count > 0)
                 eventViewModel.Notifications = EventMapper.MapToNotificationListViewModel(
                     eventRepository.GetAllNotifications(calendarEvent.Id));
+            else
+                eventViewModel.Notifications = new List<NotificationViewModel>();
+            if (calendarEvent.Guests != null && calendarEvent.Guests.Count > 0)
+                eventViewModel.Guests = EventMapper.MapToGuestsViewModel(eventRepository.GetAllGuests(calendarEvent.Id).ToList());
+            else
+                eventViewModel.Guests = new List<GuestsEmail>();
+            eventViewModel.LastNotificationIndex = GetLastNotificationIndex(calendarEvent.Id);
+            eventViewModel.LastGuestIndex = GetLastGuestIndex(calendarEvent.Id);
             return eventViewModel;
         }
 
@@ -226,6 +239,13 @@ namespace web_calendar.BL.DomainModels
                 eventRepository.DeleteNotifications(calendarEvent.Id, oldNotifications);
                 eventRepository.SaveChanges();
                 eventRepository.AddNotifications(calendarEvent.Id, newNotifications);
+
+                //guests
+                List<Guest> newGuests = EventMapper.MapToGuests(eventViewModel.Guests);
+                List<Guest> oldGuests = calendarEvent.Guests.ToList();
+                eventRepository.DeleteGuests(calendarEvent.Id, oldGuests.Select(x => x.Email).ToList());
+                eventRepository.SaveChanges();
+                eventRepository.AddGuests(calendarEvent.Id, newGuests.Select(x => x.Email).ToList());
 
                 //if (eventViewModel.repeatableSettings.IfRepeatable)
                 //{

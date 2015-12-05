@@ -113,15 +113,27 @@ namespace web_calendar.DAL.Concrete
         public void AddGuests(int eventId, List<string> emails)
         {
             CalendarEvent calendarEvent = FindFirst(x => x.Id == eventId);
-            foreach (string email in emails)
-            {
-                Guest guest = new Guest();
-                guest.Email = email;
-                guest.EventId = eventId;
-                guest.CalendarEvent = calendarEvent;
-                AddOther<Guest>(guest);
-                calendarEvent.Guests.Add(guest);
-            }
+            if (calendarEvent != null)
+                foreach (string email in emails)
+                {
+                    Guest guest = new Guest();
+                    guest.Email = email;
+                    guest.EventId = eventId;
+                    guest.CalendarEvent = calendarEvent;
+                    AddOther<Guest>(guest);
+                    calendarEvent.Guests.Add(guest);
+                }
+        }
+        public void DeleteGuests(int eventId, List<string> guests)
+        {
+            CalendarEvent calendarEvent = FindById(eventId);
+            if (calendarEvent != null)
+                foreach (string item in guests)
+                {
+                    Guest guest = FindFirstGuest(eventId, x => x.Email == item);
+                    calendarEvent.Guests.Remove(guest);
+                    Delete(guest);
+                }
         }
 
         public Guest FindFirstGuest(int id, Func<Guest, bool> filter)
@@ -153,6 +165,7 @@ namespace web_calendar.DAL.Concrete
             }
             return null;
         }
+
         public void DeleteAllChildrenEvents(int parentId)
         {
             foreach (CalendarEvent item in FindAll(x => x.ParentEvent == parentId).ToList())

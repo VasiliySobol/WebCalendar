@@ -210,5 +210,28 @@ namespace web_calendar.BL.Mappers
         }
 
         // ------------ End of Repeatable Settings ------------
+
+        // ------------ Guests ------------
+
+        public static List<GuestsEmail> MapToGuestsViewModel(IEnumerable<Guest> guests)
+        {
+            List<GuestsEmail> guestList = new List<GuestsEmail>();
+            foreach (Guest item in guests)
+            {
+                guestList.Add(new GuestsEmail { Id = item.Id, Email = item.Email });
+            }
+            return guestList;
+        }
+        public static List<Guest> MapToGuests(IEnumerable<GuestsEmail> guestList)
+        {
+            List<Guest> guests = new List<Guest>();
+            foreach (GuestsEmail item in guestList)
+            {
+                guests.Add(new Guest { Email = item.Email });
+            }
+            return guests;
+        }
+
+        // ------------ End of Guests ------------
     }
 }
