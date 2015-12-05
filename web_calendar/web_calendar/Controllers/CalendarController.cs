@@ -153,6 +153,23 @@ namespace web_calendar.Controllers
             return PartialView("_CalendarWeekPartial");
         }
 
+        public ActionResult ShowPreviousMonth(int? id)
+        {
+            CalendarViewModel activeCalendar;
+            if (id.HasValue)
+            {
+                activeCalendar = CalendarMapper.
+                    ToCalendarViewModel(CalendarDomainModel.calendarRepository.FindById(id.Value));
+            }
+            else
+            {
+                activeCalendar = CalendarMapper.ToCalendarViewModel(CalendarDomainModel.calendarRepository.
+                    GetUserCalendars(User.Identity.GetUserId()).ToList().FirstOrDefault());
+            }
+            activeCalendar.calendarDateTime.ShowPreviousMonth();
+            return PartialView("_CalendarMonthPartial", activeCalendar);
+        }
+
         public ActionResult CalendarMonthPartial(int? id)
         {
             CalendarViewModel activeCalendar;
