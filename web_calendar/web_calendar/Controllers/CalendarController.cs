@@ -155,36 +155,37 @@ namespace web_calendar.Controllers
             return PartialView("_CalendarWeekPartial");
         }
 
-        public ActionResult ShowPreviousMonth(int? id)
+        public CalendarViewModel SetCalendarAsActive(int? id)
         {
+            CalendarViewModel newActiveCalendar;
+
             if (id.HasValue)
             {
-                activeCalendar = CalendarMapper.
+                newActiveCalendar = CalendarMapper.
                     ToCalendarViewModel(CalendarDomainModel.calendarRepository.FindById(id.Value));
             }
             else
             {
-                activeCalendar = CalendarMapper.ToCalendarViewModel(CalendarDomainModel.calendarRepository.
+                newActiveCalendar = CalendarMapper.ToCalendarViewModel(CalendarDomainModel.calendarRepository.
                     GetUserCalendars(User.Identity.GetUserId()).ToList().FirstOrDefault());
             }
 
-            activeCalendar.calendarDateTime.GetDateTime();
+            newActiveCalendar.isActive = true;
+
+            return newActiveCalendar;
+        }
+
+        public ActionResult ShowPreviousMonth(int? id)
+        {
+            activeCalendar = SetCalendarAsActive(id);
+
             activeCalendar.calendarDateTime.ShowPreviousMonth();
             return PartialView("_CalendarMonthPartial", activeCalendar);
         }
 
         public ActionResult CalendarMonthPartial(int? id)
         {
-            if (id.HasValue)
-            {
-                activeCalendar = CalendarMapper.
-                    ToCalendarViewModel(CalendarDomainModel.calendarRepository.FindById(id.Value));
-            }
-            else
-            {
-                activeCalendar = CalendarMapper.ToCalendarViewModel(CalendarDomainModel.calendarRepository.
-                    GetUserCalendars(User.Identity.GetUserId()).ToList().FirstOrDefault());
-            }
+            activeCalendar = SetCalendarAsActive(id);
             return PartialView("_CalendarMonthPartial", activeCalendar);
         }
 
