@@ -31,7 +31,7 @@ namespace web_calendar.BL.DomainModels
         {
             List<CalendarEvent> events;
             if (id == null)
-                events = eventRepository.GetAllUserEvents(userId).Where(x => x.TimeBegin.CompareTo(DateTime.Now) >= 0).
+                events = eventRepository.GetAllUserEvents(userId).Where(x => x.TimeBegin.CompareTo(DateTime.Now.AddHours(-1)) >= 0).
                     OrderBy(x => x.TimeBegin).ToList();
             else
                 events = eventRepository.GetAllUserEvents(userId).Where(x => x.CalendarId == id &&
