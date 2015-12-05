@@ -152,6 +152,22 @@ namespace web_calendar.Controllers
             return View(eventViewModel);
         }
 
+        public ActionResult GetNotificationView(int id)
+        {
+            NotificationViewModel notificationVM = new NotificationViewModel();
+            notificationVM.Id = id;
+            notificationVM.MyPrefix = "Notifications[" + id + "]";
+            return PartialView("_EditNotification", notificationVM);
+        }
+
+        public ActionResult GetGuestView(int id)
+        {
+            GuestsEmail guestVM = new GuestsEmail();
+            guestVM.Id = id;
+            guestVM.MyPrefix = "Guests_" + id;
+            return PartialView("_EditGuest", guestVM);
+        }
+
         // GET: Event/Delete/5
         public ActionResult Delete(int id)
         {
