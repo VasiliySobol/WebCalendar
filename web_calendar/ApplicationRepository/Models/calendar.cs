@@ -26,6 +26,7 @@ namespace web_calendar.DAL.Models
         public Nullable<int> CalendarEvents { get; set; }
         public Nullable<byte> TimeZone { get; set; }
         public string UserId { get; set; }
+        public string ShowedDateTime { get; set; }
     
         public virtual ICollection<CalendarEvent> CalendarEvents1 { get; set; }
     }

@@ -12,7 +12,7 @@ namespace web_calendar.DAL.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class web_calendarEntities : DbContext
     {
         public web_calendarEntities()
