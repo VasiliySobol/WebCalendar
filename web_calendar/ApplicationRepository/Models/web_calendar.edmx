@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Calendar">
           <Key>
             <PropertyRef Name="Id" />
@@ -45,8 +45,6 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EventId" Type="int" />
-          <Property Name="RepetitionCount" Type="int" />
-          <Property Name="Interval" Type="int" />
           <Property Name="TimeBefore" Type="int" />
           <Property Name="KindOfNotification" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -142,8 +140,7 @@
             <End Role="Repeatable" EntitySet="Repeatable" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="web_calendarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -193,8 +190,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EventId" Type="Int32" />
-          <Property Name="RepetitionCount" Type="Int32" />
-          <Property Name="Interval" Type="Int32" />
           <Property Name="TimeBefore" Type="Int32" />
           <Property Name="KindOfNotification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CalendarEvent" Relationship="Self.FK_notification_event" FromRole="Notification" ToRole="CalendarEvent" />
@@ -340,8 +335,6 @@
               <MappingFragment StoreEntitySet="Notification">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="EventId" ColumnName="EventId" />
-                <ScalarProperty Name="RepetitionCount" ColumnName="RepetitionCount" />
-                <ScalarProperty Name="Interval" ColumnName="Interval" />
                 <ScalarProperty Name="TimeBefore" ColumnName="TimeBefore" />
                 <ScalarProperty Name="KindOfNotification" ColumnName="KindOfNotification" />
               </MappingFragment>

@@ -3,12 +3,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RepetitionCount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Interval)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.TimeBefore)
         </th>
         <th>
@@ -19,12 +13,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RepetitionCount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Interval)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.TimeBefore)
         </td>

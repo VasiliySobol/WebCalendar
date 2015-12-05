@@ -1,22 +1,6 @@
-﻿@model web_calendar.BL.ViewModels.NotificationSettingsViewModel
+﻿@model web_calendar.BL.ViewModels.NotificationViewModel
 
 <hr />
-        <div class="form-group">
-            @Html.LabelFor(model => model.RepetitionCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RepetitionCount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RepetitionCount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Interval, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Interval, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Interval, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.TimeBefore, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

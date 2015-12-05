@@ -16,8 +16,6 @@ namespace web_calendar.DAL.Models
     {
         public int Id { get; set; }
         public Nullable<int> EventId { get; set; }
-        public Nullable<int> RepetitionCount { get; set; }
-        public Nullable<int> Interval { get; set; }
         public Nullable<int> TimeBefore { get; set; }
         public string KindOfNotification { get; set; }
     

@@ -11,12 +11,6 @@ namespace web_calendar.BL.ViewModels
     {
         public int Id { get; set; }
 
-        [Display(Name = "Repetition count")]
-        public Nullable<int> RepetitionCount { get; set; }
-
-        [Display(Name = "Interval")]
-        public Nullable<int> Interval { get; set; }
-
         [Display(Name = "Time before event")]
         public Nullable<int> TimeBefore { get; set; }
 

@@ -143,9 +143,7 @@ namespace web_calendar.BL.Mappers
         public static Notification MapToNotification(NotificationViewModel notificationVM)
         {
             Notification notification = new Notification();
-            notification.Interval = notificationVM.Interval;
             notification.KindOfNotification = notificationVM.KindOfNotification;
-            notification.RepetitionCount = notificationVM.RepetitionCount;
             notification.TimeBefore = notificationVM.TimeBefore;
             return notification;
         }
@@ -173,9 +171,7 @@ namespace web_calendar.BL.Mappers
         {
             NotificationViewModel notificationVM = new NotificationViewModel();
             notificationVM.Id = notification.Id;
-            notificationVM.Interval = notification.Interval;
             notificationVM.KindOfNotification = notification.KindOfNotification;
-            notificationVM.RepetitionCount = notification.RepetitionCount;
             notificationVM.TimeBefore = notification.TimeBefore;
             return notificationVM;
         }
