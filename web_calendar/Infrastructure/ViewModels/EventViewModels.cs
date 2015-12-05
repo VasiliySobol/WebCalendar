@@ -142,6 +142,8 @@ namespace web_calendar.BL.ViewModels
         public SelectList CalendarItems { get; set; }
 
         public int LastNotificationIndex { get; set; }
+
+        public int LastGuestIndex { get; set; }
     }
 
     public class GuestsEmail
