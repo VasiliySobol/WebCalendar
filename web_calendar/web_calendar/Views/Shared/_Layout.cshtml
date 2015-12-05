@@ -33,7 +33,7 @@
                             <ul class="dropdown-menu">
                                 <li>@Ajax.ActionLink("Calendar", "Create", "Calendar", new AjaxOptions { UpdateTargetId = "mainWindow" })</li>
                                 <li role="separator" class="divider"></li>
-                                <li>@Ajax.ActionLink("Event", "Create", "Event", new AjaxOptions { UpdateTargetId = "mainWindow" })</li>
+                                <li>@Html.ActionLink("Event", "Create", "Event")</li>
                             </ul>
                         </li>
                     }

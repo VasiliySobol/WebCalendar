@@ -67,12 +67,19 @@ namespace web_calendar.Controllers
         }
 
         // GET: Event/Create
-        public PartialViewResult Create()
+        public ActionResult Create()
         {
             string userId = User.Identity.GetUserId();
             CreateEventViewModel eventViewModel = new CreateEventViewModel();
             eventDomainModel.PopulateCalendarSelectList(ref eventViewModel, userId);
-            return PartialView("Create", eventViewModel);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(eventViewModel);
+            }
+            else
+            {
+                return View(eventViewModel);
+            }
         }
 
         // POST: Event/Create
