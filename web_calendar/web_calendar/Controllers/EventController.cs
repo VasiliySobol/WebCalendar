@@ -42,10 +42,17 @@ namespace web_calendar.Controllers
         }
 
         // GET: Event/Schedule/2
-        public PartialViewResult Schedule(int? id)
+        public ActionResult Schedule(int? id)
         {
             string userId = User.Identity.GetUserId();
-            return PartialView("Schedule", eventDomainModel.GetFollowingEvents(id, userId));
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("Schedule", eventDomainModel.GetFollowingEvents(id, userId));
+            }
+            else
+            {
+                return View("Schedule", eventDomainModel.GetFollowingEvents(id, userId));
+            }
         }
 
         // GET: Event/Details/5

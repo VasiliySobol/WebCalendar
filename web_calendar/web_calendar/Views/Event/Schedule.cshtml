@@ -52,9 +52,9 @@
             @Html.DisplayFor(modelItem => item.CalendarName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Ajax.ActionLink(" ", "Edit", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "glyphicon glyphicon-edit" })
+            @Ajax.ActionLink(" ", "Details", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "glyphicon glyphicon-eye-open" })                                              
+            @Ajax.ActionLink(" ", "Delete", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "glyphicon glyphicon-remove" })
         </td>
     </tr>
 }

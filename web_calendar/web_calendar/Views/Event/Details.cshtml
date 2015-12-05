@@ -4,12 +4,11 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Event details</h2>
 
 <div>
-    <h4>Event</h4>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        @Ajax.ActionLink("Edit", "Edit", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "mainWindow" })
     </p>
     <hr />
     <dl class="dl-horizontal">

@@ -4,7 +4,6 @@
     ViewBag.Title = "Calendar";
 }
 
-<div id="mainWindow">
     <div class="navigationCalendarContainer">
         <div class="rightNav">
             <div id="navDay" style="display: none;">
@@ -15,12 +14,12 @@
             <div id="navWeek" style="display: none;">
                 @Ajax.ActionLink("<", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
                 @Ajax.ActionLink(">", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-                <text id="weekTitle">Week</text>
+                <text id="weekTitle">@web_calendar.Controllers.CalendarController.currentWeek</text>
             </div>
             <div id="navMonth" style="display: block;">
                 @Ajax.ActionLink("<", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
                 @Ajax.ActionLink(">", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-                <text id="monthTitle">Month</text>
+                <text id="monthTitle">@web_calendar.Controllers.CalendarController.currentMonth</text>
             </div>
         </div>
 
@@ -76,4 +75,3 @@
             @Html.Action("CalendarMonthPartial", new { id = Model.FirstOrDefault().id })
         </div>
     </div>
-</div>

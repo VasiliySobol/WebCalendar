@@ -17,16 +17,22 @@ namespace web_calendar.Controllers
 {
     [Authorize]
     public class CalendarController : Controller
-    {        
+    {
         private static DateTime currentDate = DateTime.Now;
         private static string[] monthNames = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+
         public static string currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();
+        public static string currentWeek = monthNames[currentDate.Month - 1] + " " +
+            (currentDate.Day - (int)currentDate.DayOfWeek + 2) + " - " +
+            (currentDate.Day + (7 - (int)currentDate.DayOfWeek) + 1);
+
+        public static string currentMonth = monthNames[currentDate.Month - 1];
 
         public CalendarController(ICalendarRepository _calendarRepository, IEventRepository _eventRepository)
         {
             CalendarDomainModel.calendarRepository = _calendarRepository;
         }
-        
+
         [HttpPost]
         public ActionResult CalendarList()
         {
@@ -37,11 +43,18 @@ namespace web_calendar.Controllers
                 list.Add(CalendarMapper.ToCalendarViewModel(item));
             }
             return PartialView(list);
-        }        
+        }
 
-        public PartialViewResult Create()
+        public ActionResult Create()
         {
-            return PartialView("Create");
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView();
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]
@@ -61,10 +74,17 @@ namespace web_calendar.Controllers
             }
         }
 
-        public PartialViewResult Edit(int id)
+        public ActionResult Edit(int id)
         {
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id);
-            return PartialView("Edit", CalendarMapper.ToCalendarViewModel(calendar));
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView(CalendarMapper.ToCalendarViewModel(calendar));
+            }
+            else
+            {
+                return View(CalendarMapper.ToCalendarViewModel(calendar));
+            }
         }
 
         [HttpPost]
@@ -101,7 +121,7 @@ namespace web_calendar.Controllers
         {
             if (!string.IsNullOrEmpty(Day))
             {
-                currentDate = Convert.ToDateTime(Day);                
+                currentDate = Convert.ToDateTime(Day);
             }
             if (offset != 0) currentDate = currentDate.AddDays(offset);
             currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();
@@ -118,7 +138,7 @@ namespace web_calendar.Controllers
             }
 
             List<CalendarEvent> dayEventList = new List<CalendarEvent>();
-            foreach(CalendarEvent calendarEvent in activeCalendar.CalendarEvents1)
+            foreach (CalendarEvent calendarEvent in activeCalendar.CalendarEvents1)
             {
                 if (calendarEvent.TimeBegin.DayOfYear == currentDate.DayOfYear)
                 {
