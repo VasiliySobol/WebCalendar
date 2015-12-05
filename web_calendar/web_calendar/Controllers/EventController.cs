@@ -122,7 +122,11 @@ namespace web_calendar.Controllers
                 return HttpNotFound();
             }
             CreateEventViewModel eventViewModel = eventDomainModel.GetEditEventViewModel(calendarEvent);
-            eventDomainModel.PopulateCalendarSelectList(ref eventViewModel, userId, calendarEvent.Id);
+            eventViewModel.CalendarItems = new SelectList(
+                calendarRepository.GetUserCalendars(userId).Select(
+                x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList(), "Value", "Text",
+                calendarEvent.CalendarId.ToString());
+            eventViewModel.SelectedCalendarId = calendarEvent.CalendarId.Value;
             return View(eventViewModel);
         }
 
@@ -148,7 +152,12 @@ namespace web_calendar.Controllers
                         break;
                 }
             }
-            eventDomainModel.PopulateCalendarSelectList(ref eventViewModel, userId, calendarId);
+            eventViewModel.CalendarItems = new SelectList(
+                calendarRepository.GetUserCalendars(userId).Select(
+                x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToList(), "Value", "Text",
+                calendarId);
+            eventViewModel.CalendarItems.First().Selected = true;
+            eventViewModel.SelectedCalendarId = calendarId;
             return View(eventViewModel);
         }
 
