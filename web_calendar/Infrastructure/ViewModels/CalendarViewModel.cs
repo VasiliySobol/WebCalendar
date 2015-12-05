@@ -30,8 +30,6 @@ namespace web_calendar.BL.ViewModels
 
         public string CSSHeadColor { get; set; }
 
-        public bool isActive { get; set; }
-
         public CalendarDateTime calendarDateTime { get; set; }
 
         [HiddenInput(DisplayValue = false)]
