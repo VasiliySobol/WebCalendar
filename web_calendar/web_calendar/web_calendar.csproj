@@ -361,6 +361,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\Calendar\CalendarList.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
+    <Content Include="Views\Event\_EditGuest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationRepository\web_calendar.DAL.csproj">
