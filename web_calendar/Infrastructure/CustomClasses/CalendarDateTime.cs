@@ -22,9 +22,73 @@ namespace web_calendar.BL.CustomClasses
             return (int)currentMonthDateTime.DayOfWeek;
         }
 
-        public void SetDateTime(DateTime _dateTime)
+        public int GetYear()
         {
-            this.dateTime = _dateTime;
+            return dateTime.Year;
+        }
+
+        public string GetMonth()
+        {
+            string monthName = "";
+
+            switch (dateTime.Month)
+            {
+                case 1: { monthName = "January"; break; }
+                case 2: { monthName = "February"; break; }
+                case 3: { monthName = "March"; break; }
+                case 4: { monthName = "April"; break; }
+                case 5: { monthName = "May"; break; }
+                case 6: { monthName = "June"; break; }
+                case 7: { monthName = "July"; break; }
+                case 8: { monthName = "August"; break; }
+                case 9: { monthName = "September"; break; }
+                case 10: { monthName = "October"; break; }
+                case 11: { monthName = "November"; break; }
+                case 12: { monthName = "December"; break; }
+            }
+            return monthName;
+        }
+
+        public void SetDateTime(string _dateTime)
+        {
+            if (_dateTime == null)
+            {
+                _dateTime = DateTime.Now.ToString();
+            }
+
+            string[] dateAndTime = _dateTime.Split(' ');
+            string[] dateData = dateAndTime[0].Split('.');
+            string[] timeData = dateAndTime[1].Split(':');
+
+            this.dateTime = new DateTime(int.Parse(dateData[2]), int.Parse(dateData[1]), int.Parse(dateData[0]));
+        }
+
+        public void SetPrevDateTime(string _dateTime)
+        {
+            if (_dateTime == null)
+            {
+                _dateTime = DateTime.Now.ToString();
+            }
+
+            string[] dateAndTime = _dateTime.Split(' ');
+            string[] dateData = dateAndTime[0].Split('.');
+            string[] timeData = dateAndTime[1].Split(':');
+
+            this.dateTime = new DateTime(int.Parse(dateData[2]), int.Parse(dateData[1]) - 1, int.Parse(dateData[0]));
+        }
+
+        public void SetNextDateTime(string _dateTime)
+        {
+            if (_dateTime == null)
+            {
+                _dateTime = DateTime.Now.ToString();
+            }
+
+            string[] dateAndTime = _dateTime.Split(' ');
+            string[] dateData = dateAndTime[0].Split('.');
+            string[] timeData = dateAndTime[1].Split(':');
+
+            this.dateTime = new DateTime(int.Parse(dateData[2]), int.Parse(dateData[1]) + 1, int.Parse(dateData[0]));
         }
 
         public DateTime GetDateTime()
@@ -42,8 +106,18 @@ namespace web_calendar.BL.CustomClasses
             dateTime = new DateTime(dateTime.Year, dateTime.Month - 1, 1);
         }
 
-        public CalendarDateTime()
+        public CalendarDateTime(string _dateTime)
         {
+            if (_dateTime == null)
+            {
+                _dateTime = DateTime.Now.ToString();
+            }
+            
+            string[] dateAndTime = _dateTime.Split(' ');
+            string[] dateData = dateAndTime[0].Split('.');
+            string[] timeData = dateAndTime[1].Split(':');
+
+            this.dateTime = new DateTime(int.Parse(dateData[2]), int.Parse(dateData[1]), int.Parse(dateData[0]));
         }
     }
 }
