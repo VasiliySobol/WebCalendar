@@ -28,6 +28,8 @@ namespace web_calendar.Controllers
 
         public static string currentMonth = monthNames[currentDate.Month - 1];
 
+        CalendarViewModel activeCalendar;
+
         public CalendarController(ICalendarRepository _calendarRepository, IEventRepository _eventRepository)
         {
             CalendarDomainModel.calendarRepository = _calendarRepository;
@@ -155,7 +157,6 @@ namespace web_calendar.Controllers
 
         public ActionResult ShowPreviousMonth(int? id)
         {
-            CalendarViewModel activeCalendar;
             if (id.HasValue)
             {
                 activeCalendar = CalendarMapper.
@@ -166,13 +167,14 @@ namespace web_calendar.Controllers
                 activeCalendar = CalendarMapper.ToCalendarViewModel(CalendarDomainModel.calendarRepository.
                     GetUserCalendars(User.Identity.GetUserId()).ToList().FirstOrDefault());
             }
+
+            activeCalendar.calendarDateTime.GetDateTime();
             activeCalendar.calendarDateTime.ShowPreviousMonth();
             return PartialView("_CalendarMonthPartial", activeCalendar);
         }
 
         public ActionResult CalendarMonthPartial(int? id)
         {
-            CalendarViewModel activeCalendar;
             if (id.HasValue)
             {
                 activeCalendar = CalendarMapper.
