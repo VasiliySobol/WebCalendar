@@ -20,7 +20,11 @@ namespace web_calendar.DAL.Interface
 
         void Modify(T instance);
 
+        void Modify<M>(M instance) where M : class;
+
         void Delete(T instance);
+
+        void Delete<M>(M instance) where M : class;
 
         T FindFirst(Func<T, bool> filter);
 

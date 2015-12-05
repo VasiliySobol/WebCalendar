@@ -40,6 +40,10 @@ namespace web_calendar.DAL.Concrete
         {
             _entities.Entry(instance).State = EntityState.Modified;
         }
+        public virtual void Modify<M>(M instance) where M : class
+        {
+            _entities.Entry(instance).State = EntityState.Modified;
+        }
 
         public virtual T FindFirst(Func<T, bool> filter)
         {
@@ -64,6 +68,11 @@ namespace web_calendar.DAL.Concrete
         public virtual void Delete(T entity)
         {
             _entities.Set<T>().Remove(entity);
+        }
+
+        public void Delete<M>(M instance) where M : class
+        {
+            _entities.Set<M>().Remove(instance);
         }
 
         public virtual void SaveChanges()

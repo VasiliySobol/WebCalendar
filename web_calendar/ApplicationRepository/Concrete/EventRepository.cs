@@ -56,6 +56,16 @@ namespace web_calendar.DAL.Concrete
                     AddOther<Notification>(item);
                 }
         }
+        public void DeleteNotifications(int eventId, IEnumerable<Notification> notifications)
+        {
+            CalendarEvent calendarEvent = FindById(eventId);
+            if (calendarEvent != null)
+                foreach (Notification item in notifications)
+                {
+                    calendarEvent.Notifications.Remove(item);
+                    Delete(item);
+                }
+        }
 
         public bool IsRepeatable(CalendarEvent calendarEvent)
         {
