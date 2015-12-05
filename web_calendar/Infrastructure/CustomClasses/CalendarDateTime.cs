@@ -57,7 +57,7 @@ namespace web_calendar.BL.CustomClasses
             }
 
             string[] dateAndTime = _dateTime.Split(' ');
-            string[] dateData = dateAndTime[0].Split('.');
+            string[] dateData = dateAndTime[0].Split('.', '/');
             string[] timeData = dateAndTime[1].Split(':');
 
             this.dateTime = new DateTime(int.Parse(dateData[2]), int.Parse(dateData[1]), int.Parse(dateData[0]));
@@ -71,7 +71,7 @@ namespace web_calendar.BL.CustomClasses
             }
 
             string[] dateAndTime = _dateTime.Split(' ');
-            string[] dateData = dateAndTime[0].Split('.');
+            string[] dateData = dateAndTime[0].Split('.', '/');
             string[] timeData = dateAndTime[1].Split(':');
 
             this.dateTime = new DateTime(int.Parse(dateData[2]), int.Parse(dateData[1]) - 1, int.Parse(dateData[0]));
