@@ -94,25 +94,10 @@
                        HtmlFieldPrefix = "repeatableSettings"
                    }
            })
-
-        @Html.Label("Notifications:")
-        <table>
-            <thead>
-                <tr>
-                    <td>
-                        Time before event
-                    </td>
-                    <td>
-                        Kind of notification
-                    </td>
-                </tr>
-            </thead>
-            <tbody id="tbNotifications"></tbody>
+                
+        <table id="notificationsList">
         </table>
-        <div>
-            <input id="btnAddNotification" type="button" onclick="addRow();" value="Add Notification" />
-        </div>
-        <hr />
+        <input id="addNotification" type="button" class="btn btn-default" value="Add new notification" />
 
         <hr />
         @Html.Label("Guests:")
@@ -147,9 +132,9 @@
         var arr = document.getElementById("DateBegin").value.split("/");
         document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
         document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
-    </script>
+    
+        var index = 0;
 
-    <script language="javascript" type="text/javascript">
         function changeDate() {
             var arr = document.getElementById("DateBegin").value.split("/");
             document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
@@ -178,31 +163,28 @@
             if (document.getElementById("sunday").checked == 1)
                 document.getElementById("repeatableSettings_DaysOfWeek").value += '7';
         }
+        
 
-        function addRow() {
-            @{
-                Model.Notifications.Add(new web_calendar.BL.ViewModels.NotificationViewModel());
-            }
+        $('#addNotification').click(function () {
+            $.ajax({
+                async: false,
+                url: '/Event/GetNotificationView/' + index
+            }).success(function (partialView) {
+                @{
+                    Model.Notifications.Add(new web_calendar.BL.ViewModels.NotificationViewModel());
+                }
+                $('#notificationsList').append('<tr id="row' + index + '">' + '<td>' +
+                    '<input name="Notifications.Index" type="hidden" value="' + index + '" />' +
+                    partialView + '</td><td><input id="removeNotification' + index + '" onclick="removeNotification('
+                    + index + ')" type="button" class="btn btn-default" value="Remove"/></td></tr>');
+                index++;
+            });
 
-            var index = $("#tbNotifications").children("tr").length;
+        })
 
-            var indexCell = "<td style='display:none'><input name='Notifications.Index' type='hidden' value='"
-                + index + "' /></td>";
-            var timeBeforeCell = "<td><input id='Notifications_" + index + "__TimeBefore' name='Notifications[" + index
-                + "].TimeBefore' type='text' value='' /></td>";
-            var kindCell = "<td><input id='Notifications_" + index + "__KindOfNotification' name='Notifications[" + index
-                + "].KindOfNotification' type='text' value='' /></td>";
-            var removeCell = "<td><input id='btnAddNotification' type='button' value='Remove' onclick='removeRow("
-                + index + ");' /></td>";
-
-            var newRow = "<tr id='trNotification" + index + "'>" +
-                indexCell + timeBeforeCell + kindCell + removeCell + "</tr>";
-            $("#tbNotifications").append(newRow);
-        }
-
-        function removeRow(id) {
-            var controlToBeRemoved = "#trNotification" + id;
-            $(controlToBeRemoved).remove();
+        function removeNotification(id) {
+            var row = $('#row' + id);
+            row.remove();
         }
     
         function addGuest() {
