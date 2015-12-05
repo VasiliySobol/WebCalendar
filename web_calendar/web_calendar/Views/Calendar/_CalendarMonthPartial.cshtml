@@ -1,6 +1,8 @@
 ﻿@model web_calendar.BL.ViewModels.CalendarViewModel
 
 @Ajax.ActionLink("<", "ShowPreviousMonth", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+@Ajax.ActionLink(">", "ShowNextMonth", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+@Model.calendarDateTime.GetMonth() @Model.calendarDateTime.GetYear()
 
 <div class="calendarMonthTable">
     <div class="monthHead">
