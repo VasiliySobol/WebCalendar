@@ -56,12 +56,6 @@ namespace web_calendar.BL.ViewModels
         [Display(Name = "Name")]
         public string Name { get; set; }
 
-        [Display(Name = "Text")]
-        public string Text { get; set; }
-
-        [Display(Name = "Place")]
-        public string Place { get; set; }
-
         [Display(Name = "Begin time")]
         public System.DateTime TimeBegin { get; set; }
 
