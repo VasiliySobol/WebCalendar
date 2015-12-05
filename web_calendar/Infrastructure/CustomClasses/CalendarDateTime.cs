@@ -22,6 +22,11 @@ namespace web_calendar.BL.CustomClasses
             return (int)currentMonthDateTime.DayOfWeek;
         }
 
+        public void SetDateTime(DateTime _dateTime)
+        {
+            this.dateTime = _dateTime;
+        }
+
         public DateTime GetDateTime()
         {
             return dateTime;
@@ -39,7 +44,6 @@ namespace web_calendar.BL.CustomClasses
 
         public CalendarDateTime()
         {
-            dateTime = DateTime.Now;
         }
     }
 }
