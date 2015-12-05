@@ -100,22 +100,10 @@
         <input id="addNotification" type="button" class="btn btn-default" value="Add new notification" />
 
         <hr />
-        @Html.Label("Guests:")
-        <table>
-            <thead>
-                <tr>
-                    <td>
-                        Email
-                    </td>
-                </tr>
-            </thead>
-            <tbody id="tbGuests"></tbody>
+        <table id="guestsList">
         </table>
-        <div>
-            <input id="btnAddGuest" type="button" onclick="addGuest();" value="Add Guest" />
-        </div>
-        <hr />
-
+        <input id="addGuest" type="button" class="btn btn-default" value="Add new guest" />
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" onclick="SetRepeatable();" />
@@ -127,50 +115,50 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-        $('.datepicker').datepicker();
-        document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
+    $('.datepicker').datepicker();
+    document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
+    var arr = document.getElementById("DateBegin").value.split("/");
+    document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
+    document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
+
+    var index = 0;
+    var guestIndex = 0;
+
+    function changeDate() {
         var arr = document.getElementById("DateBegin").value.split("/");
         document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
         document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
-    
-        var index = 0;
+    }
 
-        function changeDate() {
-            var arr = document.getElementById("DateBegin").value.split("/");
-            document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
-            document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
-        }
+    function changeTime() {
+        document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
+    }
 
-        function changeTime() {
-            document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
-        }
+    function SetRepeatable() {
+        document.getElementById("repeatableSettings_Period").value = document.querySelector('.nav-pills .active').id;
+        document.getElementById("repeatableSettings_DaysOfWeek").value = "";
+        if (document.getElementById("monday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '1';
+        if (document.getElementById("tuesday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '2';
+        if (document.getElementById("wednesday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '3';
+        if (document.getElementById("thursday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '4';
+        if (document.getElementById("friday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '5';
+        if (document.getElementById("saturday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '6';
+        if (document.getElementById("sunday").checked == 1)
+            document.getElementById("repeatableSettings_DaysOfWeek").value += '7';
+    }
 
-        function SetRepeatable() {
-            document.getElementById("repeatableSettings_Period").value = document.querySelector('.nav-pills .active').id;
-            document.getElementById("repeatableSettings_DaysOfWeek").value = "";
-            if (document.getElementById("monday").checked == 1)
-                document.getElementById("repeatableSettings_DaysOfWeek").value += '1';
-            if (document.getElementById("tuesday").checked == 1)
-                document.getElementById("repeatableSettings_DaysOfWeek").value += '2';
-            if (document.getElementById("wednesday").checked == 1)
-                document.getElementById("repeatableSettings_DaysOfWeek").value += '3';
-            if (document.getElementById("thursday").checked == 1)
-                document.getElementById("repeatableSettings_DaysOfWeek").value += '4';
-            if (document.getElementById("friday").checked == 1)
-                document.getElementById("repeatableSettings_DaysOfWeek").value += '5';
-            if (document.getElementById("saturday").checked == 1)
-                document.getElementById("repeatableSettings_DaysOfWeek").value += '6';
-            if (document.getElementById("sunday").checked == 1)
-                document.getElementById("repeatableSettings_DaysOfWeek").value += '7';
-        }
-        
-
-        $('#addNotification').click(function () {
-            $.ajax({
-                async: false,
-                url: '/Event/GetNotificationView/' + index
-            }).success(function (partialView) {
-                @{
+    $('#addNotification').click(function () {
+        $.ajax({
+            async: false,
+            url: '/Event/GetNotificationView/' + index
+        }).success(function (partialView) {
+            @{
                     Model.Notifications.Add(new web_calendar.BL.ViewModels.NotificationViewModel());
                 }
                 $('#notificationsList').append('<tr id="row' + index + '">' + '<td>' +
@@ -186,29 +174,27 @@
             var row = $('#row' + id);
             row.remove();
         }
-    
-        function addGuest() {
-            @{
-                Model.Guests.Add(new web_calendar.BL.ViewModels.GuestsEmail());
-            }
 
-            var index = $("#tbGuests").children("tr").length;
+        $('#addGuest').click(function () {
+            $.ajax({
+                async: false,
+                url: '/Event/GetGuestView/' + guestIndex
+            }).success(function (partialView) {
+                @{
+                    Model.Guests.Add(new web_calendar.BL.ViewModels.GuestsEmail());
+                }
+                $('#guestsList').append('<tr id="guestrow' + guestIndex + '">' + '<td>' +
+                    '<input name="Guest.Index" type="hidden" value="' + guestIndex + '" />' +
+                    partialView + '</td><td><input id="removeGuest' + guestIndex + '" onclick="removeGuest('
+                    + guestIndex + ')" type="button" class="btn btn-default" value="Remove"/></td></tr>');
+                guestIndex++;
+            });
 
-            var indexCell = "<td style='display:none'><input name='Guests.Index' type='hidden' value='"
-                + index + "' /></td>";
-            var emailCell = "<td><input id='Guests_" + index + "__Email' name='Guests[" + index
-                + "].Email' type='text' value='' /></td>";
-            var removeCell = "<td><input id='btnAddGuest' type='button' value='Remove' onclick='removeRow("
-                + index + ");' /></td>";
+        })
 
-            var newRow = "<tr id='trGuest" + index + "'>" +
-                indexCell + emailCell + removeCell + "</tr>";
-            $("#tbGuests").append(newRow);
-        }
-        
         function removeGuest(id) {
-            var controlToBeRemoved = "#trGuest" + id;
-            $(controlToBeRemoved).remove();
+            var guestrow = $('#guestrow' + id);
+            guestrow.remove();
         }
     </script>
 }
