@@ -22,6 +22,11 @@ namespace web_calendar.BL.CustomClasses
             return (int)currentMonthDateTime.DayOfWeek;
         }
 
+        public DateTime GetDateTime()
+        {
+            return dateTime;
+        }
+
         public int GetAmountOfDays()
         {
             return DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
