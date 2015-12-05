@@ -15,57 +15,64 @@
         </div>
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Text, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="col-md-12 col-xs-12">
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Place, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Place, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Place, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Place, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Place, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Place, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateBegin, htmlAttributes: new { @class = "control-label col-md-2", @type = "datetime" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.DateBegin, @"{0:MM/dd/yyyy}", new { @class = "datepicker form-control", @onchange = "changeDate()" })
-                @Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Text, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TimeBegin, htmlAttributes: new { @class = "control-label col-md-2", @type = "datetime" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeBegin, new { htmlAttributes = new { @class = "form-control", @onchange="changeTime()" } })
-                @Html.ValidationMessageFor(model => model.TimeBegin, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="col-md-6 col-xs-6">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.DateEnd, @"{0:MM/dd/yyyy}", new { @class = "datepicker form-control" })
-                @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TimeEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeEnd, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TimeEnd, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateBegin, htmlAttributes: new { @class = "control-label col-md-2", @type = "datetime" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.DateBegin, @"{0:MM/dd/yyyy}", new { @class = "datepicker form-control", @onchange = "changeDate()" })
+                        @Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TimeBegin, htmlAttributes: new { @class = "control-label col-md-2", @type = "datetime" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TimeBegin, new { htmlAttributes = new { @class = "form-control", @onchange = "changeTime()" } })
+                        @Html.ValidationMessageFor(model => model.TimeBegin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.DateEnd, @"{0:MM/dd/yyyy}", new { @class = "datepicker form-control" })
+                        @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TimeEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TimeEnd, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TimeEnd, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -94,107 +101,116 @@
                        HtmlFieldPrefix = "repeatableSettings"
                    }
            })
-                
-        <table id="notificationsList">
-        </table>
-        <input id="addNotification" type="button" class="btn btn-default" value="Add new notification" />
 
-        <hr />
-        <table id="guestsList">
-        </table>
-        <input id="addGuest" type="button" class="btn btn-default" value="Add new guest" />
-        
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" onclick="SetRepeatable();" />
+        <div class="col-md-12 col-xs-12">
+            <div class="col-md-6 col-xs-6">
+                <table id="notificationsList"></table>
+                <input id="addNotification" type="button" class="btn btn-default" value="Add new notification" />
+                <br />
+                <br />
+                <br />
+
+            </div>
+            <div class="col-md-6 col-xs-6">
+
+                <hr />
+                <table id="guestsList"></table>
+                <hr />
+                <input id="addGuest" type="button" class="btn btn-default" value="Add new guest" />
             </div>
         </div>
-    </div>
-}
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-    $('.datepicker').datepicker();
-    document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
-    var arr = document.getElementById("DateBegin").value.split("/");
-    document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
-    document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" onclick="SetRepeatable();" />
+                    </div>
+                </div>
+            </div>
+            }
 
-    var index = 0;
-    var guestIndex = 0;
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+                <script type="text/javascript">
+                    $('.datepicker').datepicker();
+                    document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
+                    var arr = document.getElementById("DateBegin").value.split("/");
+                    document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
+                    document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
 
-    function changeDate() {
-        var arr = document.getElementById("DateBegin").value.split("/");
-        document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
-        document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
-    }
+                    var index = 0;
+                    var guestIndex = 0;
 
-    function changeTime() {
-        document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
-    }
+                    function changeDate() {
+                        var arr = document.getElementById("DateBegin").value.split("/");
+                        document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
+                        document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
+                    }
 
-    function SetRepeatable() {
-        document.getElementById("repeatableSettings_Period").value = document.querySelector('.nav-pills .active').id;
-        document.getElementById("repeatableSettings_DaysOfWeek").value = "";
-        if (document.getElementById("monday").checked == 1)
-            document.getElementById("repeatableSettings_DaysOfWeek").value += '1';
-        if (document.getElementById("tuesday").checked == 1)
-            document.getElementById("repeatableSettings_DaysOfWeek").value += '2';
-        if (document.getElementById("wednesday").checked == 1)
-            document.getElementById("repeatableSettings_DaysOfWeek").value += '3';
-        if (document.getElementById("thursday").checked == 1)
-            document.getElementById("repeatableSettings_DaysOfWeek").value += '4';
-        if (document.getElementById("friday").checked == 1)
-            document.getElementById("repeatableSettings_DaysOfWeek").value += '5';
-        if (document.getElementById("saturday").checked == 1)
-            document.getElementById("repeatableSettings_DaysOfWeek").value += '6';
-        if (document.getElementById("sunday").checked == 1)
-            document.getElementById("repeatableSettings_DaysOfWeek").value += '7';
-    }
+                    function changeTime() {
+                        document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
+                    }
 
-    $('#addNotification').click(function () {
-        $.ajax({
-            async: false,
-            url: '/Event/GetNotificationView/' + index
-        }).success(function (partialView) {
-            @{
+                    function SetRepeatable() {
+                        document.getElementById("repeatableSettings_Period").value = document.querySelector('.nav-pills .active').id;
+                        document.getElementById("repeatableSettings_DaysOfWeek").value = "";
+                        if (document.getElementById("monday").checked == 1)
+                            document.getElementById("repeatableSettings_DaysOfWeek").value += '1';
+                        if (document.getElementById("tuesday").checked == 1)
+                            document.getElementById("repeatableSettings_DaysOfWeek").value += '2';
+                        if (document.getElementById("wednesday").checked == 1)
+                            document.getElementById("repeatableSettings_DaysOfWeek").value += '3';
+                        if (document.getElementById("thursday").checked == 1)
+                            document.getElementById("repeatableSettings_DaysOfWeek").value += '4';
+                        if (document.getElementById("friday").checked == 1)
+                            document.getElementById("repeatableSettings_DaysOfWeek").value += '5';
+                        if (document.getElementById("saturday").checked == 1)
+                            document.getElementById("repeatableSettings_DaysOfWeek").value += '6';
+                        if (document.getElementById("sunday").checked == 1)
+                            document.getElementById("repeatableSettings_DaysOfWeek").value += '7';
+                    }
+
+                    $('#addNotification').click(function () {
+                        $.ajax({
+                            async: false,
+                            url: '/Event/GetNotificationView/' + index
+                        }).success(function (partialView) {
+                            @{
                     Model.Notifications.Add(new web_calendar.BL.ViewModels.NotificationViewModel());
                 }
-                $('#notificationsList').append('<tr id="row' + index + '">' + '<td>' +
-                    '<input name="Notifications.Index" type="hidden" value="' + index + '" />' +
-                    partialView + '</td><td><input id="removeNotification' + index + '" onclick="removeNotification('
-                    + index + ')" type="button" class="btn btn-default" value="Remove"/></td></tr>');
-                index++;
-            });
+                            $('#notificationsList').append('<tr id="row' + index + '">' + '<td>' +
+                                '<input name="Notifications.Index" type="hidden" value="' + index + '" />' +
+                                partialView + '</td><td><input id="removeNotification' + index + '" onclick="removeNotification('
+                                + index + ')" type="button" class="btn btn-default" value="Remove"/></td></tr>');
+                            index++;
+                        });
 
-        })
+                    })
 
-        function removeNotification(id) {
-            var row = $('#row' + id);
-            row.remove();
-        }
+                    function removeNotification(id) {
+                        var row = $('#row' + id);
+                        row.remove();
+                    }
 
-        $('#addGuest').click(function () {
-            $.ajax({
-                async: false,
-                url: '/Event/GetGuestView/' + guestIndex
-            }).success(function (partialView) {
-                @{
+                    $('#addGuest').click(function () {
+                        $.ajax({
+                            async: false,
+                            url: '/Event/GetGuestView/' + guestIndex
+                        }).success(function (partialView) {
+                            @{
                     Model.Guests.Add(new web_calendar.BL.ViewModels.GuestsEmail());
                 }
-                $('#guestsList').append('<tr id="guestrow' + guestIndex + '">' + '<td>' +
-                    '<input name="Guest.Index" type="hidden" value="' + guestIndex + '" />' +
-                    partialView + '</td><td><input id="removeGuest' + guestIndex + '" onclick="removeGuest('
-                    + guestIndex + ')" type="button" class="btn btn-default" value="Remove"/></td></tr>');
-                guestIndex++;
-            });
+                            $('#guestsList').append('<tr id="guestrow' + guestIndex + '">' + '<td>' +
+                                '<input name="Guest.Index" type="hidden" value="' + guestIndex + '" />' +
+                                partialView + '</td><td><input id="removeGuest' + guestIndex + '" onclick="removeGuest('
+                                + guestIndex + ')" type="button" class="btn btn-default" value="Remove"/></td></tr>');
+                            guestIndex++;
+                        });
 
-        })
+                    })
 
-        function removeGuest(id) {
-            var guestrow = $('#guestrow' + id);
-            guestrow.remove();
-        }
-    </script>
-}
+                    function removeGuest(id) {
+                        var guestrow = $('#guestrow' + id);
+                        guestrow.remove();
+                    }
+                </script>
+            }

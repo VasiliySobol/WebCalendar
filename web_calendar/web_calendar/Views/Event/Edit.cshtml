@@ -6,8 +6,8 @@
 
 @using (Html.BeginForm("Edit", "Event", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()    
-    <div class="form-horizontal">        
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
         <div class="form-group">
             <br />
             <h3 class="control-label col-md-2" style="color: gray;">Edit event</h3>
@@ -17,57 +17,63 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <div class="col-md-12 col-xs-12">
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Text, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Place, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Place, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Place, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Place, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Place, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Place, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Text, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateBegin, htmlAttributes: new { @class = "control-label col-md-2", @type = "datetime" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.DateBegin, @"{0:MM/dd/yyyy}", new { @class = "datepicker form-control" })
-                @Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TimeBegin, htmlAttributes: new { @class = "control-label col-md-2", @type = "datetime" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeBegin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TimeBegin, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="col-md-6 col-xs-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateBegin, htmlAttributes: new { @class = "control-label col-md-2", @type = "datetime" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.DateBegin, @"{0:MM/dd/yyyy}", new { @class = "datepicker form-control" })
+                        @Html.ValidationMessageFor(model => model.DateBegin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TimeBegin, htmlAttributes: new { @class = "control-label col-md-2", @type = "datetime" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TimeBegin, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TimeBegin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.DateEnd, @"{0:MM/dd/yyyy}", new { @class = "datepicker form-control" })
-                @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.TimeEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TimeEnd, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TimeEnd, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DateEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.DateEnd, @"{0:MM/dd/yyyy}", new { @class = "datepicker form-control" })
+                        @Html.ValidationMessageFor(model => model.DateEnd, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TimeEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TimeEnd, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TimeEnd, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -80,7 +86,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.SelectedCalendarId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -98,31 +104,67 @@
                    }
            })
 
-        @Html.HiddenFor(model => model.LastNotificationIndex)
-        <table id="notificationsList">
-            @foreach (web_calendar.BL.ViewModels.NotificationViewModel item in Model.Notifications)
-            {
-                <tr id="@("row" + item.Id)">
-                    <td>
-                        <input name="Notifications.Index" type="hidden" value="@(item.Id)" />
-                        @Html.Partial("_EditNotification", item, new ViewDataDictionary()
+        <div class="col-md-12 col-xs-12">
+            <div class="col-md-6 col-xs-6">
+                @Html.HiddenFor(model => model.LastNotificationIndex)
+                <table id="notificationsList">
+                    @foreach (web_calendar.BL.ViewModels.NotificationViewModel item in Model.Notifications)
+                    {
+                        <tr id="@("row" + item.Id)">
+                            <td>
+                                <input name="Notifications.Index" type="hidden" value="@(item.Id)" />
+                                @Html.Partial("_EditNotification", item, new ViewDataDictionary()
                         {
                             TemplateInfo = new TemplateInfo()
                             {
                                 HtmlFieldPrefix = "Notifications[" + item.Id + "]"
                             }
                         })
-                    </td>
-                    <td>
-                        <input id="@("removeNotification" + item.Id)" onclick="@("removeNotification(" + item.Id + ")")"
-                               class="btn btn-default" type="button" value="Remove" />
-                    </td>
-                </tr>
-            }
-        </table>
-        <input id="addNotification" type="button" class="btn btn-default" value="Add new notification"/>
+                            </td>
+                            <td>
+                                <input id="@("removeNotification" + item.Id)" onclick="@("removeNotification(" + item.Id + ")")"
+                                       class="btn btn-default" type="button" value="Remove" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <input id="addNotification" type="button" class="btn btn-default" value="Add new notification" />
+                <br />
+                <br />
+                <br />
+
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <hr />
+                @Html.HiddenFor(model => model.LastGuestIndex)
+                <table id="guestsList">
+                    @foreach (web_calendar.BL.ViewModels.GuestsEmail item in Model.Guests)
+                    {
+                        <tr id="@("guestrow" + item.Id)">
+                            <td>
+                                <input name="Guests.Index" type="hidden" value="@(item.Id)" />
+                                @Html.Partial("_EditGuest", item, new ViewDataDictionary()
+                        {
+                            TemplateInfo = new TemplateInfo()
+                            {
+                                HtmlFieldPrefix = "Guests[" + item.Id + "]"
+                            }
+                        })
+                            </td>
+                            <td>
+                                <input id="@("removeGuest" + item.Id)" onclick="@("removeGuest(" + item.Id + ")")"
+                                       class="btn btn-default" type="button" value="Remove" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <hr />
+                <input id="addGuest" type="button" class="btn btn-default" value="Add new guest" />
+            </div>
+        </div>
+        <hr />
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" onclick="SetRepeatable();" />
             </div>
         </div>
@@ -143,6 +185,7 @@
     document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
     document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
     var index = $('#LastNotificationIndex').val();
+    var guestIndex = $('#LastGuestIndex').val();
 
     function changeDate() {
         var arr = document.getElementById("DateBegin").value.split("/");
@@ -156,7 +199,7 @@
 
     function SetRepeatable() {
         document.getElementById("repeatableSettings_Period").value = document.querySelector('.nav-pills .active').id;
-        document.getElementById("repeatableSettings_DaysOfWeek").value = "";
+            document.getElementById("repeatableSettings_DaysOfWeek").value = "";
         if (document.getElementById("monday").checked == 1)
             document.getElementById("repeatableSettings_DaysOfWeek").value += '1';
         if (document.getElementById("tuesday").checked == 1)
@@ -187,7 +230,6 @@
                 + index + ')" type="button" class="btn btn-default" value="Remove"/></td></tr>');
             index++;
         });
-
     })
 
     function removeNotification(id) {
@@ -195,6 +237,26 @@
         row.remove();
     }
 
-</script>
 
+    $('#addGuest').click(function () {
+        $.ajax({
+            async: false,
+            url: '/Event/GetGuestView/' + guestIndex
+        }).success(function (partialView) {
+            @{
+                Model.Guests.Add(new web_calendar.BL.ViewModels.GuestsEmail());
+            }
+            $('#guestsList').append('<tr id="guestrow' + guestIndex + '">' + '<td>' +
+                '<input name="Guests.Index" type="hidden" value="' + guestIndex + '" />' +
+                partialView + '</td><td><input id="removeGuest' + guestIndex + '" onclick="removeGuest('
+                + guestIndex + ')" type="button" class="btn btn-default" value="Remove"/></td></tr>');
+                guestIndex++;
+        });
+    })
+
+    function removeGuest(id) {
+        var guestrow = $('#guestrow' + id);
+        guestrow.remove();
+    }
+</script>
 }
