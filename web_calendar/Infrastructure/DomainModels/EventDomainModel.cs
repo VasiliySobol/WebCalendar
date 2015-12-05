@@ -150,67 +150,73 @@ namespace web_calendar.BL.DomainModels
                         repeatable.EventId = calendarEvent.Id;
                         repeatable.CalendarEvent = calendarEvent;
                         eventRepository.AddRepeatableSettings(calendarEvent.Id, repeatable);
-
-                        int[] steps = new int[0];
-                        int nextStep = 0;
-                        if (repeatable.Period == "week")
-                        {
-                            steps = new int[repeatable.DaysOfWeek.Length];
-                            //day = 1 if monday and so on
-                            int day = ((int)calendarEvent.TimeBegin.DayOfWeek == 0) ? 7 : (int)calendarEvent.TimeBegin.DayOfWeek;
-                            int stepIndex = 0, step = 1; char dayChar = (char)((int)'1' + day);
-                            do
-                            {
-                                if (repeatable.DaysOfWeek.Contains(dayChar))
-                                {
-                                    steps[stepIndex++] = step;
-                                    step = 1;
-                                }
-                                else
-                                {
-                                    step++;
-                                }
-                                dayChar++;
-                                if (dayChar == '8') dayChar = '1';
-                            } while (stepIndex < repeatable.DaysOfWeek.Length);
-                        }
-                        for (int i = 0; i < repeatable.RepeatCount; i++)
-                        {
-                            CalendarEvent revent = new CalendarEvent();
-                            EventMapper.MapToEvent(ref revent, eventViewModel);
-                            revent.ParentEvent = calendarEvent.Id;
-                            switch (repeatable.Period)
-                            {
-                                case "day":
-                                    revent.TimeBegin = calendarEvent.TimeBegin.AddDays(i + 1);
-                                    break;
-                                case "week":
-                                    nextStep += steps[i % steps.Length];
-                                    revent.TimeBegin = calendarEvent.TimeBegin.AddDays(nextStep);
-                                    break;
-                                case "month":
-                                    revent.TimeBegin = calendarEvent.TimeBegin.AddMonths(i + 1);
-                                    break;
-                                case "year":
-                                    revent.TimeBegin = calendarEvent.TimeBegin.AddYears(i + 1);
-                                    break;
-                            }
-                            eventRepository.Add(revent);
-                            eventRepository.AddCalendar(revent.Id, calendarId);
-                            eventRepository.SaveChanges();
-                            if (calendarEvent.Notifications != null && calendarEvent.Notifications.Count > 0)
-                            {
-                                List<Notification> notifications = 
-                                    EventMapper.MapToNotifications(eventViewModel.Notifications);
-                                eventRepository.AddNotifications(revent.Id, notifications);
-                            }
-                            if (calendarEvent.Guests != null && calendarEvent.Guests.Count > 0)
-                                eventRepository.AddGuests(revent.Id,
-                                    eventViewModel.Guests.Select(x => x.Email).ToList());
-                        }
+                        
+                        SaveRepeatedEvents(repeatable, calendarEvent, eventViewModel, calendarId);
                     }
                 eventRepository.SaveChanges();
                 scope.Complete();
+            }
+        }
+
+        private void SaveRepeatedEvents(Repeatable repeatable, CalendarEvent calendarEvent, CreateEventViewModel eventViewModel,
+            int calendarId)
+        {
+            int[] steps = new int[0];
+            int nextStep = 0;
+            if (repeatable.Period == "week")
+            {
+                steps = new int[repeatable.DaysOfWeek.Length];
+                //day = 1 if monday and so on
+                int day = ((int)calendarEvent.TimeBegin.DayOfWeek == 0) ? 7 : (int)calendarEvent.TimeBegin.DayOfWeek;
+                int stepIndex = 0, step = 1; char dayChar = (char)((int)'1' + day);
+                do
+                {
+                    if (repeatable.DaysOfWeek.Contains(dayChar))
+                    {
+                        steps[stepIndex++] = step;
+                        step = 1;
+                    }
+                    else
+                    {
+                        step++;
+                    }
+                    dayChar++;
+                    if (dayChar == '8') dayChar = '1';
+                } while (stepIndex < repeatable.DaysOfWeek.Length);
+            }
+            for (int i = 0; i < repeatable.RepeatCount; i++)
+            {
+                CalendarEvent revent = new CalendarEvent();
+                EventMapper.MapToEvent(ref revent, eventViewModel);
+                revent.ParentEvent = calendarEvent.Id;
+                switch (repeatable.Period)
+                {
+                    case "day":
+                        revent.TimeBegin = calendarEvent.TimeBegin.AddDays(i + 1);
+                        break;
+                    case "week":
+                        nextStep += steps[i % steps.Length];
+                        revent.TimeBegin = calendarEvent.TimeBegin.AddDays(nextStep);
+                        break;
+                    case "month":
+                        revent.TimeBegin = calendarEvent.TimeBegin.AddMonths(i + 1);
+                        break;
+                    case "year":
+                        revent.TimeBegin = calendarEvent.TimeBegin.AddYears(i + 1);
+                        break;
+                }
+                eventRepository.Add(revent);
+                eventRepository.AddCalendar(revent.Id, calendarId);
+                eventRepository.SaveChanges();
+                if (calendarEvent.Notifications != null && calendarEvent.Notifications.Count > 0)
+                {
+                    List<Notification> notifications =
+                        EventMapper.MapToNotifications(eventViewModel.Notifications);
+                    eventRepository.AddNotifications(revent.Id, notifications);
+                }
+                if (calendarEvent.Guests != null && calendarEvent.Guests.Count > 0)
+                    eventRepository.AddGuests(revent.Id,
+                        eventViewModel.Guests.Select(x => x.Email).ToList());
             }
         }
 
@@ -247,28 +253,53 @@ namespace web_calendar.BL.DomainModels
                 eventRepository.SaveChanges();
                 eventRepository.AddGuests(calendarEvent.Id, newGuests.Select(x => x.Email).ToList());
 
-                //if (eventViewModel.repeatableSettings.IfRepeatable)
-                //{
-                //    Repeatable repeatable = eventRepository.GetRepeatableSettings(id);
-                //    if (repeatable != null)
-                //    {
-                //        eventRepository.DeleteAllChildrenEvents(id);
-                //        EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
-                //        //add logic
-                //    }
-                //    else
-                //    {
-                //        repeatable = new Repeatable();
-                //        EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
-                //        repeatable.EventId = calendarEvent.Id;
-                //        repeatable.CalendarEvent = calendarEvent;
-                //        //add logic
-                //        eventRepository.AddRepeatableSettings(id, repeatable);
-                //    }
-                //}
+                if (eventViewModel.repeatableSettings.IfRepeatable)
+                {
+                    Repeatable repeatable = eventRepository.GetRepeatableSettings(id);
+                    if (repeatable != null)
+                    {
+                        if (!IsEqual(repeatable, EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, calendarEvent)))
+                        {
+                            EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
+                            eventRepository.DeleteAllChildrenEvents(id);
+                            SaveRepeatedEvents(repeatable, calendarEvent, eventViewModel, calendarId);
+                        }
+                    }
+                    else
+                    {
+                        repeatable = new Repeatable();
+                        EventMapper.MapToRepeatable(eventViewModel.repeatableSettings, ref repeatable, calendarEvent);
+                        repeatable.EventId = calendarEvent.Id;
+                        repeatable.CalendarEvent = calendarEvent;
+                        eventRepository.AddRepeatableSettings(id, repeatable);
+                        SaveRepeatedEvents(repeatable, calendarEvent, eventViewModel, calendarId);
+                    }
+                }
                 eventRepository.SaveChanges();
                 scope.Complete();
             }
+        }
+
+        private bool IsEqual(Repeatable r1, Repeatable r2)
+        {
+            if (r1.RepeatCount != r2.RepeatCount) return false;
+            if (r1.Period != r2.Period) return false;
+            switch (r1.Period)
+            {
+                case "day":
+                    if (r1.TimeOfDay != r2.TimeOfDay) return false;
+                    break;
+                case "week":
+                    if (r1.DaysOfWeek != r2.DaysOfWeek) return false;
+                    break;
+                case "month":
+                    if (r1.DayOfMonth != r2.DayOfMonth) return false;
+                    break;
+                case "year":
+                    if (r1.DayOfYear != r2.DayOfYear) return false;
+                    break;
+            }
+            return true;
         }
     }
 }
