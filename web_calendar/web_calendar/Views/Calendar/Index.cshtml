@@ -4,74 +4,76 @@
     ViewBag.Title = "Calendar";
 }
 
-    <div class="navigationCalendarContainer">
-        <div class="rightNav">
-            <!--<div id="navDay" style="display: none;">
-                Ajax.ActionLink("<", "CalendarDayPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" }, htmlAttributes: new { id = "nextDay" })
-                Ajax.ActionLink(">", "CalendarDayPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" }, htmlAttributes: new { id = "prevDay" })
-                <text id="dayTitle">web_calendar.Controllers.CalendarController.currentDay</text>
+<div class="navigationCalendarContainer">
+    <div class="rightNav">
+        @*
+            <div id="navDay" style="display: none;">
+                @Ajax.ActionLink("<", "CalendarDayPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" }, htmlAttributes: new { id = "prevDay" })
+                @Ajax.ActionLink(">", "CalendarDayPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" }, htmlAttributes: new { id = "nextDay" })
+                <text id="dayTitle">@web_calendar.Controllers.CalendarController.currentDay</text>
             </div>
             <div id="navWeek" style="display: none;">
-                Ajax.ActionLink("<", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-                Ajax.ActionLink(">", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-                <text id="weekTitle">web_calendar.Controllers.CalendarController.currentWeek</text>
+                @Ajax.ActionLink("<", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                @Ajax.ActionLink(">", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                <text id="weekTitle">@web_calendar.Controllers.CalendarController.currentWeek</text>
             </div>
             <div id="navMonth" style="display: block;">
-               Ajax.ActionLink("<", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-                Ajax.ActionLink(">", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-                <text id="monthTitle">web_calendar.Controllers.CalendarController.currentMonth</text>
-            </div>-->
-        </div>
-
-        <div class="leftNav">
-            @Ajax.ActionLink("Day", "CalendarDayPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-            @Ajax.ActionLink("Week", "CalendarWeekPartial", new AjaxOptions { UpdateTargetId = "calendarContainer" })
-            @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-            @Ajax.ActionLink("Schedule", "Schedule", "Event", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "mainWindow" })
-        </div>
+                @Ajax.ActionLink("<", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                @Ajax.ActionLink(">", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+                <text id="monthTitle">@web_calendar.Controllers.CalendarController.currentMonth</text>
+            </div>
+        *@
     </div>
 
-    <div class="calendarWrapper">
-        <div class="miniCalendarContainer">
-            <div id="datetimepicker"></div>
-            <script type="text/javascript">
-                $("#prevDay").on("click", function() {
-                    $("#dayTitle").innerText = '@web_calendar.Controllers.CalendarController.currentDay';
-                });
-                $("#nextDay").on("click", function() {
-                    $("#dayTitle").innerText = '@web_calendar.Controllers.CalendarController.currentDay';
-                });
+    <div class="leftNav">
+        @Ajax.ActionLink("Day", "CalendarDayPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Ajax.ActionLink("Week", "CalendarWeekPartial", new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Html.ActionLink("Schedule", "Schedule", "Event", new {}, new { id = Model.FirstOrDefault().id })
+    </div>
+</div>
 
-                var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-                var dateObject;
-                $("#datetimepicker").datepicker(
-                    {
-                        inline: true
+<div class="calendarWrapper">
+    <div class="miniCalendarContainer">
+        <div id="datetimepicker"></div>
+        <script type="text/javascript">
+            $("#prevDay").on("click", function() {
+                $("#dayTitle").innerText = '@web_calendar.Controllers.CalendarController.currentDay';
+            });
+            $("#nextDay").on("click", function() {
+                $("#dayTitle").innerText = '@web_calendar.Controllers.CalendarController.currentDay';
+            });
+
+            var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+            var dateObject;
+            $("#datetimepicker").datepicker(
+                {
+                    inline: true
+                }
+            ).on("changeDate", function () {
+                dateObject = $("#datetimepicker").datepicker("getDate");
+                var dateString = dateObject.getDate() + "-" + (dateObject.getMonth() + 1) + "-" + dateObject.getFullYear();
+                document.getElementById("dayTitle").innerText = monthNames[dateObject.getMonth()] + " " +dateObject.getDate();
+                var model = @Html.Raw(Json.Encode(Model));
+                $.ajax({
+                    url: '@Url.Action("CalendarDayPartial", "Calendar")',
+                    type: "get",
+
+                    data: {id : model[0].id, Day: dateString},
+                    success: function(data) {
+                        document.getElementById("calendarContainer").innerHTML = data;
+                        setColor(document.querySelectorAll(".calendarEvent"), "#333333");
+                        setColor(document.querySelectorAll(".dayBodyTd"), "#CCCCCC");
+                        setColor(document.querySelectorAll(".timeColTd"), "#666666");
+                        $(document).ready(setActiveNavigator("day"));
                     }
-                ).on("changeDate", function () {
-                    dateObject = $("#datetimepicker").datepicker("getDate");
-                    var dateString = dateObject.getDate() + "-" + (dateObject.getMonth() + 1) + "-" + dateObject.getFullYear();
-                    document.getElementById("dayTitle").innerText = monthNames[dateObject.getMonth()] + " " +dateObject.getDate();
-                    var model = @Html.Raw(Json.Encode(Model));
-        $.ajax({
-            url: '@Url.Action("CalendarDayPartial", "Calendar")',
-            type: "get",
-
-            data: {id : model[0].id, Day: dateString},
-            success: function(data) {
-                document.getElementById("calendarContainer").innerHTML = data;
-                setColor(document.querySelectorAll(".calendarEvent"), "#333333");
-                setColor(document.querySelectorAll(".dayBodyTd"), "#CCCCCC");
-                setColor(document.querySelectorAll(".timeColTd"), "#666666");
-                $(document).ready(setActiveNavigator("day"));
-            }
-        });
-    });
-</script>
-            @Html.Partial("CalendarList")
-        </div>
-
-        <div class="calendarContainer" id="calendarContainer">
-            @Html.Action("CalendarMonthPartial", new { id = Model.FirstOrDefault().id })
-        </div>
+                });
+            });
+        </script>
+        @Html.Partial("CalendarList")
     </div>
+
+    <div class="calendarContainer" id="calendarContainer">
+        @Html.Action("CalendarMonthPartial", new { id = Model.FirstOrDefault().id })
+    </div>
+</div>

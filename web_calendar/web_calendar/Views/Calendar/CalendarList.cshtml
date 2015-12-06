@@ -24,12 +24,12 @@
                         @Ajax.ActionLink(" ", "Edit", new { id = calendar.id }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "glyphicon glyphicon-edit" })                        
                         
                         @Ajax.ActionLink(" ", "Delete", new { id = calendar.id }, new AjaxOptions
-                                        {                                            
+                                        {
+                                            Confirm = "Are you sure you wish to delete this calendar?",
                                             UpdateTargetId = "mainWindow",
-                                        }, new { @class = "glyphicon glyphicon-remove",
-                                        onclick = "return confirm('Are you sure you wish to delete this calendar?');" })                                              
+                                        }, new { @class = "glyphicon glyphicon-remove" })                                              
 
-                        @Ajax.ActionLink(" ", "Schedule", "Event", new { id = calendar.id }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "glyphicon glyphicon-list-alt" })
+                        @Html.ActionLink(" ", "Schedule", "Event", new { id = calendar.id }, new { @class = "glyphicon glyphicon-list-alt" })
                     </td>
                 </tr>
             }

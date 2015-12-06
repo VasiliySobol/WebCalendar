@@ -33,19 +33,7 @@ namespace web_calendar.Controllers
         public CalendarController(ICalendarRepository _calendarRepository, IEventRepository _eventRepository)
         {
             CalendarDomainModel.calendarRepository = _calendarRepository;
-        }
-
-        [HttpPost]
-        public ActionResult CalendarList()
-        {
-            List<Calendar> allCalendars = CalendarDomainModel.calendarRepository.GetAll().ToList();
-            List<CalendarViewModel> list = new List<CalendarViewModel>();
-            foreach (Calendar item in allCalendars)
-            {
-                list.Add(CalendarMapper.ToCalendarViewModel(item));
-            }
-            return PartialView(list);
-        }
+        }       
 
         public ActionResult Create()
         {
@@ -128,35 +116,16 @@ namespace web_calendar.Controllers
             return View(CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId()));
         }
 
-        public PartialViewResult CalendarDayPartial(int? id, string Day, int offset = 0)
+        public PartialViewResult CalendarDayPartial(int id, string Day, int offset = 0)
         {
             if (!string.IsNullOrEmpty(Day))
             {
                 currentDate = Convert.ToDateTime(Day);
             }
             if (offset != 0) currentDate = currentDate.AddDays(offset);
-            currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();
-
-            Calendar activeCalendar;
-            if (id.HasValue)
-            {
-                activeCalendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
-            }
-            else
-            {
-                activeCalendar = CalendarDomainModel.calendarRepository.
-                    GetUserCalendars(User.Identity.GetUserId()).ToList().FirstOrDefault();
-            }
-
-            List<CalendarEvent> dayEventList = new List<CalendarEvent>();
-            foreach (CalendarEvent calendarEvent in activeCalendar.CalendarEvents1)
-            {
-                if (calendarEvent.TimeBegin.DayOfYear == currentDate.DayOfYear)
-                {
-                    dayEventList.Add(calendarEvent);
-                }
-            }
-            return PartialView("_CalendarDayPartial", dayEventList);
+            currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();                       
+            
+            return PartialView("_CalendarDayPartial", CalendarDomainModel.GetCalendarEventDayList(id, currentDate));
         }
 
         public PartialViewResult CalendarWeekPartial()

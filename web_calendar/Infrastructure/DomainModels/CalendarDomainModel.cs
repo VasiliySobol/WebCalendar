@@ -109,5 +109,19 @@ namespace web_calendar.BL.DomainModels
         {
             return CalendarMapper.ToCalendarViewModel(calendarRepository.FindById(_id));
         }
+
+        public static List<CalendarEvent> GetCalendarEventDayList(int id, DateTime date)
+        {
+            Calendar activeCalendar = CalendarDomainModel.calendarRepository.FindById(id);
+            List<CalendarEvent> dayEventList = new List<CalendarEvent>();
+            foreach (CalendarEvent calendarEvent in activeCalendar.CalendarEvents1)
+            {
+                if (calendarEvent.TimeBegin.DayOfYear == date.DayOfYear)
+                {
+                    dayEventList.Add(calendarEvent);
+                }
+            }
+            return dayEventList;
+        }
     }
 }

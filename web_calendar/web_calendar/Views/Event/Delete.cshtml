@@ -18,23 +18,7 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Text)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Place)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Place)
-        </dd>
-
+                
         <dt>
             @Html.DisplayNameFor(model => model.TimeBegin)
         </dt>
@@ -60,7 +44,6 @@
         </dd>  
 
 </dl>
-
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 

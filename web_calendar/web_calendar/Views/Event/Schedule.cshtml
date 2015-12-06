@@ -40,13 +40,12 @@
             @Html.DisplayFor(modelItem => item.CalendarName)
         </td>
         <td>
-            @Ajax.ActionLink(" ", "Edit", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "glyphicon glyphicon-edit" })
-            @Ajax.ActionLink(" ", "Details", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "glyphicon glyphicon-eye-open" })                                              
-            @Ajax.ActionLink(" ", "Delete", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "mainWindow" }, new { @class = "glyphicon glyphicon-remove" })
+            @Html.ActionLink(" ", "Edit", "Event", new { id = item.Id }, new { @class = "glyphicon glyphicon-edit" })
+            @Html.ActionLink(" ", "Details", "Event", new { id = item.Id }, new { @class = "glyphicon glyphicon-eye-open" })                                              
+            @Html.ActionLink(" ", "Delete", "Event", new { id = item.Id }, new { @class = "glyphicon glyphicon-remove" })
         </td>
     </tr>
 }
-
 </table>
 
 @section Scripts {
