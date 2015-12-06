@@ -123,5 +123,23 @@ namespace web_calendar.BL.DomainModels
             }
             return dayEventList;
         }
+
+        public static List<CalendarEvent> GetCalendarEventWeekList(int id, DateTime date)
+        {
+            Calendar activeCalendar = CalendarDomainModel.calendarRepository.FindById(id);
+            List<CalendarEvent> dayEventList = new List<CalendarEvent>();
+            int dayofweek = (int)date.DayOfWeek;
+            DateTime first = date.AddDays(-dayofweek);
+            DateTime seventh = date.AddDays(6 - dayofweek);
+            
+            foreach (CalendarEvent calendarEvent in activeCalendar.CalendarEvents1)
+            {
+                if (calendarEvent.TimeBegin.DayOfYear >= first.DayOfYear && calendarEvent.TimeBegin.DayOfYear <= seventh.DayOfYear)
+                {
+                    dayEventList.Add(calendarEvent);
+                }
+            }
+            return dayEventList;
+        }
     }
 }

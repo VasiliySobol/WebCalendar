@@ -1,4 +1,7 @@
-﻿<div class="calendarWeekTable">
+﻿@using web_calendar.DAL.Models
+@model IEnumerable<CalendarEvent>
+
+<div class="calendarWeekTable">
     <div class="fixedHeader">
         <div class="weekHeadRow">
             <div class="timeColTh"></div>
@@ -12,13 +15,22 @@
         </div>
         <div class="weekHeadRow">
             <div class="timeColTh"></div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
-            <div class="weekHeadTh">allday event here</div>
+            @for (int i = 0; i <= 6; i++)
+            {
+                <div class="weekHeadTh">
+                    @foreach (CalendarEvent calendarEvent in Model)
+                    {
+                        if (calendarEvent.AllDay.HasValue && calendarEvent.AllDay.Value)
+                        {
+                            if ((int)calendarEvent.TimeBegin.DayOfWeek == i)
+                            {
+                                @calendarEvent.Text;
+                                                   break;
+                            }
+                        }
+                    }
+                </div>
+            }
         </div>
     </div>
 
@@ -27,10 +39,27 @@
         {
             <div class="weekBodyRow">
                 <div class="timeColTd">@String.Format("{0:D2}:00", i)</div>
-                @for (int j = 1; j <= 7; j++)
+                @for (int j = 0; j <= 6; j++)
                 {
                     <div class="weekBodyTd">
-                        <div class="calendarEvent">event</div>
+                        @{
+                            bool flag = false;
+                            foreach (CalendarEvent calendarEvent in Model)
+                            {
+                                if ((int)calendarEvent.TimeBegin.DayOfWeek == j)
+                                {
+                                    if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
+                                    {
+                                        <div class="calendarEvent">@calendarEvent.Name;</div>
+                                        flag = true;
+                                    }
+                                }
+                            }
+                            if (!flag)
+                            {
+                                <div class="calendarEvent">@string.Empty</div>
+                            }
+                        }
                     </div>
                 }
             </div>

@@ -12,8 +12,8 @@
             <text id="dayTitle">@web_calendar.Controllers.CalendarController.currentDay</text>
         </div>
         <div id="navWeek" style="display: none;">
-            @Ajax.ActionLink("<", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-            @Ajax.ActionLink(">", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+            @Ajax.ActionLink("<", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = -7 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+            @Ajax.ActionLink(">", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = 7 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
             <text id="weekTitle">@web_calendar.Controllers.CalendarController.currentWeek</text>
         </div>
         <div id="navMonth" style="display: block;">
@@ -25,7 +25,7 @@
 
     <div class="leftNav">
         @Ajax.ActionLink("Day", "CalendarDayPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-        @Ajax.ActionLink("Week", "CalendarWeekPartial", new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Ajax.ActionLink("Week", "CalendarWeekPartial", new { id = Model.FirstOrDefault().id, offset = 0 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
         @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.FirstOrDefault().id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
         @Html.ActionLink("Schedule", "Schedule", "Event", new { }, new { id = Model.FirstOrDefault().id })
     </div>

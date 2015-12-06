@@ -23,8 +23,8 @@ namespace web_calendar.Controllers
 
         public static string currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();
         public static string currentWeek = monthNames[currentDate.Month - 1] + " " +
-            (currentDate.Day - (int)currentDate.DayOfWeek + 2) + " - " +
-            (currentDate.Day + (7 - (int)currentDate.DayOfWeek) + 1);
+            (currentDate.Day - (int)currentDate.DayOfWeek) + " - " +
+            (currentDate.Day + (6 - (int)currentDate.DayOfWeek));
 
         public static string currentMonth = monthNames[currentDate.Month - 1];
 
@@ -128,9 +128,15 @@ namespace web_calendar.Controllers
             return PartialView("_CalendarDayPartial", CalendarDomainModel.GetCalendarEventDayList(id, currentDate));
         }
 
-        public PartialViewResult CalendarWeekPartial()
+        public PartialViewResult CalendarWeekPartial(int id, int offset)
         {
-            return PartialView("_CalendarWeekPartial");
+            currentDate = currentDate.AddDays(offset);
+
+            currentWeek = monthNames[currentDate.Month - 1] + " " +
+                (currentDate.Day - (int)currentDate.DayOfWeek) + " - " +
+                (currentDate.Day + (6 - (int)currentDate.DayOfWeek));
+
+            return PartialView("_CalendarWeekPartial", CalendarDomainModel.GetCalendarEventWeekList(id, currentDate));
         }
 
         public CalendarViewModel SetCalendarAsActive(int? id)
