@@ -18,7 +18,7 @@ namespace web_calendar.Controllers
     [Authorize]
     public class CalendarController : Controller
     {
-        private static DateTime currentDate = DateTime.Now;
+        public static DateTime currentDate = DateTime.Now;
         private static string[] monthNames = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
         public static string currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();
