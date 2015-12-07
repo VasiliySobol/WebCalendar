@@ -29,6 +29,11 @@
         if (Model.calendarDateTime.GetAmountOfDays() == 28)
         {
             amountOfLines = 4;
+        }
+
+        if (Model.calendarDateTime.GetWeekDayNumberOfFirstMonthDay() >= 5)
+        {
+            amountOfLines = 6;
         }}
 
         @for (int i = 1; i <= amountOfLines; i++)

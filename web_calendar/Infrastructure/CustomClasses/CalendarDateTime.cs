@@ -101,11 +101,6 @@ namespace web_calendar.BL.CustomClasses
             return DateTime.DaysInMonth(dateTime.Year, dateTime.Month);
         }
 
-        public void ShowPreviousMonth()
-        {
-            dateTime = new DateTime(dateTime.Year, dateTime.Month - 1, 1);
-        }
-
         public CalendarDateTime(string _dateTime)
         {
             if (_dateTime == null)
