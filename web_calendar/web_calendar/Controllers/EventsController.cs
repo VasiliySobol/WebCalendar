@@ -47,6 +47,14 @@ namespace web_calendar.Controllers
             eventRepository.Add(CE);
             eventRepository.SaveChanges();
 
+            /*
+            var jsonSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            string json = jsonSerializer.Serialize(CEVM);            
+            var newUrl = this.Url.Link("Default", new
+            {
+                Controller = "Event",
+                Action = "CreateByRef/" + json
+            });*/
             var newUrl = this.Url.Link("Default", new
             {
                 Controller = "Event",

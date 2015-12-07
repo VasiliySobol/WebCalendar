@@ -20,6 +20,7 @@ using web_calendar.BL.ServerValidation;
 using web_calendar.Handlers;
 using System.Transactions;
 using web_calendar.BL.DomainModels;
+using Newtonsoft.Json;
 
 namespace web_calendar.Controllers
 {
@@ -111,6 +112,15 @@ namespace web_calendar.Controllers
             eventDomainModel.PopulateCalendarSelectList(ref eventViewModel, userId);
             return View(eventViewModel);
         }
+
+        /*
+        public ActionResult CreateByRef(string eventByRef)
+        {
+            CreateEventViewModel eventViewModel = JsonConvert.DeserializeObject<CreateEventViewModel>(eventByRef);           
+            string userId = User.Identity.GetUserId();
+            eventDomainModel.PopulateCalendarSelectList(ref eventViewModel, userId);
+            return View("Create",eventViewModel);
+        }*/
 
         // GET: Event/Edit/5
         public ActionResult Edit(int id)
