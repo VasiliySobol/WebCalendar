@@ -183,14 +183,14 @@
     document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
     var arr = document.getElementById("DateBegin").value.split("/");
     document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
-    document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
+    document.getElementById("repeatableSettings_DayOfMonth").value = arr[0];
     var index = $('#LastNotificationIndex').val();
     var guestIndex = $('#LastGuestIndex').val();
 
     function changeDate() {
         var arr = document.getElementById("DateBegin").value.split("/");
         document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
-        document.getElementById("repeatableSettings_DayOfMonth").value = arr[1];
+        document.getElementById("repeatableSettings_DayOfMonth").value = arr[0];
     }
 
     function changeTime() {
