@@ -74,7 +74,17 @@ namespace web_calendar.BL.CustomClasses
             string[] dateData = dateAndTime[0].Split('.', '/');
             string[] timeData = dateAndTime[1].Split(':');
 
-            this.dateTime = new DateTime(int.Parse(dateData[2]), int.Parse(dateData[1]) - 1, int.Parse(dateData[0]));
+            int prevDay = int.Parse(dateData[0]);
+            int prevMonth = int.Parse(dateData[1]) - 1;
+            int prevYear = int.Parse(dateData[2]);
+
+            if (prevMonth == 0)
+            {
+                prevYear--;
+                prevMonth = 12;
+            }
+
+            this.dateTime = new DateTime(prevYear, prevMonth, prevDay);
         }
 
         public void SetNextDateTime(string _dateTime)
@@ -88,7 +98,17 @@ namespace web_calendar.BL.CustomClasses
             string[] dateData = dateAndTime[0].Split('.','/');
             string[] timeData = dateAndTime[1].Split(':');
 
-            this.dateTime = new DateTime(int.Parse(dateData[2]), int.Parse(dateData[1]) + 1, int.Parse(dateData[0]));
+            int nextDay = int.Parse(dateData[0]);
+            int nextMonth = int.Parse(dateData[1]) + 1;
+            int nextYear = int.Parse(dateData[2]);
+
+            if (nextMonth == 13)
+            {
+                nextYear++;
+                nextMonth = 1;
+            }
+
+            this.dateTime = new DateTime(nextYear, nextMonth, nextDay);
         }
 
         public DateTime GetDateTime()

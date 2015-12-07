@@ -70,10 +70,15 @@
 
                 @for (int j = lineStartCellNumber; j <= lineEndCellNumber; j++)
                 {
-                    <div id="cellId@(counter)" class="monthBodyTd">
-                        <p>@dayNumber</p>
-                        @{counter++;
-                        dayNumber++;
+                    <div>
+                        @if (@dayNumber <= 31)
+                        {
+                            <div id="cellId@(counter)" class="monthBodyTd">
+                                <p>@dayNumber</p>
+                                @{counter++;
+                                dayNumber++;
+                                }
+                            </div>
                         }
                     </div>
                 }
