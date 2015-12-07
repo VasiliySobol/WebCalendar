@@ -27,6 +27,12 @@
 
     function addEventByReference() {
         var event = "{'name': 'eventbyref', 'text': 'event description', 'place': 'myplace'}";
+        $.post("http://localhost:1697/api/events", function (res) {
+  if(res.Success)
+    {
+    window.location.href=res.RedirectUrl;
+    }
+    }); 
         $.ajax({
             type: "post",
             url: "http://localhost:1697/api/events",
@@ -34,9 +40,9 @@
             data: event,
             xhrFields: {
                 withCredentials: true
-            },
-            success: function () {
-                alert("Event successfully added!");
+            },           
+            success: function (res) {
+                window.location.href = res.RedirectUrl;
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.responseText || textStatus);

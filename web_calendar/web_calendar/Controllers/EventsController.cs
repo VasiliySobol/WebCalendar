@@ -19,7 +19,7 @@ namespace web_calendar.Controllers
     [Authorize]
     public class EventsController : ApiController
     {
-        // GET: api/Events
+        // GET: api/Events       
         [HttpGet]
         public IEnumerable<DisplayEventViewModel> Get()
         {
@@ -34,16 +34,25 @@ namespace web_calendar.Controllers
             return list;
         }
 
-        // POST: api/Events        
+        // POST: api/Events   
         [HttpPost]
-        public void Post([FromBody]CreateEventViewModel CEVM)
-        {            
+        public HttpResponseMessage Post([FromBody]CreateEventViewModel CEVM)
+        {
+            
             EventRepository eventRepository = new EventRepository();
             var calendars = CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId());
-            CEVM.SelectedCalendarId = calendars.ElementAt(0).id;                        
+            CEVM.SelectedCalendarId = calendars.ElementAt(0).id;                 
+            
             var CE = EventMapper.MapToEvent(CEVM);
             eventRepository.Add(CE);
             eventRepository.SaveChanges();
+
+            var newUrl = this.Url.Link("Default", new
+            {
+                Controller = "Event",
+                Action = "Edit/" + CE.Id
+            });
+            return Request.CreateResponse(HttpStatusCode.OK, new { Success = true, RedirectUrl = newUrl});
         }
     }
 }
