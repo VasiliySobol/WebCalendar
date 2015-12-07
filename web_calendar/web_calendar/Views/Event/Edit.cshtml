@@ -179,7 +179,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script type="text/javascript">
-    $('.datepicker').datepicker();
+    $('.datepicker').datepicker({
+        dateFormat: 'dd/MM/yyyy',
+        showOn: "button"
+    });
     document.getElementById("repeatableSettings_TimeOfDay").value = document.getElementById("TimeBegin").value;
     var arr = document.getElementById("DateBegin").value.split("/");
     document.getElementById("repeatableSettings_DayOfYear").value = arr[0] + "/" + arr[1];
