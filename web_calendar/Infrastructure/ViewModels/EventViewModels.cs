@@ -100,7 +100,7 @@ namespace web_calendar.BL.ViewModels
 
         [Required(ErrorMessage = "Begin date is required.")]
         [Display(Name = "Begin date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.Date)]
         public System.DateTime DateBegin { get; set; }
 
@@ -110,7 +110,7 @@ namespace web_calendar.BL.ViewModels
         public System.DateTime? TimeEnd { get; set; }
 
         [Display(Name = "End date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.Date)]
         public System.DateTime? DateEnd { get; set; }
         
