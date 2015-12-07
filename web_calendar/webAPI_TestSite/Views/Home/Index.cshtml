@@ -27,12 +27,6 @@
 
     function addEventByReference() {
         var event = "{'name': 'eventbyref', 'text': 'event description', 'place': 'myplace'}";
-        $.post("http://localhost:1697/api/events", function (res) {
-  if(res.Success)
-    {
-    window.location.href=res.RedirectUrl;
-    }
-    }); 
         $.ajax({
             type: "post",
             url: "http://localhost:1697/api/events",
@@ -42,10 +36,10 @@
                 withCredentials: true
             },           
             success: function (res) {
-                window.location.href = res.RedirectUrl;
+                window.open(res.RedirectUrl, "_blank");
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                alert(jqXHR.responseText || textStatus);
+                window.open("http://localhost:1697/Account/Login", "_blank");
             }
         });       
     }
