@@ -15,6 +15,13 @@ namespace web_calendar.BL.Mappers
     {
         public static CalendarViewModel ToCalendarViewModel(Calendar calendar)
         {
+            List<DisplayEventViewModel> list = new List<DisplayEventViewModel>();
+
+            foreach (var item in calendar.CalendarEvents1)
+            {
+                list.Add(EventMapper.MapToDisplayEventVM(item));
+            }
+
             return new CalendarViewModel()
             {
                 calendarColor = Color.FromArgb(calendar.CalendarColor.Value),
@@ -26,6 +33,7 @@ namespace web_calendar.BL.Mappers
                 CSSMainColor = CalendarDomainModel.ColorToMainCSS(Color.FromArgb(calendar.CalendarColor.Value)),
                 CSSHeadColor = CalendarDomainModel.ColorToHeadCSS(Color.FromArgb(calendar.CalendarColor.Value)),
                 calendarDateTime = new CalendarDateTime(calendar.ShowedDateTime),
+                eventList = list,
             };
         }
 

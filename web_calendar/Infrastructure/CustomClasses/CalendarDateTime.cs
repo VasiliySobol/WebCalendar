@@ -27,7 +27,17 @@ namespace web_calendar.BL.CustomClasses
             return dateTime.Year;
         }
 
-        public string GetMonth()
+        public int GetMonth()
+        {
+            return dateTime.Month;
+        }
+
+        public int GetDay()
+        {
+            return dateTime.Day;
+        }
+
+        public string GetMonthName()
         {
             string monthName = "";
 

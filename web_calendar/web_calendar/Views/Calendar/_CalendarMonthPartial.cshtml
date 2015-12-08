@@ -2,7 +2,7 @@
 
 @Ajax.ActionLink("<", "ShowPreviousMonth", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
 @Ajax.ActionLink(">", "ShowNextMonth", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-@Model.calendarDateTime.GetMonth() @Model.calendarDateTime.GetYear()
+@Model.calendarDateTime.GetMonthName() @Model.calendarDateTime.GetYear()
 
 <div class="calendarMonthTable">
     <div class="monthHead">
@@ -74,7 +74,17 @@
                         @if (@dayNumber <= 31)
                         {
                             <div id="cellId@(counter)" class="monthBodyTd">
-                                <p>@dayNumber</p>
+                                <p>@dayNumber
+                                @foreach (var item in Model.eventList)
+                                {
+                                    <div>
+                                        @if ((item.TimeBegin.Day == dayNumber)&&(item.TimeBegin.Month == Model.calendarDateTime.GetMonth()))
+                                        {
+                                            <p>@item.Name</p>
+                                        }
+                                    </div>
+                                }
+                                </p>
                                 @{counter++;
                                 dayNumber++;
                                 }

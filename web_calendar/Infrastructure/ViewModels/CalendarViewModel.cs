@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
@@ -34,5 +35,7 @@ namespace web_calendar.BL.ViewModels
 
         [HiddenInput(DisplayValue = false)]
         public string userId { get; set; }
+
+        public List<DisplayEventViewModel> eventList { get; set; }
     }
 }
