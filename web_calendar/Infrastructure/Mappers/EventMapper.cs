@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using web_calendar.DAL.Models;
 using System.Drawing;
 using web_calendar.BL.DomainModels;
+using System.Globalization;
 
 namespace web_calendar.BL.Mappers
 {
@@ -30,12 +31,23 @@ namespace web_calendar.BL.Mappers
             calendarEvent.Name = eventVM.Name;
             calendarEvent.Text = eventVM.Text;
             calendarEvent.Place = eventVM.Place;
-            DateTime begin = new DateTime(eventVM.DateBegin.Year, eventVM.DateBegin.Month, eventVM.DateBegin.Day, eventVM.TimeBegin.Hour, eventVM.TimeBegin.Minute, eventVM.TimeBegin.Second);
+            string[] pattern = new string[] { "dd/MM/yyyy" };
+            DateTime begin;
+            if (DateTime.TryParseExact(eventVM.DateBegin.ToShortDateString(), pattern, null, DateTimeStyles.None, out begin))
+                begin = new DateTime(begin.Year, begin.Month, begin.Day,
+                    eventVM.TimeBegin.Hour, eventVM.TimeBegin.Minute, eventVM.TimeBegin.Second);
+            else
+                begin = DateTime.Now;
             calendarEvent.TimeBegin = begin;
             if (eventVM.TimeEnd.HasValue)
             {
-                DateTime end = new DateTime(eventVM.TimeEnd.Value.Year, eventVM.TimeEnd.Value.Month, eventVM.TimeEnd.Value.Day, eventVM.TimeEnd.Value.Hour, eventVM.TimeEnd.Value.Minute, eventVM.TimeEnd.Value.Second);
-                calendarEvent.TimeEnd = end;
+                DateTime end;
+                if (DateTime.TryParseExact(eventVM.TimeEnd.Value.ToShortDateString(), pattern, null, DateTimeStyles.None, out end))
+                {
+                    end = new DateTime(end.Year, end.Month, end.Day,
+                        eventVM.TimeEnd.Value.Hour, eventVM.TimeEnd.Value.Minute, eventVM.TimeEnd.Value.Second);
+                    calendarEvent.TimeEnd = end;
+                }
             }
             calendarEvent.AllDay = eventVM.AllDay;
         }
