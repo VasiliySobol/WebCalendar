@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web_calendar.BL", "Infrastr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webAPI_TestSite", "webAPI_TestSite\webAPI_TestSite.csproj", "{780221C9-0373-4805-B3E4-CEF7B1101051}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web_calendar.Infrastructure", "web_calendar.Infrastructure\web_calendar.Infrastructure.csproj", "{C8DE1D3F-A850-4CF0-9628-0042AC0C80CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{780221C9-0373-4805-B3E4-CEF7B1101051}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{780221C9-0373-4805-B3E4-CEF7B1101051}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{780221C9-0373-4805-B3E4-CEF7B1101051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8DE1D3F-A850-4CF0-9628-0042AC0C80CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DE1D3F-A850-4CF0-9628-0042AC0C80CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8DE1D3F-A850-4CF0-9628-0042AC0C80CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8DE1D3F-A850-4CF0-9628-0042AC0C80CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
