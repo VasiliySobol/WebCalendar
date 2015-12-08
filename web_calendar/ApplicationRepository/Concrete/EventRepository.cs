@@ -12,12 +12,12 @@ namespace web_calendar.DAL.Concrete
     {
         public IEnumerable<CalendarEvent> GetAllUserEvents(string userId)
         {
-            return FindAll(x => x.Calendar.UserId == userId).ToList();
+            return FindBy(x => x.Calendar.UserId == userId).ToList();
         }
 
         public Notification FindFirstNotification(int id, Func<Notification, bool> filter)
         {
-            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            CalendarEvent calendarEvent = FirstOrDefault(x => x.Id == id);
             if (calendarEvent != null && calendarEvent.Notifications != null)
             {
                 return calendarEvent.Notifications.FirstOrDefault(filter);
@@ -27,7 +27,7 @@ namespace web_calendar.DAL.Concrete
 
         public IEnumerable<Notification> FindAllNotifications(int id, Func<Notification, bool> filter)
         {
-            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            CalendarEvent calendarEvent = FirstOrDefault(x => x.Id == id);
             if (calendarEvent != null && calendarEvent.Notifications != null)
             {
                 return calendarEvent.Notifications.Where(filter).ToList();
@@ -37,7 +37,7 @@ namespace web_calendar.DAL.Concrete
 
         public IEnumerable<Notification> GetAllNotifications(int eventId)
         {
-            CalendarEvent calendarEvent = FindFirst(x => x.Id == eventId);
+            CalendarEvent calendarEvent = FirstOrDefault(x => x.Id == eventId);
             if (calendarEvent != null && calendarEvent.Notifications != null)
             {
                 return calendarEvent.Notifications.ToList();
@@ -74,7 +74,7 @@ namespace web_calendar.DAL.Concrete
 
         public Repeatable GetRepeatableSettings(int id)
         {
-            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            CalendarEvent calendarEvent = FirstOrDefault(x => x.Id == id);
             if (IsRepeatable(calendarEvent))
             {
                 return calendarEvent.Repeatables.FirstOrDefault();
@@ -91,7 +91,7 @@ namespace web_calendar.DAL.Concrete
 
         public Calendar GetCalendar(int id)
         {
-            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            CalendarEvent calendarEvent = FirstOrDefault(x => x.Id == id);
             if (calendarEvent != null && calendarEvent.CalendarId != null)
             {
                 return calendarEvent.Calendar;
@@ -112,7 +112,7 @@ namespace web_calendar.DAL.Concrete
 
         public void AddGuests(int eventId, List<string> emails)
         {
-            CalendarEvent calendarEvent = FindFirst(x => x.Id == eventId);
+            CalendarEvent calendarEvent = FirstOrDefault(x => x.Id == eventId);
             if (calendarEvent != null)
                 foreach (string email in emails)
                 {
@@ -138,7 +138,7 @@ namespace web_calendar.DAL.Concrete
 
         public Guest FindFirstGuest(int id, Func<Guest, bool> filter)
         {
-            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            CalendarEvent calendarEvent = FirstOrDefault(x => x.Id == id);
             if (calendarEvent != null && calendarEvent.Guests != null)
             {
                 return calendarEvent.Guests.FirstOrDefault(filter);
@@ -148,7 +148,7 @@ namespace web_calendar.DAL.Concrete
 
         public IEnumerable<Guest> FindAllGuests(int id, Func<Guest, bool> filter)
         {
-            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            CalendarEvent calendarEvent = FirstOrDefault(x => x.Id == id);
             if (calendarEvent != null && calendarEvent.Guests != null)
             {
                 return calendarEvent.Guests.Where(filter).ToList();
@@ -158,7 +158,7 @@ namespace web_calendar.DAL.Concrete
 
         public IEnumerable<Guest> GetAllGuests(int id)
         {
-            CalendarEvent calendarEvent = FindFirst(x => x.Id == id);
+            CalendarEvent calendarEvent = FirstOrDefault(x => x.Id == id);
             if (calendarEvent != null && calendarEvent.Guests != null)
             {
                 return calendarEvent.Guests.ToList();
@@ -168,7 +168,7 @@ namespace web_calendar.DAL.Concrete
 
         public void DeleteAllChildrenEvents(int parentId)
         {
-            foreach (CalendarEvent item in FindAll(x => x.ParentEvent == parentId).ToList())
+            foreach (CalendarEvent item in FindBy(x => x.ParentEvent == parentId).ToList())
             {
                 Delete(item);
             }

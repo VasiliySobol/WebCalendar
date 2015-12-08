@@ -26,9 +26,9 @@ namespace web_calendar.DAL.Interface
 
         void Delete<M>(M instance) where M : class;
 
-        T FindFirst(Func<T, bool> filter);
+        T FirstOrDefault(Func<T, bool> filter);
 
-        IEnumerable<T> FindAll(Func<T, bool> filter);
+        IEnumerable<T> FindBy(Func<T, bool> filter);
 
         void SaveChanges();
     }

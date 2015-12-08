@@ -12,12 +12,12 @@ namespace web_calendar.DAL.Concrete
     {
         public Notification GetNotification(int eventId)
         {
-            return FindFirst(x => x.Id == eventId);
+            return FirstOrDefault(x => x.Id == eventId);
         }
 
         public List<Notification> GetAllEventNotifications(int eventId)
         {
-            return FindAll(x => x.EventId == eventId).ToList();
+            return FindBy(x => x.EventId == eventId).ToList();
         }
     }
 }

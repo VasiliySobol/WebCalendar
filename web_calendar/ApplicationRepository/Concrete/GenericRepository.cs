@@ -45,12 +45,12 @@ namespace web_calendar.DAL.Concrete
             _entities.Entry(instance).State = EntityState.Modified;
         }
 
-        public virtual T FindFirst(Func<T, bool> filter)
+        public virtual T FirstOrDefault(Func<T, bool> filter)
         {
             return _entities.Set<T>().Where(filter).FirstOrDefault();
         }
 
-        public virtual IEnumerable<T> FindAll(Func<T, bool> filter)
+        public virtual IEnumerable<T> FindBy(Func<T, bool> filter)
         {
             return _entities.Set<T>().Where(filter);
         }
