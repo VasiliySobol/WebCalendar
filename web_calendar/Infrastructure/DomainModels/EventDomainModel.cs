@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.Web.Mvc;
 using web_calendar.BL.Mappers;
+using web_calendar.BL.UserMails;
 using web_calendar.BL.ViewModels;
 using web_calendar.DAL.Interface;
 using web_calendar.DAL.Models;
+using web_calendar.Infrastructure.Services;
 
 namespace web_calendar.BL.DomainModels
 {
@@ -34,8 +36,8 @@ namespace web_calendar.BL.DomainModels
                 events = eventRepository.GetAllUserEvents(userId).Where(x => x.TimeBegin.CompareTo(DateTime.Now.AddHours(-1)) >= 0).
                     OrderBy(x => x.TimeBegin).ToList();
             else
-                events = eventRepository.GetAllUserEvents(userId).Where(x => x.CalendarId == id &&
-                    x.TimeBegin.CompareTo(DateTime.Now) >= 0).ToList();
+                events = eventRepository.GetAllUserEvents(userId).Where(x => x.CalendarId == id
+                    && x.TimeBegin.CompareTo(DateTime.Now.AddHours(-1)) >= 0).ToList();
             List<DisplayEventViewModel> list = new List<DisplayEventViewModel>();
             foreach (CalendarEvent item in events)
             {
@@ -300,6 +302,18 @@ namespace web_calendar.BL.DomainModels
                     break;
             }
             return true;
+        }
+
+        public void SendInvitations(string userEmail, string userName, int eventId)
+        {
+            CalendarEvent calendarEvent = eventRepository.FindById(eventId);
+            if (calendarEvent != null)
+            {
+                List<string> guests = eventRepository.GetAllGuests(eventId).Select(x => x.Email).ToList();
+                Invitation invitation = new Invitation(userName, userEmail, calendarEvent.Name, 
+                    calendarEvent.TimeBegin, calendarEvent.Text);
+                GuestInvitation.SendInvitations(guests, userEmail, invitation);
+            }
         }
     }
 }
