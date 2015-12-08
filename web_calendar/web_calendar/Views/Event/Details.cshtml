@@ -9,6 +9,8 @@
 <div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        <br />
+        @Html.ActionLink("Notify guests", "Notify", "Event", new { id = Model.Id }, new { })
     </p>
     <hr />
     <div class="col-md-6">

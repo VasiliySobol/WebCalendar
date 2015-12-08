@@ -56,6 +56,18 @@ namespace web_calendar.Controllers
             }
         }
 
+        // GET: Event/Notify/2
+        public ActionResult Notify(int id)
+        {
+            if (eventRepository.FindById(id) != null)
+            {
+                ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().
+                    GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+                eventDomainModel.SendInvitations(user.Email, user.UserName, id);
+            }
+            return RedirectToAction("Schedule");
+        }
+
         // GET: Event/Details/5
         public ActionResult Details(int id)
         {

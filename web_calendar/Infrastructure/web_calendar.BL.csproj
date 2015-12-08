@@ -93,13 +93,9 @@
     <Compile Include="DomainModels\EventDomainModel.cs" />
     <Compile Include="Mappers\EventMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\EmailService.cs" />
-    <Compile Include="Services\NotificationJob.cs" />
-    <Compile Include="Services\ScheduleService.cs" />
-    <Compile Include="Tools\NotificationTypes.cs" />
-    <Compile Include="Tools\PasswordHasher.cs" />
+    <Compile Include="UserMails\GuestInvitation.cs" />
+    <Compile Include="UserMails\Invitation.cs" />
     <Compile Include="ViewModels\CalendarViewModel.cs" />
-    <Compile Include="ViewModels\EmailModel.cs" />
     <Compile Include="ViewModels\EventViewModels.cs" />
     <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\RepeatableSettingsViewModel.cs" />
@@ -115,6 +111,10 @@
     <ProjectReference Include="..\ApplicationRepository\web_calendar.DAL.csproj">
       <Project>{fcbd6eca-b3ee-45ed-ae3f-3ab63ab9bd52}</Project>
       <Name>web_calendar.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\web_calendar.Infrastructure\web_calendar.Infrastructure.csproj">
+      <Project>{c8de1d3f-a850-4cf0-9628-0042ac0c80cf}</Project>
+      <Name>web_calendar.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
