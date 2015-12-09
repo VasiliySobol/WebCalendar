@@ -42,6 +42,12 @@ namespace web_calendar.Controllers
             this.eventDomainModel = new EventDomainModel(eventRepository, notificationRepository, calendarRepository);
         }
 
+        public JsonResult GetNextNotification()
+        {
+            string userId = User.Identity.GetUserId();
+            return Json(eventDomainModel.GetNextReminder(userId), JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Event/Schedule/2
         public ActionResult Schedule(int? id)
         {
