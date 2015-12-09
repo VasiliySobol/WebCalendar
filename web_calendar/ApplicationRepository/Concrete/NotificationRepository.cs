@@ -17,9 +17,11 @@ namespace web_calendar.DAL.Concrete
 
         public List<Notification> GetNextNotifications(string userId, string type)
         {
-            List<Notification> notifications = FindBy(x => x.CalendarEvent.Calendar.UserId == userId
-                && x.KindOfNotification == type).
-                Where(x => x.CalendarEvent.TimeBegin.AddMinutes(-x.TimeBefore.Value).CompareTo(DateTime.Now) > 0).
+            List<Notification> notificationsOfType = FindBy(x => x.CalendarEvent.Calendar.UserId == userId
+                && x.KindOfNotification == type).ToList();
+            List<Notification> notificationsBefoToday = notificationsOfType.
+                Where(x => x.CalendarEvent.TimeBegin.AddMinutes(-x.TimeBefore.Value).CompareTo(DateTime.Now) > 0).ToList();
+            List<Notification> notifications = notificationsBefoToday.
                 OrderBy(x => x.CalendarEvent.TimeBegin.AddMinutes(-x.TimeBefore.Value)).ToList();
             return notifications.Take(10).ToList();
         }
