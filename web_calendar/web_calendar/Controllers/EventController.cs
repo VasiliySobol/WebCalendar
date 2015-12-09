@@ -124,6 +124,12 @@ namespace web_calendar.Controllers
                     case 2:
                         ModelState.AddModelError("Begin time", "Begin time is required.");
                         break;
+                    case 3:
+                        ModelState.AddModelError("", "All notifications must have specified time before event.");
+                        break;
+                    case 4:
+                        ModelState.AddModelError("", "All guests must have an email.");
+                        break;
                 }
             }
             eventDomainModel.PopulateCalendarSelectList(ref eventViewModel, userId);
@@ -176,6 +182,12 @@ namespace web_calendar.Controllers
                         break;
                     case 2:
                         ModelState.AddModelError("Begin time", "Begin time is required.");
+                        break;
+                    case 3:
+                        ModelState.AddModelError("", "All notifications must have specified time before event.");
+                        break;
+                    case 4:
+                        ModelState.AddModelError("", "All guests must have an email.");
                         break;
                 }
             }
