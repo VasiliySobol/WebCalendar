@@ -99,8 +99,11 @@ namespace web_calendar.BL.Mappers
             eventVM.Place = calendarEvent.Place;
             eventVM.DateBegin = calendarEvent.TimeBegin;
             eventVM.TimeBegin = calendarEvent.TimeBegin;
-            eventVM.DateEnd = calendarEvent.TimeEnd;
-            eventVM.TimeEnd = calendarEvent.TimeEnd;
+            if (calendarEvent.TimeEnd.HasValue)
+            {
+                eventVM.DateEnd = calendarEvent.TimeEnd.Value;
+                eventVM.TimeEnd = calendarEvent.TimeEnd;
+            }
             if (calendarEvent.AllDay != null)
                 eventVM.AllDay = (bool)calendarEvent.AllDay;
 

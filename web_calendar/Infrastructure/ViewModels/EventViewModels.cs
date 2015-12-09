@@ -78,6 +78,7 @@ namespace web_calendar.BL.ViewModels
         {
             TimeBegin = DateTime.Now;
             DateBegin = DateTime.Now;
+            DateEnd = DateTime.Now;
             repeatableSettings = new RepeatableSettingsViewModel();
             Notifications = new List<NotificationViewModel>();
             Guests = new List<GuestsEmail>();
@@ -115,7 +116,7 @@ namespace web_calendar.BL.ViewModels
         [Display(Name = "End date")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [DataType(DataType.Date)]
-        public System.DateTime? DateEnd { get; set; }
+        public System.DateTime DateEnd { get; set; }
         
         [Display(Name = "All day")]
         public bool AllDay { get; set; }
