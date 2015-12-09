@@ -31,7 +31,7 @@ namespace web_calendar.BL.Mappers
             calendarEvent.Name = eventVM.Name;
             calendarEvent.Text = eventVM.Text;
             calendarEvent.Place = eventVM.Place;
-            string[] pattern = new string[] { "dd/MM/yyyy" };
+            string[] pattern = new string[] { "dd/MM/yyyy", "d/MM/yyyy" };
             DateTime begin;
             if (DateTime.TryParseExact(eventVM.DateBegin.ToShortDateString(), pattern, null, DateTimeStyles.None, out begin))
                 begin = new DateTime(begin.Year, begin.Month, begin.Day,
