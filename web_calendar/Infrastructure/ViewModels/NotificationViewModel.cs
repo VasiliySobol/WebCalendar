@@ -22,8 +22,18 @@ namespace web_calendar.BL.ViewModels
 
     public class Reminder
     {
-        public int eventId { get; set; }
         public string Name { get; set; }
         public int Time { get; set; }
+    }
+
+    public class EmailReminder
+    {
+        public int eventId { get; set; }
+        public string userId { get; set; }
+        public string EventName { get; set; }
+        public string EventText { get; set; }
+        public int Time { get; set; }
+        public DateTime EventTime { get; set; }
+        public DateTime NotificationTime { get; set; }        
     }
 }
