@@ -31,6 +31,17 @@ namespace web_calendar.BL.DataTypes
             return new Reminder() { eventId = _eventId, Name = eventName, Time = timeTo };
         }
 
+        public static Reminder GetClosest()
+        {
+            if (EmailQueue == null || EmailQueue.Count == 0) return null;
+            DateTime notificationTime = EmailQueue[0].CalendarEvent.TimeBegin.AddMinutes(-EmailQueue[0].TimeBefore.Value);
+            TimeSpan span = notificationTime.Subtract(DateTime.Now);
+            int timeTo = (int)span.TotalMilliseconds;
+            int _eventId = EmailQueue[0].CalendarEvent.Id;
+            string eventName = EmailQueue[0].CalendarEvent.Name;
+            return new Reminder() { eventId = _eventId, Name = eventName, Time = timeTo };
+        }
+
         public static void RemovePrevious(ref List<Notification> queue)
         {
             queue.RemoveAt(0);
