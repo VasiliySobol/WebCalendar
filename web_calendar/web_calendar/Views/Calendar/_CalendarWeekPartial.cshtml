@@ -69,7 +69,7 @@
                             {
                                 if ((int)calendarEvent.TimeBegin.DayOfWeek == j)
                                 {
-                                    if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
+                                    if (calendarEvent.TimeBegin.Hour == i)
                                     {
                                         <div class="calendarEvent">@calendarEvent.Name;</div>
                                         flag = true;

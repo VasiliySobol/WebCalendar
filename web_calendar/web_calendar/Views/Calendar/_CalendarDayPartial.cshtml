@@ -34,7 +34,7 @@
     </div>
 
     <div class="scrollCalendar">
-        @for (int i = 1; i <= 24; i++)
+        @for (int i = 0; i < 24; i++)
         {
             <div>
                 <div class="timeColTd">@String.Format("{0:D2}:00", i)</div>
@@ -46,7 +46,7 @@
                             if (calendarEvent.TimeBegin.Day == Model.calendarDateTime.GetDay())
                             {
                                 <div>
-                                    @if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
+                                    @if (calendarEvent.TimeBegin.Hour == i)
                                     {
                                         <div class="calendarEvent">@calendarEvent.Name;</div>
                                         flag = true;
