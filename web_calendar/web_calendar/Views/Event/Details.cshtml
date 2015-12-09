@@ -13,7 +13,7 @@
         @Html.ActionLink("Notify guests", "Notify", "Event", new { id = Model.Id }, new { })
     </p>
     <hr />
-    <div class="col-md-6">
+    <div class="row col-md-12">
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.Name)
@@ -86,7 +86,7 @@
 
         </dl>
     </div>
-    <div class="row col-md-6">
+    <div class="row col-md-12">
         @if (Model.repeatableSettings != null)
         {
             if (Model.repeatableSettings.IfRepeatable)
@@ -96,7 +96,7 @@
             }
         }
     </div>
-    <div class="row col-md-6">
+    <div class="row col-md-12">
         @if (Model.Notifications != null)
         {
             <h4>Notifications</h4>
