@@ -52,7 +52,6 @@
                     bool flag = false;
                     foreach (var calendarEvent in Model.eventList)
                     {
-                        if calendarEvent.TimeBegin.Day
                         if ((int)calendarEvent.TimeBegin.DayOfWeek == j)
                         {
                             if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
