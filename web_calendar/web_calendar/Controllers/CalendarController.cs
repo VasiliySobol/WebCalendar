@@ -18,17 +18,7 @@ namespace web_calendar.Controllers
     [Authorize]
     public class CalendarController : Controller
     {
-        public static DateTime currentDate = DateTime.Now;
-        private static string[] monthNames = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
-
-        public static string currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();
-        public static string currentWeek = monthNames[currentDate.Month - 1] + " " +
-            (currentDate.Day - (int)currentDate.DayOfWeek) + " - " +
-            (currentDate.Day + (6 - (int)currentDate.DayOfWeek));
-
-        public static string currentMonth = monthNames[currentDate.Month - 1];
-
-        CalendarViewModel activeCalendar;
+        private static CalendarViewModel activeCalendar;
 
         public CalendarController(ICalendarRepository _calendarRepository, IEventRepository _eventRepository)
         {
@@ -116,30 +106,14 @@ namespace web_calendar.Controllers
             return View(CalendarDomainModel.GetCalendarViewModels(User.Identity.GetUserId()));
         }
 
-        public PartialViewResult CalendarDayPartial(int id, string Day, int offset = 0)
+        public PartialViewResult CalendarDayPartial(int id)
         {
-            /*if (!string.IsNullOrEmpty(Day))
-            {
-                currentDate = Convert.ToDateTime(Day);
-            }
-            if (offset != 0) currentDate = currentDate.AddDays(offset);
-            currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();                       
-            
-            return PartialView("_CalendarDayPartial", CalendarDomainModel.GetCalendarEventDayList(id, currentDate));*/
             activeCalendar = SetCalendarAsActive(id);
             return PartialView("_CalendarDayPartial", activeCalendar);
         }
 
-        public PartialViewResult CalendarWeekPartial(int id, int offset)
-        {
-            /*currentDate = currentDate.AddDays(offset);
-
-            currentWeek = monthNames[currentDate.Month - 1] + " " +
-                (currentDate.Day - (int)currentDate.DayOfWeek) + " - " +
-                (currentDate.Day + (6 - (int)currentDate.DayOfWeek));
-
-            return PartialView("_CalendarWeekPartial", CalendarDomainModel.GetCalendarEventWeekList(id, currentDate));*/
-
+        public PartialViewResult CalendarWeekPartial(int id)
+        {           
             activeCalendar = SetCalendarAsActive(id);
             return PartialView("_CalendarWeekPartial", activeCalendar);
         }
@@ -191,7 +165,6 @@ namespace web_calendar.Controllers
         public ActionResult ShowPreviousDay(int? id)
         {
             activeCalendar = SetCalendarAsActive(id);
-
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
 
             activeCalendar.calendarDateTime.SetPrevDay(calendar.ShowedDateTime);
@@ -204,10 +177,22 @@ namespace web_calendar.Controllers
         public ActionResult ShowNextDay(int? id)
         {
             activeCalendar = SetCalendarAsActive(id);
-
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
 
             activeCalendar.calendarDateTime.SetNextDay(calendar.ShowedDateTime);
+            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
+            CalendarDomainModel.calendarRepository.SaveChanges();
+
+            return PartialView("_CalendarDayPartial", activeCalendar);
+        }
+
+        public ActionResult ShowDay(string Day)
+        {
+            if (activeCalendar == null) activeCalendar = SetCalendarAsActive(CalendarDomainModel.calendarRepository.GetUserCalendars(User.Identity.GetUserId()).First().Id);
+
+            Calendar calendar = CalendarDomainModel.calendarRepository.FindById(activeCalendar.id);
+
+            activeCalendar.calendarDateTime.SetDateTime(Convert.ToDateTime(Day));
             calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
             CalendarDomainModel.calendarRepository.SaveChanges();
 

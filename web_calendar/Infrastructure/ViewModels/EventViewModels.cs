@@ -67,6 +67,9 @@ namespace web_calendar.BL.ViewModels
 
         [Display(Name = "Calendar name")]
         public string CalendarName { get; set; }
+
+        [Display(Name = "All day")]
+        public bool? AllDay { get; set; }
     }
 
     public class CreateEventViewModel

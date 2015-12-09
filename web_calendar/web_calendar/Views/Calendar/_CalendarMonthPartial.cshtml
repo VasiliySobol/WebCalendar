@@ -1,14 +1,18 @@
 ﻿@model web_calendar.BL.ViewModels.CalendarViewModel
 
-@Ajax.ActionLink("Day", "CalendarDayPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-@Ajax.ActionLink("Week", "CalendarWeekPartial", new { id = Model.id, offset = 0 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-@Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-@Html.ActionLink("Schedule", "Schedule", "Event", new { }, new { id = Model.id })<br>
-
-@Ajax.ActionLink("<", "ShowPreviousMonth", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-@Ajax.ActionLink(">", "ShowNextMonth", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-@Model.calendarDateTime.GetMonthName() @Model.calendarDateTime.GetYear()
-
+<div class="navigationCalendarContainer">
+    <div class="leftNav">
+        @Ajax.ActionLink("Day", "CalendarDayPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" }, new { @class = "btn btn-primary btn-xs" })
+        @Ajax.ActionLink("Week", "CalendarWeekPartial", new { id = Model.id, offset = 0 }, new AjaxOptions { UpdateTargetId = "calendarContainer" }, new { @class = "btn btn-primary btn-xs" })
+        @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" }, new { @class = "btn btn-primary btn-xs" })
+        @Html.ActionLink("Schedule", "Schedule", "Event", new { id = Model.id }, new { @class = "btn btn-primary btn-xs" })
+    </div>
+    <div class="rightNav">
+        @Ajax.ActionLink("<", "ShowPreviousMonth", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Ajax.ActionLink(">", "ShowNextMonth", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Model.calendarDateTime.GetMonthName() @Model.calendarDateTime.GetYear()
+    </div>
+</div>
 <div class="calendarMonthTable">
     <div class="monthHead">
         <div class="monthHeadTh" id="day1">Sunday</div>
@@ -18,8 +22,6 @@
         <div class="monthHeadTh" id="day5">Thursday</div>
         <div class="monthHeadTh" id="day6">Friday</div>
         <div class="monthHeadTh" id="day7">Saturday</div>
-
-        <script type="text/javascript">SetHeadColor(model.CSSHeadColor);</script>
     </div>
 
     <div>
@@ -79,30 +81,32 @@
                         @if (@dayNumber <= 31)
                         {
                             <div id="cellId@(counter)" class="monthBodyTd">
-                                <p>@dayNumber
-                                @foreach (var item in Model.eventList)
-                                {
-                                    <div>
-                                        @if ((item.TimeBegin.Day == dayNumber)&&(item.TimeBegin.Month == Model.calendarDateTime.GetMonth()))
-                                        {
-                                            <p>@item.Name</p>
-                                        }
-                                    </div>
-                                }
-                                </p>
-                                @{counter++;
-                                dayNumber++;
-                                }
-                            </div>
+                                <p>
+                                    @dayNumber
+                                    @foreach (var item in Model.eventList)
+                                    {
+                                        <div>
+                                            @if ((item.TimeBegin.Day == dayNumber) && (item.TimeBegin.Month == Model.calendarDateTime.GetMonth()))
+                                            {
+                                                <div class="calendarEvent">@item.Name</div>
+                                            }
+                                        </div>
+                                    }
+                                    </p>
+                                    @{counter++;
+                                    dayNumber++;
+                                    }
+                                </div>
                         }
                     </div>
                 }
             </div>
         }
     </div>
-</div>
-<script type="text/javascript">
+    </div>
+    <script type="text/javascript">
         var model = @Html.Raw(Json.Encode(Model));
         SetMainColor(model.CSSMainColor);
         SetHeadColor(model.CSSHeadColor);
-</script>
+        setColor(document.querySelectorAll(".calendarEvent"), model.CSSHeadColor);
+    </script>

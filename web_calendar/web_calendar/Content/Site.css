@@ -42,12 +42,19 @@ textarea {
     width: 75%;
     float: left;
     padding: 5px 5px 5px 5px;
+    height: 32px;
 }
 
 .rightNav {
     width: 25%;
     float: right;
+    height: 32px;
 }
+
+.calendarDayTable {
+    padding-top: 40px;
+}
+
 
 .miniCalendarContainer {
     width: 10%;
@@ -106,16 +113,19 @@ textarea {
 }
 
 
-
 .monthHeadTh, .timeColTh, .weekHeadTh {
     font-weight: bold;
     text-align: center;
+    font-size: 14px;
+    height: 22px;
 }
 
 .calendarEvent {
     text-align: center;
-    color: royalblue;
     border-left: 3px solid deepskyblue;
+    border-top: 1px dotted white;
+    border-bottom: 1px dotted white;
+    margin-left: 4%;
 }
 
 /*required label*/

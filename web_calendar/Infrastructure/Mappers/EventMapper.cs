@@ -76,6 +76,7 @@ namespace web_calendar.BL.Mappers
         public static DisplayEventViewModel MapToDisplayEventVM(CalendarEvent calendarEvent)
         {
             DisplayEventViewModel eventVM = new DisplayEventViewModel();
+            eventVM.AllDay = calendarEvent.AllDay;
             eventVM.Id = calendarEvent.Id;
             eventVM.Name = calendarEvent.Name;
             eventVM.TimeBegin = calendarEvent.TimeBegin;

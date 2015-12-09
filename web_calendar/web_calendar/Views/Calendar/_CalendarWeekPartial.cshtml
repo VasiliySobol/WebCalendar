@@ -1,10 +1,17 @@
 ﻿@model web_calendar.BL.ViewModels.CalendarViewModel
 
-<div>
-    @Ajax.ActionLink("Day", "CalendarDayPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-    @Ajax.ActionLink("Week", "CalendarWeekPartial", new { id = Model.id, offset = 0 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-    @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-    @Html.ActionLink("Schedule", "Schedule", "Event", new { }, new { id = Model.id })
+<div class="navigationCalendarContainer">
+    <div class="leftNav">
+        @Ajax.ActionLink("Day", "CalendarDayPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" }, new { @class = "btn btn-primary btn-xs" })
+        @Ajax.ActionLink("Week", "CalendarWeekPartial", new { id = Model.id, offset = 0 }, new AjaxOptions { UpdateTargetId = "calendarContainer" }, new { @class = "btn btn-primary btn-xs" })
+        @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" }, new { @class = "btn btn-primary btn-xs" })
+        @Html.ActionLink("Schedule", "Schedule", "Event", new { id = Model.id }, new { @class = "btn btn-primary btn-xs" })
+    </div>
+    <div class="rightNav">
+        @*
+            навигаторы для недели сюда
+        *@
+    </div>
 </div>
 
 <div class="calendarWeekTable">
@@ -24,16 +31,24 @@
             @for (int i = 0; i <= 6; i++)
             {
                 <div class="weekHeadTh">
-                    @foreach (var calendarEvent in Model.eventList)
-                    {
-                        /*if (calendarEvent.AllDay.HasValue && calendarEvent.AllDay.Value)
+                    @{
+                        bool allDay = false;
+                        foreach (var calendarEvent in Model.eventList)
                         {
-                            if ((int)calendarEvent.TimeBegin.DayOfWeek == i)
+                            if (calendarEvent.AllDay.HasValue && calendarEvent.AllDay.Value)
                             {
-                                @calendarEvent.Text;
-                                                   break;
+                                if ((int)calendarEvent.TimeBegin.DayOfWeek == i)
+                                {
+                                    @calendarEvent.Name;
+                                    allDay = true;
+                                    break;
+                                }
                             }
-                        }*/
+                        }
+                        if (!allDay)
+                        {
+                            <p style="font-size:14px;">@(" ")</p>
+                        }
                     }
                 </div>
             }
@@ -49,22 +64,22 @@
                 {
                     <div class="weekBodyTd">
                         @{
-                    bool flag = false;
-                    foreach (var calendarEvent in Model.eventList)
-                    {
-                        if ((int)calendarEvent.TimeBegin.DayOfWeek == j)
-                        {
-                            if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
+                            bool flag = false;
+                            foreach (var calendarEvent in Model.eventList)
                             {
-                                <div class="calendarEvent">@calendarEvent.Name;</div>
-                                flag = true;
+                                if ((int)calendarEvent.TimeBegin.DayOfWeek == j)
+                                {
+                                    if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
+                                    {
+                                        <div class="calendarEvent">@calendarEvent.Name;</div>
+                                        flag = true;
+                                    }
+                                }
                             }
-                        }
-                    }
-                    if (!flag)
-                    {
-                        <div class="calendarEvent">@string.Empty</div>
-                    }
+                            if (!flag)
+                            {
+                                <p>@string.Empty</p>
+                            }
                         }
                     </div>
                 }
@@ -73,8 +88,10 @@
     </div>
 </div>
 <script>
-    $(document).ready(setActiveNavigator("week"));
+    var model = @Html.Raw(Json.Encode(Model));
     setColor(document.querySelectorAll(".calendarEvent"), model.CSSHeadColor);
     setColor(document.querySelectorAll(".weekBodyTd"), model.CSSMainColor);
     setColor(document.querySelectorAll(".timeColTd"), model.CSSHeadColor);
+    setColor(document.querySelectorAll(".weekHeadTh"), model.CSSHeadColor);
+    setColor(document.querySelectorAll(".timeColTh"), model.CSSHeadColor);
 </script>

@@ -59,6 +59,11 @@ namespace web_calendar.BL.CustomClasses
             return monthName;
         }
 
+        public void SetDateTime(DateTime _dateTime)
+        {
+            this.dateTime = _dateTime;
+        }
+
         public void SetDateTime(string _dateTime)
         {
             if (_dateTime == null)
@@ -148,6 +153,11 @@ namespace web_calendar.BL.CustomClasses
             }
 
             this.dateTime = new DateTime(prevYear, prevMonth, prevDay);
+        }
+
+        public void AddDay(int offset)
+        {
+            this.dateTime.AddDays(offset);
         }
 
         public void SetNextDay(string _dateTime)

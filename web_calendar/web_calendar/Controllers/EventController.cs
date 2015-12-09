@@ -20,7 +20,6 @@ using web_calendar.BL.ServerValidation;
 using web_calendar.Handlers;
 using System.Transactions;
 using web_calendar.BL.DomainModels;
-using Newtonsoft.Json;
 
 namespace web_calendar.Controllers
 {
