@@ -19,4 +19,11 @@ namespace web_calendar.BL.ViewModels
 
         public string MyPrefix { get; set; }
     }
+
+    public class Reminder
+    {
+        public int eventId { get; set; }
+        public string Name { get; set; }
+        public int Time { get; set; }
+    }
 }

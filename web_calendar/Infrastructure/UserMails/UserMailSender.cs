@@ -7,7 +7,7 @@ using web_calendar.Infrastructure.Services;
 
 namespace web_calendar.BL.UserMails
 {
-    public static class GuestInvitation
+    public static class UserMailSender
     {
         public static void SendInvitations(List<string> guests, string userEmail, Invitation invitation)
         {
@@ -17,6 +17,16 @@ namespace web_calendar.BL.UserMails
                     Body = invitation.GetInvitation() };
                 EmailSender.SendMail(email);
             }
+        }
+        public static void SendNotification(string userEmail, ReminderMail mail)
+        {
+            EmailModel email = new EmailModel
+                {
+                    To = userEmail,
+                    Subject = "Notification",
+                    Body = mail.GetNotification()
+                };
+            EmailSender.SendMail(email);
         }
     }
 }

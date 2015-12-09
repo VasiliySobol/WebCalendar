@@ -10,6 +10,7 @@ namespace web_calendar.DAL.Interface
     public interface INotificationRepository: IGenericRepository<Notification>
     {
         Notification GetNotification(int eventId);
+        List<Notification> GetNextNotifications(string userId, string type);
         List<Notification> GetAllEventNotifications(int eventId);
     }
 }
