@@ -23,6 +23,7 @@ namespace web_calendar.BL.UserMails
             EmailModel email = new EmailModel
                 {
                     To = userEmail,
+                    From = "webcalendarteam@gmail.com",
                     Subject = "Notification",
                     Body = mail.GetNotification()
                 };

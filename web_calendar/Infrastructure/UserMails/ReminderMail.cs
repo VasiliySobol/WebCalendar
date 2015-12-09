@@ -30,7 +30,7 @@ namespace web_calendar.BL.UserMails
             message.Append("<html xmlns='http://www.w3.org/1999/xhtml'>");
             message.Append("<head>");
             message.Append("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />");
-            message.Append("<title>Invitation</title>");
+            message.Append("<title>Notification</title>");
             message.Append("<meta name='viewport' content='width=device-width, initial-scale=1.0'/>");
             message.Append("</head>");
             message.Append("<body style='margin: 0; padding: 0;'>");
@@ -54,8 +54,8 @@ namespace web_calendar.BL.UserMails
             message.Append("</td></tr><tr>");
             message.Append("<td bgcolor='#70b45a' style='padding: 30px 30px 30px 30px; color: #FFF; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;'>");
             message.Append("TO    : " + userName + "<br/>");
-            message.Append("      " + userEmail);
-            message.Append("From  :  Web Calendar Team<br/>");
+            message.Append("        " + userEmail + "<br/>");
+            message.Append("From  :   Web Calendar Team<br/>");
             message.Append("</td></tr></table>");
             message.Append("</body>");
             message.Append("</html>");
