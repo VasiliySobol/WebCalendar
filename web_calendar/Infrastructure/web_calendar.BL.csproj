@@ -88,7 +88,6 @@
     <Compile Include="CustomClasses\CalendarDateTime.cs" />
     <Compile Include="DataTypes\NotificationQueue.cs" />
     <Compile Include="DataTypes\Visibility.cs" />
-    <Compile Include="DomainModels\NotificationManager.cs" />
     <Compile Include="Mappers\CalendarMapper.cs" />
     <Compile Include="ServerValidation\EventValidator.cs" />
     <Compile Include="DomainModels\CalendarDomainModel.cs" />
