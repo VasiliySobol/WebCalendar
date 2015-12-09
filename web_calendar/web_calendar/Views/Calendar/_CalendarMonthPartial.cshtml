@@ -80,7 +80,7 @@
                     <div>
                         @if (@dayNumber <= 31)
                         {
-                            <div id="cellId@(counter)" class="monthBodyTd">
+                            <div id="cellId" class="monthBodyTd">
                                 <p>
                                     @dayNumber
                                     @foreach (var item in Model.eventList)
@@ -106,7 +106,7 @@
     </div>
     <script type="text/javascript">
         var model = @Html.Raw(Json.Encode(Model));
-        SetMainColor(model.CSSMainColor);
         SetHeadColor(model.CSSHeadColor);
         setColor(document.querySelectorAll(".calendarEvent"), model.CSSHeadColor);
+        setColor(document.querySelectorAll("#cellId"), model.CSSMainColor);    
     </script>
