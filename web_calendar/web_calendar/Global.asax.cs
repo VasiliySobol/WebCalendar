@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using web_calendar.Handlers;
+using web_calendar.Managers;
 
 namespace web_calendar
 {
@@ -33,6 +34,9 @@ namespace web_calendar
                 Formatting = Newtonsoft.Json.Formatting.Indented,
                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             };
+
+            NotificationManager notificationManager = new NotificationManager();
+            notificationManager.SetManager();
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

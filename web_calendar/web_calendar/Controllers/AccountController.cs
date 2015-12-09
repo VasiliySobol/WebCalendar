@@ -85,10 +85,6 @@ namespace web_calendar.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    // run notification manager
-                    NotificationManager notificationManager = new NotificationManager();
-                    notificationManager.SetManager(UserManager.FindByName(model.Login).Id, userName, 
-                        UserManager.FindByName(model.Login).Email);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

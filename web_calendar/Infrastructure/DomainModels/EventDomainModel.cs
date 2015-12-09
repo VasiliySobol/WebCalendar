@@ -33,9 +33,8 @@ namespace web_calendar.BL.DomainModels
         public Reminder GetNextReminder(string userId)
         {
             if (NotificationQueue.Queue.Count == 0)
-                NotificationQueue.AppendQueue(ref NotificationQueue.Queue, 
-                    notificationRepository.GetNextNotifications(userId, "alert"));
-            Reminder reminder = NotificationQueue.GetClosest(ref NotificationQueue.Queue);
+                NotificationQueue.AppendQueue(notificationRepository.GetNextNotifications(userId, "alert"));
+            Reminder reminder = NotificationQueue.GetClosest();
             if (reminder == null)
                 reminder = new Reminder() { Name = "", Time = 10000 };
             return reminder;
@@ -168,8 +167,8 @@ namespace web_calendar.BL.DomainModels
                         SaveRepeatedEvents(repeatable, calendarEvent, eventViewModel, calendarId);
                     }
                 eventRepository.SaveChanges();
-                NotificationQueue.AppendQueueIfNeeded(ref NotificationQueue.Queue, calendarEvent.Notifications.ToList());
-                NotificationQueue.AppendQueueIfNeeded(ref NotificationQueue.EmailQueue, calendarEvent.Notifications.ToList());
+                NotificationQueue.AppendQueueIfNeeded(calendarEvent.Notifications.ToList());
+                NotificationQueue.AppendEmailQueueIfNeeded(calendarEvent.Notifications.ToList(), calendarEvent.Calendar.UserId);
                 scope.Complete();
             }
         }
@@ -292,8 +291,8 @@ namespace web_calendar.BL.DomainModels
                     }
                 }
                 eventRepository.SaveChanges();
-                NotificationQueue.AppendQueueIfNeeded(ref NotificationQueue.Queue, calendarEvent.Notifications.ToList());
-                NotificationQueue.AppendQueueIfNeeded(ref NotificationQueue.EmailQueue, calendarEvent.Notifications.ToList());
+                NotificationQueue.AppendQueueIfNeeded(calendarEvent.Notifications.ToList());
+                NotificationQueue.AppendEmailQueueIfNeeded(calendarEvent.Notifications.ToList(), calendarEvent.Calendar.UserId);
                 scope.Complete();
             }
         }
