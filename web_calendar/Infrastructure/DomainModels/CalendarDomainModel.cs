@@ -85,8 +85,7 @@ namespace web_calendar.BL.DomainModels
             calendar.Text = "Default calendar-description";
             calendar.UserId = userId;
             calendar.CalendarColor = 0;
-            calendar.TimeZone = 0;
-            calendar.ShowedDateTime = DateTime.Now.ToString();
+            calendar.ShowedDateTime = DateTime.Now;
 
             calendarRepository.Add(calendar);
             calendarRepository.SaveChanges();
@@ -114,7 +113,7 @@ namespace web_calendar.BL.DomainModels
         {
             Calendar activeCalendar = CalendarDomainModel.calendarRepository.FindById(id);
             List<CalendarEvent> dayEventList = new List<CalendarEvent>();
-            foreach (CalendarEvent calendarEvent in activeCalendar.CalendarEvents1)
+            foreach (CalendarEvent calendarEvent in activeCalendar.CalendarEventsCollection)
             {
                 if (calendarEvent.TimeBegin.DayOfYear == date.DayOfYear)
                 {
@@ -132,7 +131,7 @@ namespace web_calendar.BL.DomainModels
             DateTime first = date.AddDays(-dayofweek);
             DateTime seventh = date.AddDays(6 - dayofweek);
             
-            foreach (CalendarEvent calendarEvent in activeCalendar.CalendarEvents1)
+            foreach (CalendarEvent calendarEvent in activeCalendar.CalendarEventsCollection)
             {
                 if (calendarEvent.TimeBegin.DayOfYear >= first.DayOfYear && calendarEvent.TimeBegin.DayOfYear <= seventh.DayOfYear)
                 {

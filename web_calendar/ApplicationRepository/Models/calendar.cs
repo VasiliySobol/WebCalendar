@@ -16,7 +16,7 @@ namespace web_calendar.DAL.Models
     {
         public Calendar()
         {
-            this.CalendarEvents1 = new HashSet<CalendarEvent>();
+            this.CalendarEventsCollection = new HashSet<CalendarEvent>();
         }
     
         public int Id { get; set; }
@@ -24,10 +24,9 @@ namespace web_calendar.DAL.Models
         public string Text { get; set; }
         public Nullable<int> CalendarColor { get; set; }
         public Nullable<int> CalendarEvents { get; set; }
-        public Nullable<byte> TimeZone { get; set; }
         public string UserId { get; set; }
-        public string ShowedDateTime { get; set; }
+        public Nullable<System.DateTime> ShowedDateTime { get; set; }
     
-        public virtual ICollection<CalendarEvent> CalendarEvents1 { get; set; }
+        public virtual ICollection<CalendarEvent> CalendarEventsCollection { get; set; }
     }
 }

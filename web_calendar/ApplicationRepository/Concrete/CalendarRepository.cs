@@ -29,7 +29,7 @@ namespace web_calendar.DAL.Concrete
         {
             Calendar calendar = FirstOrDefault(x => x.Id == Id);
             if ((calendar != null) && (calendar.CalendarEvents != null))
-                return calendar.CalendarEvents1.FirstOrDefault(filter);
+                return calendar.CalendarEventsCollection.FirstOrDefault(filter);
             return null;
         }
 
@@ -37,7 +37,7 @@ namespace web_calendar.DAL.Concrete
         {
             Calendar calendar = FirstOrDefault(x => x.Id == Id);
             if ((calendar != null) && (calendar.CalendarEvents != null))
-                return calendar.CalendarEvents1.Where(filter).ToList();
+                return calendar.CalendarEventsCollection.Where(filter).ToList();
             return null; 
         }
 
@@ -45,7 +45,7 @@ namespace web_calendar.DAL.Concrete
         {
             Calendar calendar = FirstOrDefault(x => x.Id == Id);
             if ((calendar != null) && (calendar.CalendarEvents != null))
-                return calendar.CalendarEvents1.ToList();
+                return calendar.CalendarEventsCollection.ToList();
             return null;
         }
     }

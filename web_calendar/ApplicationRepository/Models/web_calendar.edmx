@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="web_calendarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Calendar">
           <Key>
             <PropertyRef Name="Id" />
@@ -14,9 +14,8 @@
           <Property Name="Text" Type="nvarchar(max)" />
           <Property Name="CalendarColor" Type="int" />
           <Property Name="CalendarEvents" Type="int" />
-          <Property Name="TimeZone" Type="tinyint" />
           <Property Name="UserId" Type="nvarchar(max)" />
-          <Property Name="ShowedDateTime" Type="varchar" MaxLength="50" />
+          <Property Name="ShowedDateTime" Type="datetime" />
         </EntityType>
         <EntityType Name="CalendarEvent">
           <Key>
@@ -141,7 +140,8 @@
             <End Role="Repeatable" EntitySet="Repeatable" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="web_calendarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -154,10 +154,9 @@
           <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CalendarColor" Type="Int32" />
           <Property Name="CalendarEvents" Type="Int32" />
-          <Property Name="TimeZone" Type="Byte" />
           <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShowedDateTime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="CalendarEvents1" Relationship="Self.FK_event_calendar" FromRole="Calendar" ToRole="CalendarEvent" />
-          <Property Name="ShowedDateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="CalendarEvent">
           <Key>
@@ -298,14 +297,13 @@
           <EntitySetMapping Name="Calendars">
             <EntityTypeMapping TypeName="web_calendarModel.Calendar">
               <MappingFragment StoreEntitySet="Calendar">
-                <ScalarProperty Name="ShowedDateTime" ColumnName="ShowedDateTime" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="CalendarColor" ColumnName="CalendarColor" />
                 <ScalarProperty Name="CalendarEvents" ColumnName="CalendarEvents" />
-                <ScalarProperty Name="TimeZone" ColumnName="TimeZone" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ShowedDateTime" ColumnName="ShowedDateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

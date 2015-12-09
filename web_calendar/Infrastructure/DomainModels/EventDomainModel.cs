@@ -246,7 +246,7 @@ namespace web_calendar.BL.DomainModels
                     Calendar calendar = eventRepository.FindOtherById<Calendar>(calendarId);
                     if (calendar != null)
                     {
-                        calendarEvent.Calendar.CalendarEvents1.Remove(calendarEvent);
+                        calendarEvent.Calendar.CalendarEventsCollection.Remove(calendarEvent);
                         calendarEvent.CalendarId = calendarId;
                         calendarEvent.Calendar = calendar;
                     }

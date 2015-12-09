@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bde272e4f67944e2b0257b6b8367f31b" Name="Diagram1">
-        <EntityTypeShape EntityType="web_calendarModel.Calendar" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="web_calendarModel.CalendarEvent" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+      <Diagram DiagramId="eaf9b19cebf042e5be87f4d88cc6f1a7" Name="Diagram1">
+        <EntityTypeShape EntityType="web_calendarModel.Calendar" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="web_calendarModel.CalendarEvent" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="web_calendarModel.Guest" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="web_calendarModel.Notification" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="web_calendarModel.Repeatable" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="web_calendarModel.Repeatable" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
         <AssociationConnector Association="web_calendarModel.FK_event_calendar" ManuallyRouted="false" />
         <AssociationConnector Association="web_calendarModel.FK_guest_event" ManuallyRouted="false" />
         <AssociationConnector Association="web_calendarModel.FK_notification_event" ManuallyRouted="false" />

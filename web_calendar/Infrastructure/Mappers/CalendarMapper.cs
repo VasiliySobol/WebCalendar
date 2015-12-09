@@ -17,7 +17,7 @@ namespace web_calendar.BL.Mappers
         {
             List<DisplayEventViewModel> list = new List<DisplayEventViewModel>();
 
-            foreach (var item in calendar.CalendarEvents1)
+            foreach (var item in calendar.CalendarEventsCollection)
             {
                 list.Add(EventMapper.MapToDisplayEventVM(item));
             }
@@ -27,7 +27,6 @@ namespace web_calendar.BL.Mappers
                 calendarColor = Color.FromArgb(calendar.CalendarColor.Value),
                 description = calendar.Text,
                 name = calendar.Name,
-                timeZone = CalendarDomainModel.GetTimeZoneNameById(calendar.TimeZone),
                 id = calendar.Id,
                 userId = calendar.UserId,
                 CSSMainColor = CalendarDomainModel.ColorToMainCSS(Color.FromArgb(calendar.CalendarColor.Value)),
@@ -44,7 +43,6 @@ namespace web_calendar.BL.Mappers
                 CalendarColor = calendarViewModel.calendarColor.ToArgb(),
                 Text = calendarViewModel.description,
                 Name = calendarViewModel.name,
-                TimeZone = CalendarDomainModel.GetTimeZoneIdByName(calendarViewModel.timeZone),
                 Id = calendarViewModel.id,
                 UserId = calendarViewModel.userId,
             };
