@@ -10,6 +10,13 @@ function SetMainColor(color) {
     }  
 }
 
+function SetColorToScrollCalendar(color) {
+    for (var i = 1; i <= 24; i++) {
+        document.getElementById("time" + i).style.backgroundColor = color;
+        document.getElementById("eve" + i).style.backgroundColor = color;
+    }
+}
+
 function setActiveNavigator(title) {
     switch (title) {
         case "day": {
