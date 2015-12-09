@@ -7,15 +7,15 @@
 }
 <hr />
 <div class="form-group">
-    @Html.LabelFor(model => model.TimeBefore, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
+    <div class="col-md-12">
+        @Html.LabelFor(model => model.TimeBefore, htmlAttributes: new { @class = "control-label" })
         @Html.TextBoxFor(model => model.TimeBefore, new { type = "number", min = "1", @class = "form-control" })
         @Html.ValidationMessageFor(model => model.TimeBefore, "", new { @class = "text-danger" })
     </div>
 </div>
 <div class="form-group">
-    @Html.LabelFor(model => model.KindOfNotification, htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
+    <div class="col-md-12">
+    @Html.LabelFor(model => model.KindOfNotification, htmlAttributes: new { @class = "control-label" })
         @Html.DropDownListFor(model => model.KindOfNotification, new List<SelectListItem>() 
             {
                 new SelectListItem() { Text = "alert", Value = "alert", Selected = true },

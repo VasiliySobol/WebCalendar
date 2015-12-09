@@ -96,13 +96,26 @@
             </div>
         </div>
 
-        @Html.Partial("_EditRepeatable", Model.repeatableSettings, new ViewDataDictionary()
-           {
-               TemplateInfo = new TemplateInfo()
-                   {
-                       HtmlFieldPrefix = "repeatableSettings"
-                   }
-           })
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.repeatableSettings.IfRepeatable, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(model => model.repeatableSettings.IfRepeatable)
+                    @Html.ValidationMessageFor(model => model.repeatableSettings.IfRepeatable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div id="RepeatebleArea" style="display:none;">
+            @Html.Partial("_EditRepeatable", Model.repeatableSettings, new ViewDataDictionary()
+            {
+                TemplateInfo = new TemplateInfo()
+                {
+                    HtmlFieldPrefix = "repeatableSettings"
+                }
+            })
+        </div>
+        <hr />
 
         <div class="col-md-12 col-xs-12">
             <div class="col-md-6 col-xs-6">
@@ -259,5 +272,22 @@
         var guestrow = $('#guestrow' + id);
         guestrow.remove();
     }
+
+    $("#repeatableSettings_IfRepeatable").change(function () {
+        var ischecked = $(this).is(':checked');
+        if (ischecked) {
+            $("#RepeatebleArea").fadeIn(200);
+        }
+        else {
+            $("#RepeatebleArea").fadeOut(200);
+        }
+    });
+
+    $(document).ready(function () {
+        var ischecked = $("#repeatableSettings_IfRepeatable").is(':checked');
+        if (ischecked) {
+            $("#RepeatebleArea").fadeIn(200);
+        }
+    });
 </script>
 }
