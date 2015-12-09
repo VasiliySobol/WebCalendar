@@ -220,6 +220,7 @@
     </Compile>
     <Compile Include="HtmlExtensions.cs" />
     <Compile Include="Handlers\CustomHandleErrorAttribute.cs" />
+    <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
