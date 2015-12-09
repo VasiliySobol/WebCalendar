@@ -12,6 +12,34 @@
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
     }
+    <script>
+        var time = 10;
+        var caption = "";
+        $(document).ready(function () {
+            //$.ajax({
+            //    type: "GET",
+            //    async: false,
+            //    url: '/Event/GetNextNotification/'
+            //}).success(function (data) {
+            //    time = data["Time"];
+            //    caption = data["Name"];
+            //});
+
+            var timerId = setTimeout(function tick() {
+                if (caption != "")
+                    alert(caption);
+                $.ajax({
+                    type: "GET",
+                    async: false,
+                    url: '/Event/GetNextNotification/'
+                }).success(function (data) {
+                    time = data["Time"];
+                    caption = data["Name"];
+                });
+                timerId = setTimeout(tick, time);
+            }, time);
+        });
+    </script>
 }
 else
 {
