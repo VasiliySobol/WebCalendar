@@ -118,25 +118,30 @@ namespace web_calendar.Controllers
 
         public PartialViewResult CalendarDayPartial(int id, string Day, int offset = 0)
         {
-            if (!string.IsNullOrEmpty(Day))
+            /*if (!string.IsNullOrEmpty(Day))
             {
                 currentDate = Convert.ToDateTime(Day);
             }
             if (offset != 0) currentDate = currentDate.AddDays(offset);
             currentDay = monthNames[currentDate.Month - 1] + " " + currentDate.Day.ToString();                       
             
-            return PartialView("_CalendarDayPartial", CalendarDomainModel.GetCalendarEventDayList(id, currentDate));
+            return PartialView("_CalendarDayPartial", CalendarDomainModel.GetCalendarEventDayList(id, currentDate));*/
+            activeCalendar = SetCalendarAsActive(id);
+            return PartialView("_CalendarDayPartial", activeCalendar);
         }
 
         public PartialViewResult CalendarWeekPartial(int id, int offset)
         {
-            currentDate = currentDate.AddDays(offset);
+            /*currentDate = currentDate.AddDays(offset);
 
             currentWeek = monthNames[currentDate.Month - 1] + " " +
                 (currentDate.Day - (int)currentDate.DayOfWeek) + " - " +
                 (currentDate.Day + (6 - (int)currentDate.DayOfWeek));
 
-            return PartialView("_CalendarWeekPartial", CalendarDomainModel.GetCalendarEventWeekList(id, currentDate));
+            return PartialView("_CalendarWeekPartial", CalendarDomainModel.GetCalendarEventWeekList(id, currentDate));*/
+
+            activeCalendar = SetCalendarAsActive(id);
+            return PartialView("_CalendarWeekPartial", activeCalendar);
         }
 
         public CalendarViewModel SetCalendarAsActive(int? id)
@@ -163,7 +168,7 @@ namespace web_calendar.Controllers
 
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
 
-            activeCalendar.calendarDateTime.SetPrevDateTime(calendar.ShowedDateTime);
+            activeCalendar.calendarDateTime.SetPrevMonth(calendar.ShowedDateTime);
             calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
             CalendarDomainModel.calendarRepository.SaveChanges();
 
@@ -176,11 +181,37 @@ namespace web_calendar.Controllers
 
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
 
-            activeCalendar.calendarDateTime.SetNextDateTime(calendar.ShowedDateTime);
+            activeCalendar.calendarDateTime.SetNextMonth(calendar.ShowedDateTime);
             calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
             CalendarDomainModel.calendarRepository.SaveChanges();
 
             return PartialView("_CalendarMonthPartial", activeCalendar);
+        }
+
+        public ActionResult ShowPreviousDay(int? id)
+        {
+            activeCalendar = SetCalendarAsActive(id);
+
+            Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
+
+            activeCalendar.calendarDateTime.SetPrevDay(calendar.ShowedDateTime);
+            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
+            CalendarDomainModel.calendarRepository.SaveChanges();
+
+            return PartialView("_CalendarDayPartial", activeCalendar);
+        }
+
+        public ActionResult ShowNextDay(int? id)
+        {
+            activeCalendar = SetCalendarAsActive(id);
+
+            Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
+
+            activeCalendar.calendarDateTime.SetNextDay(calendar.ShowedDateTime);
+            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
+            CalendarDomainModel.calendarRepository.SaveChanges();
+
+            return PartialView("_CalendarDayPartial", activeCalendar);
         }
 
         public ActionResult CalendarMonthPartial(int? id)

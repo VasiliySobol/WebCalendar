@@ -1,5 +1,10 @@
 ﻿@model web_calendar.BL.ViewModels.CalendarViewModel
 
+@Ajax.ActionLink("Day", "CalendarDayPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+@Ajax.ActionLink("Week", "CalendarWeekPartial", new { id = Model.id, offset = 0 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+@Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+@Html.ActionLink("Schedule", "Schedule", "Event", new { }, new { id = Model.id })<br>
+
 @Ajax.ActionLink("<", "ShowPreviousMonth", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
 @Ajax.ActionLink(">", "ShowNextMonth", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
 @Model.calendarDateTime.GetMonthName() @Model.calendarDateTime.GetYear()

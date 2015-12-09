@@ -73,7 +73,7 @@ namespace web_calendar.BL.CustomClasses
             this.dateTime = new DateTime(int.Parse(dateData[2]), int.Parse(dateData[1]), int.Parse(dateData[0]));
         }
 
-        public void SetPrevDateTime(string _dateTime)
+        public void SetPrevMonth(string _dateTime)
         {
             if (_dateTime == null)
             {
@@ -97,7 +97,7 @@ namespace web_calendar.BL.CustomClasses
             this.dateTime = new DateTime(prevYear, prevMonth, prevDay);
         }
 
-        public void SetNextDateTime(string _dateTime)
+        public void SetNextMonth(string _dateTime)
         {
             if (_dateTime == null)
             {
@@ -116,6 +116,64 @@ namespace web_calendar.BL.CustomClasses
             {
                 nextYear++;
                 nextMonth = 1;
+            }
+
+            this.dateTime = new DateTime(nextYear, nextMonth, nextDay);
+        }
+
+        public void SetPrevDay(string _dateTime)
+        {
+            if (_dateTime == null)
+            {
+                _dateTime = DateTime.Now.ToString();
+            }
+
+            string[] dateAndTime = _dateTime.Split(' ');
+            string[] dateData = dateAndTime[0].Split('.', '/');
+            string[] timeData = dateAndTime[1].Split(':');
+
+            int prevDay = int.Parse(dateData[0]) - 1;
+            int prevMonth = int.Parse(dateData[1]);
+            int prevYear = int.Parse(dateData[2]);
+
+            if (prevDay == 0)
+            {
+                prevMonth--;
+                if (prevMonth == 0)
+                {
+                    prevMonth = 12;
+                    prevYear--;
+                }
+                prevDay = DateTime.DaysInMonth(prevYear, prevMonth);
+            }
+
+            this.dateTime = new DateTime(prevYear, prevMonth, prevDay);
+        }
+
+        public void SetNextDay(string _dateTime)
+        {
+            if (_dateTime == null)
+            {
+                _dateTime = DateTime.Now.ToString();
+            }
+
+            string[] dateAndTime = _dateTime.Split(' ');
+            string[] dateData = dateAndTime[0].Split('.', '/');
+            string[] timeData = dateAndTime[1].Split(':');
+
+            int nextDay = int.Parse(dateData[0]) + 1;
+            int nextMonth = int.Parse(dateData[1]);
+            int nextYear = int.Parse(dateData[2]);
+
+            if (nextDay == DateTime.DaysInMonth(nextYear, nextMonth) + 1)
+            {
+                nextMonth++;
+                if (nextMonth == 13)
+                {
+                    nextMonth = 1;
+                    nextYear++;
+                }
+                nextDay = 1;
             }
 
             this.dateTime = new DateTime(nextYear, nextMonth, nextDay);

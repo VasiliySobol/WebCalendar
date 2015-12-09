@@ -1,5 +1,11 @@
-﻿@using web_calendar.DAL.Models
-@model IEnumerable<CalendarEvent>
+﻿@model web_calendar.BL.ViewModels.CalendarViewModel
+
+<div>
+    @Ajax.ActionLink("Day", "CalendarDayPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+    @Ajax.ActionLink("Week", "CalendarWeekPartial", new { id = Model.id, offset = 0 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+    @Ajax.ActionLink("Month", "CalendarMonthPartial", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+    @Html.ActionLink("Schedule", "Schedule", "Event", new { }, new { id = Model.id })
+</div>
 
 <div class="calendarWeekTable">
     <div class="fixedHeader">
@@ -18,16 +24,16 @@
             @for (int i = 0; i <= 6; i++)
             {
                 <div class="weekHeadTh">
-                    @foreach (CalendarEvent calendarEvent in Model)
+                    @foreach (var calendarEvent in Model.eventList)
                     {
-                        if (calendarEvent.AllDay.HasValue && calendarEvent.AllDay.Value)
+                        /*if (calendarEvent.AllDay.HasValue && calendarEvent.AllDay.Value)
                         {
                             if ((int)calendarEvent.TimeBegin.DayOfWeek == i)
                             {
                                 @calendarEvent.Text;
                                                    break;
                             }
-                        }
+                        }*/
                     }
                 </div>
             }
@@ -43,22 +49,23 @@
                 {
                     <div class="weekBodyTd">
                         @{
-                            bool flag = false;
-                            foreach (CalendarEvent calendarEvent in Model)
+                    bool flag = false;
+                    foreach (var calendarEvent in Model.eventList)
+                    {
+                        if calendarEvent.TimeBegin.Day
+                        if ((int)calendarEvent.TimeBegin.DayOfWeek == j)
+                        {
+                            if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
                             {
-                                if ((int)calendarEvent.TimeBegin.DayOfWeek == j)
-                                {
-                                    if (calendarEvent.TimeBegin.Hour >= i && calendarEvent.TimeBegin.Hour <= i + 1)
-                                    {
-                                        <div class="calendarEvent">@calendarEvent.Name;</div>
-                                        flag = true;
-                                    }
-                                }
+                                <div class="calendarEvent">@calendarEvent.Name;</div>
+                                flag = true;
                             }
-                            if (!flag)
-                            {
-                                <div class="calendarEvent">@string.Empty</div>
-                            }
+                        }
+                    }
+                    if (!flag)
+                    {
+                        <div class="calendarEvent">@string.Empty</div>
+                    }
                         }
                     </div>
                 }
@@ -68,4 +75,7 @@
 </div>
 <script>
     $(document).ready(setActiveNavigator("week"));
+    setColor(document.querySelectorAll(".calendarEvent"), model.CSSHeadColor);
+    setColor(document.querySelectorAll(".weekBodyTd"), model.CSSMainColor);
+    setColor(document.querySelectorAll(".timeColTd"), model.CSSHeadColor);
 </script>
