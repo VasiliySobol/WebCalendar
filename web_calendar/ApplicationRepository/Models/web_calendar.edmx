@@ -156,7 +156,7 @@
           <Property Name="CalendarEvents" Type="Int32" />
           <Property Name="UserId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ShowedDateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="CalendarEvents1" Relationship="Self.FK_event_calendar" FromRole="Calendar" ToRole="CalendarEvent" />
+          <NavigationProperty Name="CalendarEventsCollection" Relationship="Self.FK_event_calendar" FromRole="Calendar" ToRole="CalendarEvent" />
         </EntityType>
         <EntityType Name="CalendarEvent">
           <Key>
@@ -265,7 +265,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="web_calendarEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Calendars" EntityType="Self.Calendar" />
           <EntitySet Name="CalendarEvents" EntityType="Self.CalendarEvent" />
           <EntitySet Name="Guests" EntityType="Self.Guest" />
@@ -293,7 +293,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="web_calendarModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="web_calendarModelStoreContainer" CdmEntityContainer="web_calendarEntities">
           <EntitySetMapping Name="Calendars">
             <EntityTypeMapping TypeName="web_calendarModel.Calendar">
               <MappingFragment StoreEntitySet="Calendar">

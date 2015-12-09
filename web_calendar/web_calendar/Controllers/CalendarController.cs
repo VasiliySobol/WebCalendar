@@ -44,7 +44,7 @@ namespace web_calendar.Controllers
             {
                 calendarViewModel.userId = User.Identity.GetUserId();
                 Calendar calendar = CalendarMapper.ToCalendar(calendarViewModel);
-                calendar.ShowedDateTime = DateTime.Now.ToString();
+                calendar.ShowedDateTime = DateTime.Now;
                 CalendarDomainModel.calendarRepository.Add(calendar);
                 CalendarDomainModel.calendarRepository.SaveChanges();
                 return RedirectToAction("Index");
@@ -77,11 +77,11 @@ namespace web_calendar.Controllers
                 calendar.UserId = User.Identity.GetUserId();
                 if (calendarViewModel.calendarDateTime == null)
                 {
-                    calendar.ShowedDateTime = DateTime.Now.ToString();
+                    calendar.ShowedDateTime = DateTime.Now;
                 }
                 else
                 {
-                    calendar.ShowedDateTime = calendarViewModel.calendarDateTime.GetDateTime().ToString();
+                    calendar.ShowedDateTime = calendarViewModel.calendarDateTime.GetDateTime();
                 }
                 CalendarDomainModel.calendarRepository.Modify(calendar);
                 CalendarDomainModel.calendarRepository.SaveChanges();
@@ -136,55 +136,30 @@ namespace web_calendar.Controllers
             return newActiveCalendar;
         }
 
-        public ActionResult ShowPreviousMonth(int? id)
+        public ActionResult ShowMonth(int? id, int offset)
         {
             activeCalendar = SetCalendarAsActive(id);
 
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
 
-            activeCalendar.calendarDateTime.SetPrevMonth(calendar.ShowedDateTime);
-            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
+            activeCalendar.calendarDateTime.AddMonth(offset);
+            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime();
             CalendarDomainModel.calendarRepository.SaveChanges();
 
             return PartialView("_CalendarMonthPartial", activeCalendar);
-        }
+        }       
 
-        public ActionResult ShowNextMonth(int? id)
-        {
-            activeCalendar = SetCalendarAsActive(id);
-
-            Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
-
-            activeCalendar.calendarDateTime.SetNextMonth(calendar.ShowedDateTime);
-            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
-            CalendarDomainModel.calendarRepository.SaveChanges();
-
-            return PartialView("_CalendarMonthPartial", activeCalendar);
-        }
-
-        public ActionResult ShowPreviousDay(int? id)
+        public ActionResult ShowNextPrevDay(int? id, int offset)
         {
             activeCalendar = SetCalendarAsActive(id);
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
 
-            activeCalendar.calendarDateTime.SetPrevDay(calendar.ShowedDateTime);
-            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
+            activeCalendar.calendarDateTime.AddDay(offset);
+            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime();
             CalendarDomainModel.calendarRepository.SaveChanges();
 
             return PartialView("_CalendarDayPartial", activeCalendar);
-        }
-
-        public ActionResult ShowNextDay(int? id)
-        {
-            activeCalendar = SetCalendarAsActive(id);
-            Calendar calendar = CalendarDomainModel.calendarRepository.FindById(id.Value);
-
-            activeCalendar.calendarDateTime.SetNextDay(calendar.ShowedDateTime);
-            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
-            CalendarDomainModel.calendarRepository.SaveChanges();
-
-            return PartialView("_CalendarDayPartial", activeCalendar);
-        }
+        }       
 
         public ActionResult ShowDay(string Day)
         {
@@ -193,7 +168,7 @@ namespace web_calendar.Controllers
             Calendar calendar = CalendarDomainModel.calendarRepository.FindById(activeCalendar.id);
 
             activeCalendar.calendarDateTime.SetDateTime(Convert.ToDateTime(Day));
-            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime().ToString();
+            calendar.ShowedDateTime = activeCalendar.calendarDateTime.GetDateTime();
             CalendarDomainModel.calendarRepository.SaveChanges();
 
             return PartialView("_CalendarDayPartial", activeCalendar);

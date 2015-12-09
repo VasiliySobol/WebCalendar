@@ -2,36 +2,28 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<button onclick="getEvents()">Get events</button>
-<button onclick="addEventByReference()">Add event</button>
+<br />
+<label id="eventName">My event</label><br />
+<p id="eventText">Text of event</p><br />
+<label>Place:</label><p id="eventPlace">Place of my event</p><br />
+<button onclick="addEvent()">Add event</button>
 
 <script>
-    function getEvents() {
-        $.ajax({            
-            type: "get",
-            url: "http://localhost:1697/api/events",
-            contentType: "application/json; charset=utf-8",
-            xhrFields: {
-                withCredentials: true
-            },
-            success: function (data) {
-                alert(JSON.stringify(data));
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(jqXHR.responseText || textStatus);
-            }
-        });
+    function addEvent() {
+        var event = {};
+        event["name"] = document.getElementById("eventName").innerText;
+        event["Text"] = document.getElementById("eventText").innerText;
+        event["Place"] = document.getElementById("eventPlace").innerText;
+        addEventByReference(event);
     }
 
-    function addEventByReference() {
-        var event = "{'name': 'eventbyref', 'text': 'event description', 'place': 'myplace'}";
+    function addEventByReference(event) {        
+        //var event = "{'name': 'eventbyref', 'text': 'event description', 'place': 'myplace'}";
         $.ajax({
             type: "post",
             url: "http://localhost:1697/api/events",
             contentType: "application/json; charset=utf-8",
-            data: event,
+            data: JSON.stringify(event),
             xhrFields: {
                 withCredentials: true
             },           

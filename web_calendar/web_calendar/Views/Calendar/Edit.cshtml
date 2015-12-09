@@ -39,21 +39,7 @@
                 @Html.ValidationMessageFor(model => model.calendarColor, "", new { @class = "text-danger" })
             </div>
         </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.timeZone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.ValidationMessageFor(model => model.timeZone, "", new { @class = "text-danger" })
-                @Html.DropDownList("timezone", TimeZoneInfo.GetSystemTimeZones().Select(tz => new SelectListItem()
-                {
-                    Text = tz.DisplayName,
-                    Value = tz.Id
-                }), htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-
-        @*place partial view of notification settings*@
-
+ 
         <br />
 
         <div class="form-group">

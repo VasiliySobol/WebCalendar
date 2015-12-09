@@ -8,8 +8,8 @@
         @Html.ActionLink("Schedule", "Schedule", "Event", new { id = Model.id }, new { @class = "btn btn-primary btn-xs" })
     </div>
     <div class="rightNav">
-        @Ajax.ActionLink("<", "ShowPreviousDay", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
-        @Ajax.ActionLink(">", "ShowNextDay", new { id = Model.id }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Ajax.ActionLink("<", "ShowNextPrevDay", new { id = Model.id, offset = -1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
+        @Ajax.ActionLink(">", "ShowNextPrevDay", new { id = Model.id, offset = 1 }, new AjaxOptions { UpdateTargetId = "calendarContainer" })
         @Model.calendarDateTime.GetDay() @Model.calendarDateTime.GetMonthName() @Model.calendarDateTime.GetYear()
     </div>
 </div>
